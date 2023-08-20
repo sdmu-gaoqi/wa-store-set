@@ -4,7 +4,7 @@ import path, { dirname } from 'path'
 import { fileURLToPath } from 'url'
 import { defineConfig } from 'vite'
 import mkcert from 'vite-plugin-mkcert'
-import postCssPxToRem from 'postcss-pxtorem'
+import postCssPxToRem from 'wa-postcss-pxtorem'
 import tailwindCss from 'tailwindcss'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -24,7 +24,7 @@ export default defineConfig({
     }
   },
   server: {
-    https: true
+    https: false
   },
   css: {
     postcss: {

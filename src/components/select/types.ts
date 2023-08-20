@@ -1,1 +1,0 @@
-export type AddressType = 'provice' | 'city' | 'district'

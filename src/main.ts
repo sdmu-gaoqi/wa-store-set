@@ -1,10 +1,11 @@
-import { createApp } from "vue";
-import "./style.css";
-import App from "./App.vue";
-import route from "./route";
-import "ant-design-vue/dist/antd.less";
-import Antd from "ant-design-vue";
-import store from "./store/store";
-import "./styles/global.css";
+import { createApp } from 'vue'
+import './style.css'
+import App from './App.vue'
+import route from './route'
+import Antd from 'ant-design-vue'
+import store from './store/store'
+import './styles/global.css'
+import './styles/tailwind.global.scss'
+import 'store-operations-ui/dist/index.css'
 
-createApp(App).use(Antd).use(route).use(store).mount("#app");
+createApp(App).use(Antd).use(route).use(store).mount('#app')
