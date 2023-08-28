@@ -4,7 +4,7 @@ import App from './App.vue'
 import route from './route'
 import Antd from 'ant-design-vue'
 import store from './store/store'
-import './styles/global.css'
+import './styles/global.scss'
 import './styles/tailwind.global.scss'
 import 'store-operations-ui/dist/index.css'
 
