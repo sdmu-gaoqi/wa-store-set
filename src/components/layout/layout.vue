@@ -1,7 +1,9 @@
 <template>
   <a-layout>
     <a-layout-header class="header !bg-[#3b3b3b]">
-      <div class="logo" />
+      <div class="text-white text-[18px] font-bold cursor-pointer select-none">
+        门店管理系统
+      </div>
     </a-layout-header>
     <a-layout>
       <a-layout-sider width="200" style="background: #fff" class="shadow-lg">
@@ -91,26 +93,14 @@ const menus = ref([
     path: '/operation'
   },
   {
-    title: '实验页面',
-    key: 'test',
+    title: '系统管理',
+    key: 'setting',
     children: [
-      {
-        title: 'table-form',
-        path: '/table-form',
-        key: 'table-form'
-      },
-      {
-        title: 'chart1',
-        path: 'chart-page1',
-        key: 'chart-page1'
-      },
-      {
-        title: 'amap',
-        path: 'amap-page1',
-        key: 'amap-page1'
-      }
+      { title: '房间列表', path: '/home/list', key: 'home-list' },
+      { title: '房间类型', path: '/home-type/list', key: 'home-type-list' },
+      { title: '服务项目设置', path: '/project/list', key: 'project-list' }
     ],
-    path: '/table-form'
+    path: '/operation'
   }
 ])
 </script>

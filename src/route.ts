@@ -77,6 +77,27 @@ const routes: RouteRecordRaw[] = [
             component: () => import('./pages/operation/list.vue')
           }
         ]
+      },
+      {
+        path: '/',
+        name: 'setting',
+        children: [
+          {
+            path: '/home/list',
+            name: 'home-list',
+            component: () => import('./pages/setting/home/list.vue')
+          },
+          {
+            path: '/home-type/list',
+            name: 'home-type-list',
+            component: () => import('./pages/setting/home-type/list.vue')
+          },
+          {
+            path: '/project/list',
+            name: 'project-list',
+            component: () => import('./pages/setting/project/list.vue')
+          }
+        ]
       }
     ]
   }

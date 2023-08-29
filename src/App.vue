@@ -1,8 +1,15 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <RouterView />
+  <a-config-provider
+    :theme="{
+      token: {
+        colorPrimary: '#585eaa'
+      }
+    }"
+  >
+    <RouterView />
+  </a-config-provider>
 </template>
 
 <style scoped>
