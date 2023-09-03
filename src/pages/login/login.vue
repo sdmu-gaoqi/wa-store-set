@@ -1,5 +1,5 @@
 <template>
-  <div class="m-auto flex h-[100%]">
+  <div class="m-auto flex h-[100%] justify-center items-center bg-[#eff0f4]">
     <Login class="m-auto" :on-finish="onFinish" :get-code="getCode"></Login>
   </div>
 </template>
