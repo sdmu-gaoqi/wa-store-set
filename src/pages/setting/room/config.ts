@@ -1,14 +1,19 @@
 export const schema = {
-  title: '房间类型',
+  title: '房间列表',
   form: {
     search: true,
     export: false,
     reset: true,
     fields: [
       {
-        type: 'select',
-        label: '房间类型',
-        key: 'type'
+        type: 'search',
+        label: '房间名称',
+        key: 'name'
+      },
+      {
+        type: 'date',
+        label: '创建日期',
+        key: 'createTime'
       }
     ]
   },
@@ -86,11 +91,68 @@ export const schema = {
       ]
     }
   ],
-  options: {
-    type: [
-      { label: '单人间', value: 1 },
-      { label: '双人间', value: 2 },
-      { label: '三人间', value: 3 }
-    ]
-  }
+  options: {}
+}
+
+export const editSchema = {
+  type: 'object',
+  rules: {
+    name: {
+      required: true,
+      message: '请输入房间名称'
+    },
+    type: {
+      required: true,
+      message: '请选择房间类型'
+    }
+  },
+  properties: {
+    name: {
+      title: '房间名称',
+      type: 'string',
+      props: {
+        placeholder: '强输入'
+      },
+      required: true,
+      message: {
+        required: '请输入房间名称'
+      },
+      widget: 'input'
+    },
+    type: {
+      title: '房间类型',
+      type: 'string',
+      props: {
+        options: [
+          {
+            label: 'A',
+            value: 'A'
+          },
+          {
+            label: 'B',
+            value: 'B'
+          }
+        ],
+        placeholder: '请选择'
+      },
+      required: true,
+      message: {
+        required: '请选择房间类型'
+      },
+      widget: 'select'
+    },
+    description: {
+      title: '房间设备描述',
+      type: 'string',
+      widget: 'textArea'
+    },
+    remark: {
+      title: '备注',
+      type: 'string',
+      widget: 'textArea'
+    }
+  },
+  displayType: 'row',
+  column: 2,
+  maxWidth: '340px'
 }

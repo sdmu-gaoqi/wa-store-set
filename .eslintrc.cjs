@@ -82,7 +82,7 @@ module.exports = {
     'vue/custom-event-name-casing': 'off',
     'vue/v-on-event-hyphenation': 'off',
     'vue/max-attributes-per-line': [
-      2,
+      3,
       {
         singleline: 20,
         multiline: 1

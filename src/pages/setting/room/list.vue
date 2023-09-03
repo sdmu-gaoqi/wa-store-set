@@ -1,8 +1,8 @@
 <template>
   <TableRender :schema="schema">
     <template #formButton
-      ><a-button type="primary" class="ml-[10px]" :onClick="goAdd"
-        >新增会员</a-button
+      ><Button type="primary" :onClick="goAdd" class="ml-[10px]"
+        >新增房间</Button
       ></template
     >
   </TableRender>
@@ -12,10 +12,11 @@
 import { TableRender } from 'store-operations-ui'
 import { schema } from './config'
 import { useRouter } from 'vue-router'
+import { Button } from 'ant-design-vue'
 
 const router = useRouter()
-
 const goAdd = () => {
-  router.push('/member/add')
+  console.log('111111')
+  router.push('/room/add')
 }
 </script>

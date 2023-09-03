@@ -1,14 +1,40 @@
+import { isEmpty } from 'wa-utils'
+import { isTelNumber } from 'wa-utils/dist/regex/regex'
+
 export const schema = {
-  title: '服务项目列表',
+  title: '员工请假列表',
   form: {
     search: true,
-    export: false,
+    export: true,
     reset: true,
     fields: [
       {
         type: 'search',
-        label: '服务项目',
+        label: '工号',
+        placeholder: '工号',
+        key: 'card'
+      },
+      {
+        type: 'search',
+        label: '姓名',
+        placeholder: '姓名',
         key: 'name'
+      },
+      {
+        type: 'search',
+        label: '手机号码',
+        placeholder: '手机号码',
+        key: 'phone'
+      },
+      {
+        type: 'select',
+        label: '角色',
+        key: 'role'
+      },
+      {
+        type: 'date',
+        label: '请假时间',
+        key: 'time'
       }
     ]
   },
@@ -87,9 +113,11 @@ export const schema = {
     }
   ],
   options: {
-    status: [
-      { label: '正常', value: 1 },
-      { label: '禁用', value: 2 }
+    role: [
+      { label: '收银', value: 1 },
+      { label: '技师', value: 2 },
+      { label: '店长', value: 3 },
+      { label: '老板', value: 4 }
     ]
   }
 }
@@ -97,39 +125,33 @@ export const schema = {
 export const editSchema = {
   type: 'object',
   rules: {
-    project: [{ required: true, message: '请输入' }],
-    pirce: [{ required: true, message: '请输入' }],
-    duration: [{ required: true, message: '请输入' }],
-    store: [{ required: true, message: '请选择' }]
+    name: [{ required: true, message: '请输入员工姓名' }],
+    code: [{ required: true, message: '请输入工号' }],
+    type: [{ required: true, message: '请选择请假类型' }],
+    time: [{ required: true, message: '请选择请假日期' }]
   },
   properties: {
-    project: {
-      title: '服务项目',
+    name: {
+      title: '姓名',
       type: 'string',
       props: {
         placeholder: '请输入'
       },
-      required: false,
-      message: {
-        required: ''
+      widget: 'input'
+    },
+    code: {
+      title: '工号',
+      type: 'string',
+      props: {
+        placeholder: '请输入'
       },
       widget: 'input'
     },
-    pirce: {
-      title: '项目价格',
-      type: 'number',
+    phone: {
+      title: '手机号',
+      type: 'string',
       props: {
-        placeholder: '请输入',
-        type: 'number'
-      },
-      widget: 'input'
-    },
-    duration: {
-      title: '项目时长',
-      type: 'number',
-      props: {
-        placeholder: '请输入',
-        suffix: 'time'
+        placeholder: '请输入'
       },
       widget: 'input'
     },
@@ -151,27 +173,32 @@ export const editSchema = {
         placeholder: '请选择'
       }
     },
-    commission: {
-      title: '项目排钟提成',
-      type: 'number',
+    type: {
+      title: '请假类型',
+      type: 'string',
       props: {
-        placeholder: '请输入',
-        suffix: 'money',
-        type: 'number'
+        options: [
+          {
+            label: '调休',
+            value: '1'
+          },
+          {
+            label: '请假',
+            value: '2'
+          }
+        ]
       },
-      widget: 'input'
+      widget: 'radio'
     },
-    commission2: {
-      title: '项目点钟提成',
-      type: 'number',
+    time: {
+      title: '请假日期',
+      type: 'string',
       props: {
-        placeholder: '请输入',
-        suffix: 'money',
-        type: 'number'
+        placeholder: '请选择日期'
       },
-      widget: 'input'
+      widget: 'datePicker'
     },
-    remark: {
+    'fr-5370': {
       title: '备注',
       type: 'string',
       props: {

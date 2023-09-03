@@ -2,7 +2,7 @@ export const schema = {
   title: '角色列表',
   form: {
     search: true,
-    export: true,
+    export: false,
     reset: true,
     fields: [
       {
@@ -111,4 +111,37 @@ export const schema = {
       { label: '禁用', value: 2 }
     ]
   }
+}
+
+export const editSchema = {
+  type: 'object',
+  width: '66%',
+  rules: {
+    name: [{ required: true, message: '请输入角色名称' }]
+  },
+  properties: {
+    name: {
+      title: '角色名称',
+      type: 'string',
+      props: {
+        placeholder: '请输入'
+      },
+      widget: 'input'
+    },
+    status: {
+      title: '角色状态',
+      type: 'boolean',
+      widget: 'switch'
+    },
+    'fr-hjqk': {
+      title: '备注',
+      type: 'string',
+      props: {
+        placeholder: '请输入'
+      },
+      widget: 'textArea'
+    }
+  },
+  displayType: 'row',
+  maxWidth: '340px'
 }

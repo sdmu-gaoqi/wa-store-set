@@ -68,7 +68,12 @@ const menus = ref([
     title: '员工管理',
     key: 'employee',
     children: [
-      { title: '员工列表', path: '/employee/list', key: 'employee-list' }
+      { title: '员工列表', path: '/employee/list', key: 'employee-list' },
+      {
+        title: '员工请假列表',
+        path: '/employee/leave/list',
+        key: 'employee-leave-list'
+      }
     ],
     path: '/employee'
   },
@@ -96,9 +101,11 @@ const menus = ref([
     title: '系统管理',
     key: 'setting',
     children: [
-      { title: '房间列表', path: '/home/list', key: 'home-list' },
-      { title: '房间类型', path: '/home-type/list', key: 'home-type-list' },
-      { title: '服务项目设置', path: '/project/list', key: 'project-list' }
+      { title: '房间列表', path: '/room/list', key: 'home-list' },
+      { title: '房间类型', path: '/room-type/list', key: 'room-type-list' },
+      { title: '服务项目设置', path: '/project/list', key: 'project-list' },
+      { title: '支付方式设置', path: '/pay-type', key: 'pay-type' },
+      { title: '营业额标准设置', path: '/turnover', key: 'turnover' }
     ],
     path: '/operation'
   }

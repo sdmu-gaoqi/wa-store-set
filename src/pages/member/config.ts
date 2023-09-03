@@ -1,3 +1,6 @@
+import { isEmpty } from 'wa-utils'
+import { isTelNumber } from 'wa-utils/dist/regex/regex'
+
 export const schema = {
   title: '会员列表',
   form: {
@@ -124,4 +127,179 @@ export const schema = {
       { label: '2级会员', value: 2 }
     ]
   }
+}
+
+export const editSchema = {
+  type: 'object',
+  rules: {
+    card: [{ required: true, message: '请输入会员卡号' }],
+    name: [{ required: true, message: '请输入姓名' }],
+    phone: [
+      {
+        validator: (_, value: string) => {
+          if (isEmpty(value)) {
+            return Promise.reject('请输入手机号码')
+          } else if (!isTelNumber(value)) {
+            return Promise.reject('请输入正确的手机号')
+          }
+          return Promise.resolve('')
+        }
+      }
+    ],
+    expiration: [{ required: true, message: '请选择有效期' }],
+    recharge: [{ required: true, message: '请选择是否充值' }],
+    money: [{ required: true, message: '请输入充值金额' }],
+    giveMoney: [{ required: true, message: '请输入赠送金额' }],
+    payType: [{ required: true, message: '请选择充值方式' }]
+  },
+  properties: {
+    'op-group-1': {
+      title: '会员信息'
+    },
+    card: {
+      title: '会员卡号',
+      type: 'string',
+      widget: 'input'
+    },
+    name: {
+      title: '姓名',
+      type: 'string',
+      widget: 'input'
+    },
+    phone: {
+      title: '手机号',
+      type: 'string',
+      widget: 'input'
+    },
+    store: {
+      title: '开卡门店',
+      type: 'string',
+      props: {
+        options: [
+          {
+            label: 'A',
+            value: 'A'
+          },
+          {
+            label: 'B',
+            value: 'B'
+          }
+        ],
+        placeholder: '请选择'
+      },
+      widget: 'select'
+    },
+    gender: {
+      title: '性别',
+      type: 'string',
+      props: {
+        options: [
+          {
+            label: '男',
+            value: '1'
+          },
+          {
+            label: '女',
+            value: '2'
+          }
+        ]
+      },
+      widget: 'radio'
+    },
+    birthday: {
+      title: '生日',
+      type: 'string',
+      props: {
+        placeholder: '请选择日期'
+      },
+      widget: 'datePicker'
+    },
+    expiration: {
+      title: '有效期',
+      type: 'string',
+      props: {
+        options: [
+          {
+            label: '永久有效',
+            value: '1'
+          },
+          {
+            label: '自定义有效期',
+            value: '2'
+          }
+        ]
+      },
+      widget: 'radio'
+    },
+    remark: {
+      title: ' 备注',
+      type: 'string',
+      widget: 'textArea'
+    },
+    'op-group-2': {
+      title: '充值信息'
+    },
+    recharge: {
+      title: '是否充值',
+      type: 'string',
+      props: {
+        options: [
+          {
+            label: '是',
+            value: '1'
+          },
+          {
+            label: '否',
+            value: '2'
+          }
+        ]
+      },
+      widget: 'radio'
+    },
+    money: {
+      title: '充值金额',
+      type: 'number',
+      widget: 'input',
+      props: {
+        type: 'number'
+      }
+    },
+    giveMoney: {
+      title: '赠送金额',
+      type: 'number',
+      widget: 'input',
+      props: {
+        type: 'number'
+      }
+    },
+    payType: {
+      title: '充值方式',
+      type: 'string',
+      props: {
+        options: [
+          {
+            label: '收钱吧',
+            value: '1'
+          },
+          {
+            label: '支付宝',
+            value: '2'
+          }
+        ]
+      },
+      widget: 'radio'
+    },
+    allMoney: {
+      title: '卡内总金额',
+      type: 'string',
+      widget: 'input',
+      props: {
+        readonly: true,
+        bordered: false
+      }
+    }
+  },
+  displayType: 'row',
+  column: 2,
+  maxWidth: '340px'
 }

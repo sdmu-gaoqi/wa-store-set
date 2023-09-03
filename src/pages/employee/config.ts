@@ -1,3 +1,6 @@
+import { isEmpty } from 'wa-utils'
+import { isTelNumber } from 'wa-utils/dist/regex/regex'
+
 export const schema = {
   title: '员工列表',
   form: {
@@ -112,4 +115,130 @@ export const schema = {
       { label: '老板', value: 4 }
     ]
   }
+}
+
+export const editSchema = {
+  type: 'object',
+  rules: {
+    name: [{ required: true, message: '请输入员工姓名' }],
+    code: [{ required: true, message: '请输入工号' }],
+    phone: [
+      {
+        validator: (_, value: string) => {
+          if (isEmpty(value)) {
+            return Promise.reject('请输入手机号码')
+          } else if (!isTelNumber(value)) {
+            return Promise.reject('请输入正确的手机号')
+          }
+          return Promise.resolve('')
+        }
+      }
+    ],
+    password: [{ required: true, message: '请输入登陆密码' }],
+    role: [{ required: true, message: '请选择角色' }],
+    time: [{ required: true, message: '请选择入职日期' }]
+  },
+  properties: {
+    name: {
+      title: '姓名',
+      type: 'string',
+      props: {
+        placeholder: '请输入'
+      },
+      widget: 'input'
+    },
+    code: {
+      title: '工号',
+      type: 'string',
+      props: {
+        placeholder: '请输入'
+      },
+      widget: 'input'
+    },
+    phone: {
+      title: '手机号',
+      type: 'string',
+      props: {
+        placeholder: '请输入'
+      },
+      widget: 'input'
+    },
+    password: {
+      title: '登陆密码',
+      type: 'string',
+      props: {
+        placeholder: '请输入'
+      },
+      widget: 'input'
+    },
+    role: {
+      title: '角色',
+      type: 'array',
+      widget: 'multiSelect',
+      props: {
+        options: [
+          {
+            label: 'A',
+            value: 'A'
+          },
+          {
+            label: 'B',
+            value: 'B'
+          }
+        ],
+        placeholder: '请选择'
+      }
+    },
+    store: {
+      title: '所属门店',
+      type: 'string',
+      props: {
+        placeholder: '请输入',
+        readonly: true,
+        bordered: false
+      },
+      widget: 'input'
+    },
+    time: {
+      title: '入职日期',
+      type: 'string',
+      props: {
+        placeholder: '请选择日期'
+      },
+      widget: 'datePicker'
+    },
+    status: {
+      title: '账号状态',
+      type: 'boolean',
+      widget: 'switch'
+    },
+    gender: {
+      title: '性别',
+      type: 'string',
+      props: {
+        options: [
+          {
+            label: '男',
+            value: '1'
+          },
+          {
+            label: '女',
+            value: '2'
+          }
+        ]
+      },
+      widget: 'radio'
+    },
+    'fr-8046': {
+      title: '备注',
+      type: 'string',
+      props: {
+        placeholder: '请输入'
+      },
+      widget: 'textArea'
+    }
+  },
+  displayType: 'row',
+  column: 2,
+  maxWidth: '340px'
 }

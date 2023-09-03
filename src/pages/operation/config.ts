@@ -103,3 +103,94 @@ export const schema = {
     ]
   }
 }
+
+export const editSchema = {
+  type: 'object',
+  rules: {
+    project: [{ required: true, message: '请输入' }],
+    pirce: [{ required: true, message: '请输入' }],
+    duration: [{ required: true, message: '请输入' }],
+    store: [{ required: true, message: '请选择' }]
+  },
+  properties: {
+    project: {
+      title: '服务项目',
+      type: 'string',
+      props: {
+        placeholder: '请输入'
+      },
+      required: false,
+      message: {
+        required: ''
+      },
+      widget: 'input'
+    },
+    pirce: {
+      title: '项目价格',
+      type: 'number',
+      props: {
+        placeholder: '请输入',
+        type: 'number'
+      },
+      widget: 'input'
+    },
+    duration: {
+      title: '项目时长',
+      type: 'number',
+      props: {
+        placeholder: '请输入',
+        suffix: 'time'
+      },
+      widget: 'input'
+    },
+    store: {
+      title: '所属门店',
+      type: 'array',
+      widget: 'multiSelect',
+      props: {
+        options: [
+          {
+            label: 'A',
+            value: 'A'
+          },
+          {
+            label: 'B',
+            value: 'B'
+          }
+        ],
+        placeholder: '请选择'
+      }
+    },
+    commission: {
+      title: '项目排钟提成',
+      type: 'number',
+      props: {
+        placeholder: '请输入',
+        suffix: 'money',
+        type: 'number'
+      },
+      widget: 'input'
+    },
+    commission2: {
+      title: '项目点钟提成',
+      type: 'number',
+      props: {
+        placeholder: '请输入',
+        suffix: 'money',
+        type: 'number'
+      },
+      widget: 'input'
+    },
+    remark: {
+      title: '备注',
+      type: 'string',
+      props: {
+        placeholder: '请输入'
+      },
+      widget: 'textArea'
+    }
+  },
+  displayType: 'row',
+  column: 2,
+  maxWidth: '340px'
+}

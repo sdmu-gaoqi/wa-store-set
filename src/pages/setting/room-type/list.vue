@@ -1,11 +1,11 @@
 <template>
   <TableRender :schema="schema">
     <template #formButton
-      ><a-button type="primary" class="ml-[10px]" :onClick="goAdd"
-        >新增会员</a-button
+      ><a-button type="primary" :onClick="goAdd" class="ml-[10px]"
+        >新增房间类型</a-button
       ></template
-    >
-  </TableRender>
+    ></TableRender
+  >
 </template>
 
 <script lang="ts" setup>
@@ -16,6 +16,6 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 const goAdd = () => {
-  router.push('/member/add')
+  router.push('/room-type/add')
 }
 </script>
