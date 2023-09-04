@@ -1,5 +1,11 @@
 <template>
-  <TableRender :schema="schema" :changeTab="changeTab"> </TableRender>
+  <TableRender :schema="schema" :changeTab="changeTab">
+    <template #formButton
+      ><a-button type="primary" class="ml-[10px]" :onClick="goAdd"
+        >新增会员</a-button
+      ></template
+    >
+  </TableRender>
 </template>
 
 <script lang="ts" setup>
