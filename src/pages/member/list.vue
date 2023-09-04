@@ -1,11 +1,5 @@
 <template>
-  <TableRender :schema="schema">
-    <template #formButton
-      ><a-button type="primary" class="ml-[10px]" :onClick="goAdd"
-        >新增会员</a-button
-      ></template
-    >
-  </TableRender>
+  <TableRender :schema="schema" :changeTab="changeTab"> </TableRender>
 </template>
 
 <script lang="ts" setup>
@@ -17,5 +11,9 @@ const router = useRouter()
 
 const goAdd = () => {
   router.push('/member/add')
+}
+
+const changeTab = (tab: any) => {
+  console.log(tab, 'tttttt')
 }
 </script>
