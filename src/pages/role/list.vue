@@ -5,6 +5,17 @@
         >新增角色</a-button
       >
     </template>
+    <template #bodyCell="{ data }">
+      <div
+        v-if="data?.column?.dataIndex === 'options'"
+        class="flex justify-center items-center"
+      >
+        <a type="link" class="table-btn">编辑</a>
+        <a type="link" class="table-btn">权限配置</a>
+        <a type="link" class="table-btn-danger last">删除</a>
+      </div>
+      <template v-else>{{ data.text }}</template>
+    </template>
   </TableRender>
 </template>
 

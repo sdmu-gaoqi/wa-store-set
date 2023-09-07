@@ -104,7 +104,9 @@ export const schema = {
           fixed: 'right',
           title: '操作',
           dataIndex: 'options',
-          options: ['detail']
+          options: ['detail'],
+          width: 300,
+          resizable: true
         }
       ]
     }

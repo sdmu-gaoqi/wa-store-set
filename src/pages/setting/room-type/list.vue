@@ -4,7 +4,17 @@
       ><a-button type="primary" :onClick="goAdd" class="ml-[10px]"
         >新增房间类型</a-button
       ></template
-    ></TableRender
+    >
+    <template #bodyCell="{ data }">
+      <div
+        v-if="data?.column?.dataIndex === 'options'"
+        class="flex justify-center items-center"
+      >
+        <a type="link" class="table-btn">编辑</a>
+        <a type="link" class="table-btn-danger last">删除</a>
+      </div>
+      <template v-else>{{ data.text }}</template>
+    </template></TableRender
   >
 </template>
 

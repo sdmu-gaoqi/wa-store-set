@@ -5,6 +5,19 @@
         >新增会员</a-button
       ></template
     >
+    <template #bodyCell="{ data }">
+      <div
+        v-if="data?.column?.dataIndex === 'options'"
+        class="flex justify-center items-center"
+      >
+        <a type="link" class="table-btn">编辑</a>
+        <a type="link" class="table-btn">充值</a>
+        <a type="link" class="table-btn">充值记录</a>
+        <a type="link" class="table-btn">消费记录</a>
+        <a type="link" class="table-btn-danger last">退卡</a>
+      </div>
+      <template v-else>{{ data.text }}</template>
+    </template>
   </TableRender>
 </template>
 
