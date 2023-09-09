@@ -14,7 +14,9 @@
         <a type="link" class="table-btn">充值</a>
         <a type="link" class="table-btn">充值记录</a>
         <a type="link" class="table-btn">消费记录</a>
-        <a type="link" class="table-btn-danger last">退卡</a>
+        <a-popconfirm title="是否确认退卡" cancelText="取消" okText="确认">
+          <a type="link" class="table-btn-danger last">退卡</a>
+        </a-popconfirm>
       </div>
       <template v-else>{{ data.text }}</template>
     </template>

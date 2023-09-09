@@ -71,3 +71,10 @@ html {
 .ant-btn {
   padding: 0 30px;
 }
+
+.ant-menu-submenu-selected {
+  .ant-menu-submenu-title {
+    background: rgba(236, 241, 253, 0.8) !important;
+    opacity: 0.79;
+  }
+}

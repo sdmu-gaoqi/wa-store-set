@@ -25,6 +25,7 @@ export default {
           userSelect: 'none',
           fontWeight: 'bold',
           fontSize: '12px',
+          color: '#585eaa',
           '&:hover': {
             opacity: '0.6'
           }

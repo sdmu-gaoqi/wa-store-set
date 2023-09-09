@@ -7,7 +7,11 @@
     </a-layout-header>
     <a-layout>
       <a-layout-sider width="200" style="background: #fff" class="shadow-lg">
-        <a-menu :style="{ height: '100%', borderRight: 0 }" mode="vertical">
+        <a-menu
+          v-model:selectedKeys="activeKey"
+          :style="{ height: '100%', borderRight: 0 }"
+          mode="vertical"
+        >
           <a-sub-menu v-for="item in menus" :key="item.key">
             <template #title>
               <span>
@@ -38,6 +42,16 @@
           }"
           class="shadow-lg"
         >
+          <a-breadcrumb
+            v-if="!routerData?.path.includes('workbench')"
+            class="relative top-[-10px]"
+          >
+            <a-breadcrumb-item v-for="item in matched">
+              <RouterLink :to="item.path || '/workbench'">
+                <span class="text-[#bbb] font-bold">{{ item.name }}</span>
+              </RouterLink>
+            </a-breadcrumb-item>
+          </a-breadcrumb>
           <RouterView />
         </a-layout-content>
       </a-layout>
@@ -46,7 +60,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { useRouter, RouterLink } from 'vue-router'
+const activeKey = ref<string[]>([])
+const matched = ref<Record<string, any>[]>([])
+const routerData = ref<Record<string, any>>({})
+const router = useRouter()
+watch(
+  () => router.currentRoute.value,
+  (newValue: any) => {
+    routerData.value = newValue
+    matched.value = newValue.matched
+  },
+  { immediate: true }
+)
 const menus = ref([
   {
     title: '订单管理',
