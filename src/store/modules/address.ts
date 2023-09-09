@@ -27,7 +27,6 @@ const getters = {
 
 const actions = {
   [GETADDRESS]({ state, commit }: any, payload: { type: string }) {
-    console.log('开始请求')
     getAddressRequest().then((res) => {
       // commit(GETADDRESS, res?.data?.districts);
       console.log(addressMock?.data?.cascade_group_by_initial, 'addressMock')

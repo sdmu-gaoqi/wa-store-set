@@ -5,7 +5,12 @@
 </template>
 
 <script setup lang="ts">
+import { SETUSERINFO } from '@/store/actions'
+import store from '@/store/store'
 import { Login } from 'store-operations-ui'
+import { useRouter } from 'vue-router'
+const { dispatch } = store
+const router = useRouter()
 
 interface FormState {
   account: string
@@ -15,7 +20,11 @@ interface FormState {
 }
 
 const onFinish = (value: FormState) => {
-  console.log(value, 'vvvvvv')
+  dispatch('userInfo/login', {
+    data: { account: value.account, token: +new Date() }
+  })
+  dispatch('userInfo/changeUser', { data: value })
+  router.push('/')
 }
 
 const getCode = (value: FormState) => {

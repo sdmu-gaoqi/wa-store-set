@@ -1,8 +1,21 @@
 <template>
   <a-layout>
     <a-layout-header class="header !bg-[#3b3b3b]">
-      <div class="text-white text-[18px] font-bold cursor-pointer select-none">
+      <div
+        class="text-white text-[18px] font-bold cursor-pointer select-none flex justify-between"
+      >
         门店管理系统
+        <a-dropdown>
+          <div>{{ userInfo?.userInfo.account || 'admin' }}</div>
+          <template #overlay
+            ><div
+              class="p-[10px] bg-white shadow-lg cursor-pointer hover:bg-primary hover:text-white relative top-[-10px] text-center"
+              @click="onLogout"
+            >
+              退出登录
+            </div></template
+          >
+        </a-dropdown>
       </div>
     </a-layout-header>
     <a-layout>
@@ -38,7 +51,7 @@
           </a-sub-menu>
         </a-menu>
       </a-layout-sider>
-      <a-layout style="padding: 24px">
+      <a-layout style="padding: 0 0 0 12px">
         <a-layout-content
           :style="{
             background: '#fff',
@@ -68,7 +81,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useRouter, RouterLink } from 'vue-router'
 import 订单 from '@/assets/订单.svg'
 import 会员 from '@/assets/会员.svg'
@@ -77,6 +90,13 @@ import 角色 from '@/assets/角色.svg'
 import 门店 from '@/assets/门店.svg'
 import 运营 from '@/assets/运营.svg'
 import 设置 from '@/assets/设置.svg'
+import store from '@/store/store'
+import { isLogin, logout } from '@/utils'
+
+const {
+  state: { userInfo }
+} = store
+
 const activeKey = ref<string[]>([])
 const matched = ref<Record<string, any>[]>([])
 const routerData = ref<Record<string, any>>({})
@@ -159,4 +179,15 @@ const menus = ref([
     icon: 设置
   }
 ])
+
+onMounted(() => {
+  if (!isLogin()) {
+    router.push('login')
+  }
+})
+
+const onLogout = () => {
+  logout()
+  router.push('/login')
+}
 </script>
