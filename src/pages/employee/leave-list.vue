@@ -8,7 +8,7 @@
     <template #bodyCell="{ data }">
       <div
         v-if="data?.column?.dataIndex === 'options'"
-        class="flex justify-center items-center"
+        class="flex items-center justify-center"
       >
         <a type="link" class="table-btn">编辑</a>
         <a type="link" class="table-btn-danger last">删除</a>
