@@ -1,4 +1,6 @@
-export const schema = {
+import { TableProps } from 'store-operations-ui'
+
+export const schema: TableProps['schema'] = {
   title: '订单列表',
   form: {
     search: true,
