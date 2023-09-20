@@ -90,6 +90,7 @@ import 角色 from '@/assets/角色.svg'
 import 门店 from '@/assets/门店.svg'
 import 运营 from '@/assets/运营.svg'
 import 设置 from '@/assets/设置.svg'
+import 日志 from '@/assets/日志.svg'
 import store from '@/store/store'
 import { isLogin, logout } from '@/utils'
 
@@ -177,6 +178,16 @@ const menus = ref([
     ],
     path: '/operation',
     icon: 设置
+  },
+  {
+    title: '日志管理',
+    key: 'log',
+    children: [
+      { title: '系统登录日志', path: '/log/login', key: 'login-log' },
+      { title: '系统操作日志', path: '/log/operate', key: 'operate-log' }
+    ],
+    path: '/operation',
+    icon: 日志
   }
 ])
 

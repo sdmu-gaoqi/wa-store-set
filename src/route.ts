@@ -1,6 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router'
 import { createRouter, createWebHistory } from 'vue-router'
 import Layout from './components/layout/layout.vue'
+import path from 'path'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -199,6 +200,25 @@ const routes: RouteRecordRaw[] = [
             path: 'turnover',
             name: '营业额标准设置',
             component: () => import('./pages/setting/turnover/turnover.vue')
+          }
+        ]
+      },
+      {
+        path: '/log',
+        name: '日支管理',
+        redirect: () => {
+          return { path: 'login' }
+        },
+        children: [
+          {
+            path: 'login',
+            name: '系统登录日志',
+            component: () => import('./pages/log/login-log')
+          },
+          {
+            path: 'operate',
+            name: '系统操作日志',
+            component: () => import('./pages/log/operate-log')
           }
         ]
       }

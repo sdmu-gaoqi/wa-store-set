@@ -9,6 +9,9 @@ import { SETUSERINFO } from '@/store/actions'
 import store from '@/store/store'
 import { Login } from 'store-operations-ui'
 import { useRouter } from 'vue-router'
+import { System } from 'store-request'
+import { onMounted } from 'vue'
+
 const { dispatch } = store
 const router = useRouter()
 
@@ -31,4 +34,12 @@ const getCode = (value: FormState) => {
   console.log(value)
   return Promise.resolve()
 }
+
+onMounted(async () => {
+  const system = new System()
+  const data = await system.getRoleList({ pageNum: 1, pageSize: 10 })
+  // system.get
+
+  console.log(system, 'System', data)
+})
 </script>

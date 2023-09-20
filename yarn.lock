@@ -42,7 +42,7 @@
 
 "@ant-design/icons-vue@^7.0.0":
   version "7.0.0"
-  resolved "https://npm.papegames.com/@ant-design%2ficons-vue/-/icons-vue-7.0.0.tgz#0ad1ecd037d66d86391460872eb2ae59c69b6ee7"
+  resolved "https://registry.npmmirror.com/@ant-design/icons-vue/-/icons-vue-7.0.0.tgz#0ad1ecd037d66d86391460872eb2ae59c69b6ee7"
   integrity sha512-VEb0r/Jqo2qi9olfBephYlyxbmhQVZ5+tJ3Zw5VaBd5h0wV1zdjGt5mJxSbRRs2mnnOWpsa1s4PeoLwNnkLV/w==
   dependencies:
     "@ant-design/colors" "^6.0.0"
@@ -952,7 +952,7 @@
 
 "@types/web-bluetooth@^0.0.17":
   version "0.0.17"
-  resolved "https://npm.papegames.com/@types%2fweb-bluetooth/-/web-bluetooth-0.0.17.tgz#5c9f3c617f64a9735d7b72a7cc671e166d900c40"
+  resolved "https://registry.npmmirror.com/@types/web-bluetooth/-/web-bluetooth-0.0.17.tgz#5c9f3c617f64a9735d7b72a7cc671e166d900c40"
   integrity sha512-4p9vcSmxAayx72yn70joFoL44c9MO/0+iVEBIQXe3v2h2SiAsEIo/G5v6ObFWvNKRFjbrVadNf9LqEEZeQPzdA==
 
 "@typescript-eslint/eslint-plugin@^5.52.0", "@typescript-eslint/eslint-plugin@^5.59.1":
@@ -1095,7 +1095,7 @@
 
 "@vitejs/plugin-vue@^4.2.3":
   version "4.3.4"
-  resolved "https://npm.papegames.com/@vitejs%2fplugin-vue/-/plugin-vue-4.3.4.tgz#a289dff38e01949fe7be581d5542cabaeb961dec"
+  resolved "https://registry.npmmirror.com/@vitejs/plugin-vue/-/plugin-vue-4.3.4.tgz#a289dff38e01949fe7be581d5542cabaeb961dec"
   integrity sha512-ciXNIHKPriERBisHFBvnTbfKa6r9SAesOYXeGDzgegcvy9Q4xdScSHAmKbNT0M3O0S9LKhIf5/G+UYG4NnnzYw==
 
 "@vitejs/plugin-vue@^4.3.1":
@@ -1294,7 +1294,7 @@
 
 "@vueuse/core@^10.3.0":
   version "10.4.1"
-  resolved "https://npm.papegames.com/@vueuse%2fcore/-/core-10.4.1.tgz#fc2c8a83a571c207aaedbe393b22daa6d35123f2"
+  resolved "https://registry.npmmirror.com/@vueuse/core/-/core-10.4.1.tgz#fc2c8a83a571c207aaedbe393b22daa6d35123f2"
   integrity sha512-DkHIfMIoSIBjMgRRvdIvxsyboRZQmImofLyOHADqiVbQVilP8VVHDhBX2ZqoItOgu7dWa8oXiNnScOdPLhdEXg==
   dependencies:
     "@types/web-bluetooth" "^0.0.17"
@@ -1304,12 +1304,12 @@
 
 "@vueuse/metadata@10.4.1":
   version "10.4.1"
-  resolved "https://npm.papegames.com/@vueuse%2fmetadata/-/metadata-10.4.1.tgz#9d2ff5c67abf17a8c07865c2413fbd0e92f7b7d7"
+  resolved "https://registry.npmmirror.com/@vueuse/metadata/-/metadata-10.4.1.tgz#9d2ff5c67abf17a8c07865c2413fbd0e92f7b7d7"
   integrity sha512-2Sc8X+iVzeuMGHr6O2j4gv/zxvQGGOYETYXEc41h0iZXIRnRbJZGmY/QP8dvzqUelf8vg0p/yEA5VpCEu+WpZg==
 
 "@vueuse/shared@10.4.1":
   version "10.4.1"
-  resolved "https://npm.papegames.com/@vueuse%2fshared/-/shared-10.4.1.tgz#d5ce33033c156efb60664b5d6034d6cd4e2f530c"
+  resolved "https://registry.npmmirror.com/@vueuse/shared/-/shared-10.4.1.tgz#d5ce33033c156efb60664b5d6034d6cd4e2f530c"
   integrity sha512-vz5hbAM4qA0lDKmcr2y3pPdU+2EVw/yzfRsBdu+6+USGa4PxqSQRYIUC9/NcT06y+ZgaTsyURw2I9qOFaaXHAg==
   dependencies:
     vue-demi ">=0.14.5"
@@ -1449,7 +1449,7 @@ ant-design-vue@^4.0.0:
 
 ant-design-vue@^4.0.2:
   version "4.0.3"
-  resolved "https://npm.papegames.com/ant-design-vue/-/ant-design-vue-4.0.3.tgz#0f283c4507368ce4fb658effece3d890394f8c4a"
+  resolved "https://registry.npmmirror.com/ant-design-vue/-/ant-design-vue-4.0.3.tgz#0f283c4507368ce4fb658effece3d890394f8c4a"
   integrity sha512-fbgZbbirLx7rc19ytaGxApwS01CKLRzvEZmH0TVF06niQA9ekx7xkvfQGlmiSaCs4b8nWZi4Bo7gUzRNRt5YJA==
   dependencies:
     "@ant-design/colors" "^6.0.0"
@@ -1627,7 +1627,7 @@ at-least-node@^1.0.0:
 
 autoprefixer@^10.4.15:
   version "10.4.15"
-  resolved "https://npm.papegames.com/autoprefixer/-/autoprefixer-10.4.15.tgz#a1230f4aeb3636b89120b34a1f513e2f6834d530"
+  resolved "https://registry.npmmirror.com/autoprefixer/-/autoprefixer-10.4.15.tgz#a1230f4aeb3636b89120b34a1f513e2f6834d530"
   integrity sha512-KCuPB8ZCIqFdA4HwKXsvz7j6gvSDNhDP7WnUjBleRkKjPdvCmHFuQ77ocavI8FT6NdvlBnE2UFr2H4Mycn8Vew==
   dependencies:
     browserslist "^4.21.10"
@@ -1886,7 +1886,7 @@ caniuse-lite@^1.0.30001517:
 
 caniuse-lite@^1.0.30001520:
   version "1.0.30001538"
-  resolved "https://npm.papegames.com/caniuse-lite/-/caniuse-lite-1.0.30001538.tgz#9dbc6b9af1ff06b5eb12350c2012b3af56744f3f"
+  resolved "https://registry.npmmirror.com/caniuse-lite/-/caniuse-lite-1.0.30001538.tgz#9dbc6b9af1ff06b5eb12350c2012b3af56744f3f"
   integrity sha512-HWJnhnID+0YMtGlzcp3T9drmBJUVDchPJ08tpUGFLs9CYlwWPH2uLgpHn8fND5pCgXVtnGS3H4QR9XLMHVNkHw==
 
 chalk@5.3.0, chalk@^5.0.0, chalk@^5.0.1, chalk@^5.2.0, chalk@^5.3.0:
@@ -1918,7 +1918,7 @@ chardet@^0.7.0:
 
 child_process@^1.0.2:
   version "1.0.2"
-  resolved "https://registry.npmjs.org/child_process/-/child_process-1.0.2.tgz#b1f7e7fc73d25e7fd1d455adc94e143830182b5a"
+  resolved "https://registry.npmmirror.com/child_process/-/child_process-1.0.2.tgz#b1f7e7fc73d25e7fd1d455adc94e143830182b5a"
   integrity sha512-Wmza/JzL0SiWz7kl6MhIKT5ceIlnFPJX+lwUGj7Clhy5MMldsSoJR0+uvRzOS5Kv45Mq7t1PoE8TsOA9bzvb6g==
 
 "chokidar@>=3.0.0 <4.0.0", chokidar@^3.5.3:
@@ -3208,7 +3208,7 @@ formdata-polyfill@^4.0.10:
 
 fraction.js@^4.2.0:
   version "4.3.6"
-  resolved "https://npm.papegames.com/fraction.js/-/fraction.js-4.3.6.tgz#e9e3acec6c9a28cf7bc36cbe35eea4ceb2c5c92d"
+  resolved "https://registry.npmmirror.com/fraction.js/-/fraction.js-4.3.6.tgz#e9e3acec6c9a28cf7bc36cbe35eea4ceb2c5c92d"
   integrity sha512-n2aZ9tNfYDwaHhvFTkhFErqOMIb8uyzSQ+vGJBjZyanAKZVbGUQ1sngfk9FdkBw7G26O7AgNjLcecLffD1c7eg==
 
 fs-extra@^8.1.0:
@@ -4710,8 +4710,8 @@ normalize-path@^3.0.0, normalize-path@~3.0.0:
 
 normalize-range@^0.1.2:
   version "0.1.2"
-  resolved "https://npm.papegames.com/normalize-range/-/normalize-range-0.1.2.tgz#2d10c06bdfd312ea9777695a4d28439456b75942"
-  integrity sha1-LRDAa9/TEuqXd2laTShDlFa3WUI=
+  resolved "https://registry.npmmirror.com/normalize-range/-/normalize-range-0.1.2.tgz#2d10c06bdfd312ea9777695a4d28439456b75942"
+  integrity sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==
 
 normalize-url@^8.0.0:
   version "8.0.0"
@@ -5167,7 +5167,7 @@ postcss@^8.1.10, postcss@^8.4.23, postcss@^8.4.27:
 
 postcss@^8.4.28:
   version "8.4.30"
-  resolved "https://npm.papegames.com/postcss/-/postcss-8.4.30.tgz#0e0648d551a606ef2192a26da4cabafcc09c1aa7"
+  resolved "https://registry.npmmirror.com/postcss/-/postcss-8.4.30.tgz#0e0648d551a606ef2192a26da4cabafcc09c1aa7"
   integrity sha512-7ZEao1g4kd68l97aWG/etQKPKq07us0ieSZ2TnFDk11i0ZfDW2AwKHYU8qv4MZKqN2fdBfg+7q0ES06UA73C1g==
   dependencies:
     nanoid "^3.3.6"
@@ -5841,10 +5841,10 @@ stop-iteration-iterator@^1.0.0:
   dependencies:
     internal-slot "^1.0.4"
 
-store-operations-ui@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.npmjs.org/store-operations-ui/-/store-operations-ui-0.2.2.tgz#43867af79d0294dfe8d9a5d8d1d76717f2ac1cf5"
-  integrity sha512-jvAad/RbdCwgK1DD7md0hdk9Q9FKegrx/MinKQzSsrKDMT1GH+5j+z0d2QiKiInJNpxynDrwFSWYM+1D4GY0tg==
+store-operations-ui@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.npmjs.org/store-operations-ui/-/store-operations-ui-0.2.3.tgz#ce47a6a24e8fc56b770f82838d565ede12ebb32f"
+  integrity sha512-TQqQxl5OyydGrknT2nMaLIw9HSwuvZLBsAiGv6IV6vGRSPH7ln8iD/FGForxJ7kIjb7y5gdLyJXoaw838y3Zew==
   dependencies:
     "@vitejs/plugin-vue" "^4.2.3"
     "@vitejs/plugin-vue-jsx" "^3.0.1"
@@ -5862,16 +5862,6 @@ store-operations-ui@^0.2.2:
     vue "^3.3.4"
     vue-tsc "^1.8.5"
     wa-utils "0.1.6"
-
-store-request@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.npmjs.org/store-request/-/store-request-0.0.2.tgz#c08e52890ee8fab2ad2cc232e6f183d5ae28e147"
-  integrity sha512-+Q9WcPCkLIyQYKDjefMDbFkA/ErsuHoMiLDPINsV2pdA0AZfnpRRCtUQpvvd4BVQTDaZaDLufG5y5usUjgMtag==
-  dependencies:
-    axios "^1.4.0"
-    copy-to-clipboard "^3.3.3"
-    dayjs "^1.11.9"
-    wa-utils "^0.2.1"
 
 string-argv@0.3.2:
   version "0.3.2"
@@ -6577,7 +6567,7 @@ vite@^4.4.7:
 
 vue-demi@>=0.14.5:
   version "0.14.6"
-  resolved "https://npm.papegames.com/vue-demi/-/vue-demi-0.14.6.tgz#dc706582851dc1cdc17a0054f4fec2eb6df74c92"
+  resolved "https://registry.npmmirror.com/vue-demi/-/vue-demi-0.14.6.tgz#dc706582851dc1cdc17a0054f4fec2eb6df74c92"
   integrity sha512-8QA7wrYSHKaYgUxDA5ZC24w+eHm3sYCbp0EzcDwKqN3p6HqtTCGR/GVsPyZW92unff4UlcSh++lmqDWN3ZIq4w==
 
 vue-eslint-parser@^9.1.1, vue-eslint-parser@^9.3.1:
@@ -6663,10 +6653,10 @@ wa-utils@0.1.6:
     nanoid "^4.0.2"
     vconsole "^3.15.1"
 
-wa-utils@^0.2.1:
-  version "0.2.1"
-  resolved "https://npm.papegames.com/wa-utils/-/wa-utils-0.2.1.tgz#9a9bc05d7ab5383b8a77a39ccdc84ebbe2563389"
-  integrity sha512-Cd747+oKDigT0R0Vcfg7yjDfvad5TM6YkaQCISrxfia6KSkxX2e17+opMvkdM/kuE5DvJ5cXVUQ05mqLyGDAuQ==
+wa-utils@^0.1.6:
+  version "0.1.9"
+  resolved "https://registry.npmmirror.com/wa-utils/-/wa-utils-0.1.9.tgz#191e4322d6c06d81c0d0f7cde0bed5850fed27c1"
+  integrity sha512-XNaTBu/TlJHWCPJGOgmIh6VvAomeubEaVQ40Sk49bAAHiVyF2iSsGZIIZXgmPiOAfu0irbejDmVU19/BvXYRAw==
   dependencies:
     "@types/js-cookie" "^3.0.3"
     "@types/uuid" "^9.0.2"

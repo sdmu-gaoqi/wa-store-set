@@ -49,14 +49,14 @@
     "path": "^0.12.7",
     "prettier": "^3.0.0",
     "sass": "^1.64.1",
-    "store-operations-ui": "^0.2.2",
     "store-request": "^0.0.2",
+    "store-operations-ui": "^0.2.3",
     "url": "^0.11.1",
     "vite-plugin-mkcert": "^1.16.0",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4",
     "vuex": "^4.1.0",
-    "wa-utils": "0.1.6",
+    "wa-utils": "^0.1.6",
     "yarn": "^1.22.19"
   },
   "devDependencies": {
