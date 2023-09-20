@@ -1,7 +1,8 @@
+import { TableProps } from 'store-operations-ui'
 import { isEmpty } from 'wa-utils'
 import { isTelNumber } from 'wa-utils/dist/regex/regex'
 
-export const schema = {
+export const schema: TableProps['schema'] = {
   title: '员工请假列表',
   form: {
     search: true,

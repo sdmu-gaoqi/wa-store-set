@@ -1,7 +1,8 @@
+import { TableProps } from 'store-operations-ui'
 import { isEmpty } from 'wa-utils'
 import { isTelNumber } from 'wa-utils/dist/regex/regex'
 
-export const schema = {
+export const schema: TableProps['schema'] = {
   title: '会员列表',
   form: {
     search: true,
@@ -130,7 +131,7 @@ export const editSchema = {
     name: [{ required: true, message: '请输入姓名' }],
     phone: [
       {
-        validator: (_, value: string) => {
+        validator: (_: any, value: string) => {
           if (isEmpty(value)) {
             return Promise.reject('请输入手机号码')
           } else if (!isTelNumber(value)) {
