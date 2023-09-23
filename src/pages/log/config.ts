@@ -9,9 +9,21 @@ export const loginLogSchema: TableProps['schema'] = {
     fields: [
       {
         type: 'search',
-        label: '关键字',
-        key: 'name',
-        placeholder: '工号/姓名/手机号码'
+        label: '工号',
+        key: 'no',
+        placeholder: '工号'
+      },
+      {
+        type: 'search',
+        label: '姓名',
+        key: 'userName',
+        placeholder: '姓名'
+      },
+      {
+        type: 'search',
+        label: '手机号码',
+        key: 'phone',
+        placeholder: '手机号码'
       },
       {
         type: 'date',

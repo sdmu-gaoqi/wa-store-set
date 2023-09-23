@@ -11,6 +11,7 @@ import { Login } from 'store-operations-ui'
 import { useRouter } from 'vue-router'
 import { System } from 'store-request'
 import { onMounted } from 'vue'
+import user from '../../servers/user'
 
 const { dispatch } = store
 const router = useRouter()
@@ -20,13 +21,21 @@ interface FormState {
   password: string
   code: string
   agree: boolean
+  imgCode: string
+  uuid?: string
 }
 
-const onFinish = (value: FormState) => {
+const onFinish = async (value: FormState) => {
+  const res = await user.login({
+    code: value.imgCode,
+    username: value.account,
+    password: value.password,
+    uuid: value.uuid
+  })
   dispatch('userInfo/login', {
     data: { account: value.account, token: +new Date() }
   })
-  dispatch('userInfo/changeUser', { data: value })
+  dispatch('userInfo/changeUser', { data: res.user })
   router.push('/')
 }
 

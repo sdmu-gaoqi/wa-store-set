@@ -49,8 +49,6 @@
     "path": "^0.12.7",
     "prettier": "^3.0.0",
     "sass": "^1.64.1",
-    "store-request": "^0.0.2",
-    "store-operations-ui": "^0.2.3",
     "url": "^0.11.1",
     "vite-plugin-mkcert": "^1.16.0",
     "vue": "^3.3.4",

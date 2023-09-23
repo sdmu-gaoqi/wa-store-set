@@ -6,7 +6,7 @@
       >
         门店管理系统
         <a-dropdown>
-          <div>{{ userInfo?.userInfo.account || 'admin' }}</div>
+          <div>{{ userInfo?.userInfo.userName || '测试用户' }}</div>
           <template #overlay
             ><div
               class="p-[10px] bg-white shadow-lg cursor-pointer hover:bg-primary hover:text-white relative top-[-10px] text-center"

@@ -29,3 +29,23 @@
   filter: drop-shadow(0 0 2em #42b883aa);
 }
 </style>
+
+<script setup>
+import { message } from 'ant-design-vue'
+import { onMounted } from 'vue'
+import { cookie } from 'wa-utils'
+import user from './servers/user'
+import store from '@/store/store'
+const { dispatch } = store
+window.onError = (msg) => {
+  message.error(msg)
+}
+onMounted(() => {
+  const token = cookie.get('Admin-Token')
+  if (token) {
+    user.getUserInfo().then((res) => {
+      dispatch('userInfo/changeUser', { data: res.user })
+    })
+  }
+})
+</script>
