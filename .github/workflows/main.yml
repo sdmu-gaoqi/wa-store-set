@@ -33,4 +33,4 @@ jobs:
           server: '${{ secrets.SERVERIP }}' #引用之前创建好的secret
           ssh_private_key: ${{ secrets.SERVERSSH }} #引用之前创建好的secret
           local_path: './build/*' # 对应我们项目build的文件夹路径
-          remote_path: 'work/webapps/front-test/'
+          remote_path: '/work/webapps/front-test/'
