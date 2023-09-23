@@ -8,7 +8,7 @@ const LoginLog = defineComponent({
     return (
       <TableRender
         schema={loginLogSchema}
-        request={log.getLoginLog}
+        request={log.getLoginLog as any}
       ></TableRender>
     )
   }
