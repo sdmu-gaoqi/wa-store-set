@@ -1457,7 +1457,7 @@ ant-design-vue@^4.0.0:
     vue-types "^3.0.0"
     warning "^4.0.0"
 
-ant-design-vue@^4.0.2:
+ant-design-vue@^4.0.3:
   version "4.0.3"
   resolved "https://registry.npmjs.org/ant-design-vue/-/ant-design-vue-4.0.3.tgz#0f283c4507368ce4fb658effece3d890394f8c4a"
   integrity sha512-fbgZbbirLx7rc19ytaGxApwS01CKLRzvEZmH0TVF06niQA9ekx7xkvfQGlmiSaCs4b8nWZi4Bo7gUzRNRt5YJA==
@@ -1775,12 +1775,12 @@ braces@^3.0.2, braces@~3.0.2:
     fill-range "^7.0.1"
 
 browserslist@^4.21.10:
-  version "4.21.11"
-  resolved "https://registry.npmjs.org/browserslist/-/browserslist-4.21.11.tgz#35f74a3e51adc4d193dcd76ea13858de7b8fecb8"
-  integrity sha512-xn1UXOKUz7DjdGlg9RrUr0GGiWzI97UQJnugHtH0OLDfJB7jMgoIkYvRIEO1l9EeEERVqeqLYOcFBW9ldjypbQ==
+  version "4.22.1"
+  resolved "https://registry.npmjs.org/browserslist/-/browserslist-4.22.1.tgz#ba91958d1a59b87dab6fed8dfbcb3da5e2e9c619"
+  integrity sha512-FEVc202+2iuClEhZhrWy6ZiAcRLvNMyYcxZ8raemul1DYVOVdFsbqckWLdsixQZCpJlwe77Z3UTalE7jsjnKfQ==
   dependencies:
-    caniuse-lite "^1.0.30001538"
-    electron-to-chromium "^1.4.526"
+    caniuse-lite "^1.0.30001541"
+    electron-to-chromium "^1.4.535"
     node-releases "^2.0.13"
     update-browserslist-db "^1.0.13"
 
@@ -1904,10 +1904,10 @@ caniuse-lite@^1.0.30001517:
   resolved "https://registry.npmmirror.com/caniuse-lite/-/caniuse-lite-1.0.30001521.tgz#e9930cf499f7c1e80334b6c1fbca52e00d889e56"
   integrity sha512-fnx1grfpEOvDGH+V17eccmNjucGUnCbP6KL+l5KqBIerp26WK/+RQ7CIDE37KGJjaPyqWXXlFUyKiWmvdNNKmQ==
 
-caniuse-lite@^1.0.30001538:
-  version "1.0.30001538"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001538.tgz#9dbc6b9af1ff06b5eb12350c2012b3af56744f3f"
-  integrity sha512-HWJnhnID+0YMtGlzcp3T9drmBJUVDchPJ08tpUGFLs9CYlwWPH2uLgpHn8fND5pCgXVtnGS3H4QR9XLMHVNkHw==
+caniuse-lite@^1.0.30001538, caniuse-lite@^1.0.30001541:
+  version "1.0.30001541"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001541.tgz#b1aef0fadd87fb72db4dcb55d220eae17b81cdb1"
+  integrity sha512-bLOsqxDgTqUBkzxbNlSBt8annkDpQB9NdzdTbO2ooJ+eC/IQcvDspDc058g84ejCelF7vHUx57KIOjEecOHXaw==
 
 chalk@5.3.0, chalk@^5.0.0, chalk@^5.0.1, chalk@^5.2.0, chalk@^5.3.0:
   version "5.3.0"
@@ -2642,10 +2642,10 @@ electron-to-chromium@^1.4.477:
   resolved "https://registry.npmmirror.com/electron-to-chromium/-/electron-to-chromium-1.4.496.tgz#a57534b70d2bdee7e1ad7dbd4c91e560cbd08db1"
   integrity sha512-qeXC3Zbykq44RCrBa4kr8v/dWzYJA8rAwpyh9Qd+NKWoJfjG5vvJqy9XOJ9H4P/lqulZBCgUWAYi+FeK5AuJ8g==
 
-electron-to-chromium@^1.4.526:
-  version "1.4.528"
-  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.528.tgz#7c900fd73d9d2e8bb0dab0e301f25f0f4776ef2c"
-  integrity sha512-UdREXMXzLkREF4jA8t89FQjA8WHI6ssP38PMY4/4KhXFQbtImnghh4GkCgrtiZwLKUKVD2iTVXvDVQjfomEQuA==
+electron-to-chromium@^1.4.535:
+  version "1.4.537"
+  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.537.tgz#aac4101db53066be1e49baedd000a26bc754adc9"
+  integrity sha512-W1+g9qs9hviII0HAwOdehGYkr+zt7KKdmCcJcjH0mYg6oL8+ioT3Skjmt7BLoAQqXhjf40AXd+HlR4oAWMlXjA==
 
 emoji-regex@^10.2.1:
   version "10.2.1"
@@ -5201,9 +5201,9 @@ postcss@^8.1.10, postcss@^8.4.23, postcss@^8.4.27:
     source-map-js "^1.0.2"
 
 postcss@^8.4.28:
-  version "8.4.30"
-  resolved "https://registry.npmjs.org/postcss/-/postcss-8.4.30.tgz#0e0648d551a606ef2192a26da4cabafcc09c1aa7"
-  integrity sha512-7ZEao1g4kd68l97aWG/etQKPKq07us0ieSZ2TnFDk11i0ZfDW2AwKHYU8qv4MZKqN2fdBfg+7q0ES06UA73C1g==
+  version "8.4.31"
+  resolved "https://registry.npmjs.org/postcss/-/postcss-8.4.31.tgz#92b451050a9f914da6755af352bdc0192508656d"
+  integrity sha512-PS08Iboia9mts/2ygV3eLpY5ghnUcfLV/EXTOW1E2qYxJKGGBUtNjN76FYHnMs36RmARn41bC0AZmn+rR0OVpQ==
   dependencies:
     nanoid "^3.3.6"
     picocolors "^1.0.0"
@@ -5896,15 +5896,15 @@ stop-iteration-iterator@^1.0.0:
   dependencies:
     internal-slot "^1.0.4"
 
-store-operations-ui@^0.2.4:
-  version "0.2.4"
-  resolved "https://registry.npmjs.org/store-operations-ui/-/store-operations-ui-0.2.4.tgz#c49635e8aff2ca36715ca0a952fc5a5174072187"
-  integrity sha512-BTW9Cmd5eOFp0JnhTzO27TuVqQ97ndoZT4AypNriuyQF6MNIvnQbuIfvMBcVI608kMAwu+/iX8RwIl42WNF3OA==
+store-operations-ui@^0.2.5:
+  version "0.2.5"
+  resolved "https://registry.npmjs.org/store-operations-ui/-/store-operations-ui-0.2.5.tgz#e91a3a4940d8fea13c999bcb18090ba626dfa8c3"
+  integrity sha512-8K9lUqfHiOWQxBn7/0FYzv/224cIR5s+DjxC94pSB43ROXCv4mGpsa5zsTKRMUyYI4zGC3uhrTfeM8g4bcoIUw==
   dependencies:
     "@vitejs/plugin-vue" "^4.2.3"
     "@vitejs/plugin-vue-jsx" "^3.0.1"
     "@vueuse/core" "^10.3.0"
-    ant-design-vue "^4.0.2"
+    ant-design-vue "^4.0.3"
     autoprefixer "^10.4.15"
     babel-eslint "^10.1.0"
     child_process "^1.0.2"
@@ -5926,6 +5926,19 @@ store-request@^0.0.3:
   integrity sha512-nVVa5tBmMBUL6UNpyf+u8EUOZqKHqUZCIDb6SX4sllBe7CHFBIxGUXnm9C70ARXOD11t3W7A/8vRPfvnR/9rNA==
   dependencies:
     "@types/lodash" "^4.14.198"
+    axios "^1.4.0"
+    copy-to-clipboard "^3.3.3"
+    dayjs "^1.11.9"
+    lodash "^4.17.21"
+    wa-utils "^0.2.1"
+
+store-request@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.npmjs.org/store-request/-/store-request-0.0.4.tgz#af50a540a6ff5352e92113547ed0bd935df9bf7c"
+  integrity sha512-xZU7KUzNp7FUzdlglanz7gqR/pWjcF44eNxWWHWeReNGIU3m6t4LPonWUv3lR3GLbVSzQUvXHhNR/CSXT5juyg==
+  dependencies:
+    "@types/lodash" "^4.14.198"
+    ant-design-vue "^4.0.0"
     axios "^1.4.0"
     copy-to-clipboard "^3.3.3"
     dayjs "^1.11.9"

@@ -1,20 +1,25 @@
 <template>
   <div class="m-auto flex h-[100%] justify-center items-center bg-[#eff0f4]">
-    <Login class="m-auto" :on-finish="onFinish" :get-code="getCode"></Login>
+    <Login
+      ref="loginRef"
+      class="m-auto"
+      :on-finish="onFinish"
+      :get-code="getCode"
+    ></Login>
   </div>
 </template>
 
 <script setup lang="ts">
-import { SETUSERINFO } from '@/store/actions'
 import store from '@/store/store'
 import { Login } from 'store-operations-ui'
 import { useRouter } from 'vue-router'
-import { System } from 'store-request'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import user from '../../servers/user'
 
 const { dispatch } = store
 const router = useRouter()
+
+const loginRef = ref(undefined)
 
 interface FormState {
   account: string
@@ -26,29 +31,26 @@ interface FormState {
 }
 
 const onFinish = async (value: FormState) => {
-  const res = await user.login({
-    code: value.imgCode,
-    username: value.account,
-    password: value.password,
-    uuid: value.uuid
-  })
-  dispatch('userInfo/login', {
-    data: { account: value.account, token: +new Date() }
-  })
-  dispatch('userInfo/changeUser', { data: res.user })
-  router.push('/')
+  try {
+    const res = await user.login({
+      code: value.imgCode,
+      username: value.account,
+      password: value.password,
+      uuid: value.uuid
+    })
+    dispatch('userInfo/login', {
+      data: { account: value.account, token: +new Date() }
+    })
+    dispatch('userInfo/changeUser', { data: res.user })
+    router.push('/')
+  } catch (err) {
+    loginRef?.value?.getImgCode()
+  }
 }
 
 const getCode = (value: FormState) => {
-  console.log(value)
   return Promise.resolve()
 }
 
-onMounted(async () => {
-  const system = new System()
-  const data = await system.getRoleList({ pageNum: 1, pageSize: 10 })
-  // system.get
-
-  console.log(system, 'System', data)
-})
+onMounted(async () => {})
 </script>

@@ -44,22 +44,20 @@ export const loginLogSchema: TableProps['schema'] = {
         },
         {
           title: '姓名',
-          dataIndex: 'money',
+          dataIndex: 'userName',
           format: 'money'
         },
         {
           title: '手机号码',
-          dataIndex: 'currency',
-          format: 'money'
+          dataIndex: 'currency'
         },
         {
           title: '角色',
-          dataIndex: 'detail',
-          format: 'money'
+          dataIndex: 'detail'
         },
         {
           title: '系统登陆日期',
-          dataIndex: 'status'
+          dataIndex: 'ctime'
         },
         {
           title: '登陆IP',
@@ -67,8 +65,7 @@ export const loginLogSchema: TableProps['schema'] = {
         },
         {
           title: '登陆状态',
-          dataIndex: 'level',
-          fixed: 'right'
+          dataIndex: 'status'
         }
       ]
     }

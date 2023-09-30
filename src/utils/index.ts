@@ -1,9 +1,9 @@
-import { isEmpty } from 'wa-utils'
+import { cookie, isEmpty } from 'wa-utils'
 
 export const isLogin = () => {
-  return !isEmpty(localStorage.getItem('token'))
+  return !isEmpty(cookie.get('Admin-Token'))
 }
 
 export const logout = () => {
-  localStorage.removeItem('token')
+  cookie.remove('Admin-Token')
 }

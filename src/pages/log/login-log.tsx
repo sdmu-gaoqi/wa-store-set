@@ -6,10 +6,9 @@ import log from '@/servers/log'
 const LoginLog = defineComponent({
   render: () => {
     return (
-      <TableRender
-        schema={loginLogSchema}
-        request={log.getLoginLog as any}
-      ></TableRender>
+      <TableRender schema={loginLogSchema} request={log.getLoginLog as any}>
+        <div>aaaaaa</div>
+      </TableRender>
     )
   }
 })

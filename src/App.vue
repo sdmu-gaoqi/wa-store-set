@@ -36,16 +36,23 @@ import { onMounted } from 'vue'
 import { cookie } from 'wa-utils'
 import user from './servers/user'
 import store from '@/store/store'
+import { useRouter } from 'vue-router'
 const { dispatch } = store
-window.onError = (msg) => {
-  message.error(msg)
-}
 onMounted(() => {
   const token = cookie.get('Admin-Token')
+  const router = useRouter()
   if (token) {
-    user.getUserInfo().then((res) => {
-      dispatch('userInfo/changeUser', { data: res.user })
-    })
+    user
+      .getUserInfo()
+      .then((res) => {
+        dispatch('userInfo/changeUser', { data: res.user })
+      })
+      .catch((err) => {
+        if (err.code === 401) {
+          route.push('login')
+          cookie.remove('Admin-Token')
+        }
+      })
   }
 })
 </script>
