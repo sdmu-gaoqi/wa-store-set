@@ -44,7 +44,8 @@ const onFinish = async (value: FormState) => {
     dispatch('userInfo/changeUser', { data: res.user })
     router.push('/')
   } catch (err) {
-    loginRef?.value?.getImgCode()
+    const loginCurrent = loginRef.value as any
+    loginCurrent?.getImgCode()
   }
 }
 
