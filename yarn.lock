@@ -5896,10 +5896,10 @@ stop-iteration-iterator@^1.0.0:
   dependencies:
     internal-slot "^1.0.4"
 
-store-operations-ui@^0.2.5:
-  version "0.2.5"
-  resolved "https://registry.npmjs.org/store-operations-ui/-/store-operations-ui-0.2.5.tgz#e91a3a4940d8fea13c999bcb18090ba626dfa8c3"
-  integrity sha512-8K9lUqfHiOWQxBn7/0FYzv/224cIR5s+DjxC94pSB43ROXCv4mGpsa5zsTKRMUyYI4zGC3uhrTfeM8g4bcoIUw==
+store-operations-ui@^0.2.6:
+  version "0.2.6"
+  resolved "https://registry.npmjs.org/store-operations-ui/-/store-operations-ui-0.2.6.tgz#50010541d34df92cae3492ecf29cf2905a4c81a5"
+  integrity sha512-g8+pHtCjjjnlHWMn6zXBYrLwF1JBpg4T8pkACsi3cHKY7sQVM0HjS+PV5AHlS2bV076q2mv88e2Q2r2lMbwRSg==
   dependencies:
     "@vitejs/plugin-vue" "^4.2.3"
     "@vitejs/plugin-vue-jsx" "^3.0.1"
@@ -5913,24 +5913,12 @@ store-operations-ui@^0.2.5:
     postcss "^8.4.28"
     prettier "^3.0.0"
     sass "^1.64.1"
-    store-request "^0.0.3"
+    store-request "^0.0.4"
     url "^0.11.1"
     vue "^3.3.4"
     vue-hooks-plus "^1.8.2"
     vue-tsc "^1.8.5"
     wa-utils "0.1.6"
-
-store-request@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.npmjs.org/store-request/-/store-request-0.0.3.tgz#1e25d8f92af40e3a0abedca1935078a629d8da7d"
-  integrity sha512-nVVa5tBmMBUL6UNpyf+u8EUOZqKHqUZCIDb6SX4sllBe7CHFBIxGUXnm9C70ARXOD11t3W7A/8vRPfvnR/9rNA==
-  dependencies:
-    "@types/lodash" "^4.14.198"
-    axios "^1.4.0"
-    copy-to-clipboard "^3.3.3"
-    dayjs "^1.11.9"
-    lodash "^4.17.21"
-    wa-utils "^0.2.1"
 
 store-request@^0.0.4:
   version "0.0.4"

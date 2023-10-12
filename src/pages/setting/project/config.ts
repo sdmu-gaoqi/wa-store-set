@@ -21,69 +21,49 @@ export const schema: TableProps['schema'] = {
       columns: [
         {
           fixed: true,
-          title: '会员编号',
-          dataIndex: 'orderId'
+          title: '项目编号',
+          dataIndex: 'no'
         },
         {
-          title: '会员卡号',
-          dataIndex: 'money',
-          format: 'money'
-        },
-        {
-          title: '姓名',
-          dataIndex: 'currency',
-          format: 'money'
-        },
-        {
-          title: '手机号码',
-          dataIndex: 'detail',
-          format: 'money'
-        },
-        {
-          title: '订单状态',
-          dataIndex: 'status'
-        },
-        {
-          title: '会员姓名',
+          title: '服务项目',
           dataIndex: 'name'
         },
         {
-          title: '会员等级',
-          dataIndex: 'level'
+          title: '项目价格 /元',
+          dataIndex: 'currency'
         },
         {
-          title: '手机号',
-          dataIndex: 'phone'
+          title: '项目时长/分钟',
+          dataIndex: 'time'
         },
         {
-          title: '会员等级',
-          dataIndex: 'homeCode'
+          title: '启用状态',
+          dataIndex: 'status'
         },
         {
-          title: '会员卡余额',
-          dataIndex: 'cardMoney'
+          title: '所属门店',
+          dataIndex: 'store'
+        },
+        {
+          title: '排钟提成/元',
+          dataIndex: 'number1'
+        },
+        {
+          title: '点钟提成/元',
+          dataIndex: 'number2'
         },
         {
           title: '创建日期',
-          dataIndex: 'createTime'
+          dataIndex: 'createAt'
         },
         {
-          title: '开卡日期',
-          dataIndex: 'cardTime'
+          title: '修改日期',
+          dataIndex: 'editAt'
         },
         {
-          title: '最近消费日期',
-          dataIndex: 'payTime'
-        },
-        {
-          title: '备注',
-          dataIndex: 'desc'
-        },
-        {
-          fixed: 'right',
           title: '操作',
           dataIndex: 'options',
-          options: ['detail']
+          fixed: 'right'
         }
       ]
     }

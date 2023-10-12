@@ -41,69 +41,49 @@ export const schema: TableProps['schema'] = {
       columns: [
         {
           fixed: true,
-          title: '会员编号',
-          dataIndex: 'orderId'
-        },
-        {
-          title: '会员卡号',
-          dataIndex: 'money',
-          format: 'money'
+          title: '员工工号',
+          dataIndex: 'no'
         },
         {
           title: '姓名',
-          dataIndex: 'currency',
-          format: 'money'
-        },
-        {
-          title: '手机号码',
-          dataIndex: 'detail',
-          format: 'money'
-        },
-        {
-          title: '订单状态',
-          dataIndex: 'status'
-        },
-        {
-          title: '会员姓名',
           dataIndex: 'name'
         },
         {
-          title: '会员等级',
-          dataIndex: 'level'
-        },
-        {
-          title: '手机号',
+          title: '手机号码',
           dataIndex: 'phone'
         },
         {
-          title: '会员等级',
-          dataIndex: 'homeCode'
+          title: '角色',
+          dataIndex: 'role'
         },
         {
-          title: '会员卡余额',
-          dataIndex: 'cardMoney'
+          title: '性别',
+          dataIndex: 'gender'
+        },
+        {
+          title: '帐号状态',
+          dataIndex: 'status'
+        },
+        {
+          title: '所属门店',
+          dataIndex: 'store'
         },
         {
           title: '创建日期',
-          dataIndex: 'createTime'
+          dataIndex: 'createAt'
         },
         {
-          title: '开卡日期',
-          dataIndex: 'cardTime'
+          title: '入职日期',
+          dataIndex: 'ruzhiAt'
         },
         {
-          title: '最近消费日期',
-          dataIndex: 'payTime'
+          title: '离职日期',
+          dataIndex: 'lizhiAt'
         },
         {
-          title: '备注',
-          dataIndex: 'desc'
-        },
-        {
-          fixed: 'right',
           title: '操作',
           dataIndex: 'options',
-          options: ['detail']
+          fixed: 'right'
         }
       ]
     }

@@ -1,81 +1,110 @@
 <template>
   <a-layout>
-    <a-layout-header class="header !bg-[#3b3b3b]">
-      <div
-        class="text-white text-[18px] font-bold cursor-pointer select-none flex justify-between"
-      >
-        门店管理系统
-        <a-dropdown>
-          <div>{{ userInfo?.userInfo.userName || '测试用户' }}</div>
-          <template #overlay
-            ><div
-              class="p-[10px] bg-white shadow-lg cursor-pointer hover:bg-primary hover:text-white relative top-[-10px] text-center"
-              @click="onLogout"
-            >
-              退出登录
-            </div></template
-          >
-        </a-dropdown>
+    <a-layout-sider
+      width="200"
+      style="background: #7749a3"
+      class="shadow-lg sider"
+      collapsible
+    >
+      <div class="flex justify-center items-center flex-wrap pt-[20px]">
+        <img
+          src="https://tse1-mm.cn.bing.net/th/id/OIP-C.aMo33QDFG8U9D5fPZqmB9wHaHa"
+          class="rounded-full w-[66px] h-[66px]"
+        />
+        <div class="w-[100%] text-[#fff] text-center text-[16px] my-[10px]">
+          管理员
+        </div>
       </div>
-    </a-layout-header>
-    <a-layout>
-      <a-layout-sider
-        width="200"
-        style="background: #fff"
-        class="shadow-lg"
-        collapsible
+      <a-menu
+        v-model:selectedKeys="activeKey"
+        :style="{ height: '100%', borderRight: 0 }"
+        mode="vertical"
       >
-        <a-menu
-          v-model:selectedKeys="activeKey"
-          :style="{ height: '100%', borderRight: 0 }"
-          mode="vertical"
+        <a-menu-item
+          v-for="item in menus.filter((item) => !item.children)"
+          :key="item.key"
         >
-          <a-sub-menu v-for="item in menus" :key="item.key">
-            <template #icon v-if="item.icon"
-              ><img :src="item.icon" class="w-[20px]"
-            /></template>
-            <template #title>
-              <span>
-                <user-outlined />
-                {{ item.title }}
-              </span>
-            </template>
-            <a-menu-item
-              v-for="childrenItem in item.children"
-              :key="childrenItem.key"
-            >
-              <RouterLink :to="childrenItem.path">
-                {{ childrenItem?.title }}
-              </RouterLink>
-            </a-menu-item>
-          </a-sub-menu>
-        </a-menu>
-      </a-layout-sider>
-      <a-layout style="padding: 0 0 0 12px">
-        <a-layout-content
-          :style="{
-            background: '#fff',
-            padding: '24px',
-            margin: 0,
-            minHeight: '280px',
-            maxHeight: '100vh',
-            overflow: 'hidden auto'
-          }"
-          class="shadow-lg"
+          <template #icon v-if="item.icon"
+            ><img :src="item.icon" class="w-[16px]"
+          /></template>
+          <RouterLink :to="item.path">
+            {{ item?.title }}
+          </RouterLink>
+        </a-menu-item>
+        <a-sub-menu
+          v-for="item in menus.filter((item) => item.children)"
+          :key="item.key"
         >
-          <a-breadcrumb
-            v-if="!routerData?.path.includes('workbench')"
-            class="relative top-[-10px]"
+          <template #icon v-if="item.icon"
+            ><img :src="item.icon" class="w-[20px]"
+          /></template>
+          <template #title>
+            <span>
+              <user-outlined />
+              {{ item.title }}
+            </span>
+          </template>
+          <a-menu-item
+            v-for="childrenItem in item.children"
+            :key="childrenItem.key"
           >
-            <a-breadcrumb-item v-for="item in matched">
-              <RouterLink :to="item.path || '/workbench'">
-                <span class="text-[#bbb] font-bold">{{ item.name }}</span>
-              </RouterLink>
-            </a-breadcrumb-item>
-          </a-breadcrumb>
-          <RouterView />
-        </a-layout-content>
-      </a-layout>
+            <RouterLink :to="childrenItem.path">
+              {{ childrenItem?.title }}
+            </RouterLink>
+          </a-menu-item>
+        </a-sub-menu>
+      </a-menu>
+    </a-layout-sider>
+    <a-layout class="bg-[#f9f8fd]">
+      <a-layout-header class="header !bg-[#fff]">
+        <div
+          class="text-white text-[18px] font-bold cursor-pointer select-none flex justify-between"
+        >
+          门店管理系统
+          <a-dropdown
+            class="h-[50px] text-[#bbb] flex justify-center items-center"
+          >
+            <div>
+              <img
+                src="https://tse1-mm.cn.bing.net/th/id/OIP-C.aMo33QDFG8U9D5fPZqmB9wHaHa"
+                class="w-[30px] h-[30px] mr-[5px] rounded-full"
+              />
+              {{ userInfo?.userInfo.userName || '测试用户' }}
+            </div>
+            <template #overlay
+              ><div
+                class="p-[10px] bg-white shadow-lg cursor-pointer hover:bg-primary hover:text-white relative top-[-10px] text-center"
+                @click="onLogout"
+              >
+                退出登录
+              </div></template
+            >
+          </a-dropdown>
+        </div>
+      </a-layout-header>
+      <a-layout-content
+        :style="{
+          background: '#fff',
+          margin: '12px 12px 0',
+          padding: '20px',
+          minHeight: '280px',
+          maxHeight: '100vh',
+          overflow: 'hidden auto'
+        }"
+        class="shadow-lg"
+      >
+        <a-breadcrumb
+          v-if="!routerData?.path.includes('workbench')"
+          class="relative top-[-10px]"
+        >
+          <a-breadcrumb-item v-for="item in matched">
+            <RouterLink :to="item.path || '/workbench'">
+              <span class="text-[#bbb] font-bold">{{ item.name }}</span>
+            </RouterLink>
+          </a-breadcrumb-item>
+        </a-breadcrumb>
+        <RouterView />
+      </a-layout-content>
     </a-layout>
   </a-layout>
 </template>
@@ -91,6 +120,7 @@ import 门店 from '@/assets/门店.svg'
 import 运营 from '@/assets/运营.svg'
 import 设置 from '@/assets/设置.svg'
 import 日志 from '@/assets/日志.svg'
+import 工作台 from '@/assets/工作台.svg'
 import store from '@/store/store'
 import { isLogin, logout } from '@/utils'
 
@@ -112,12 +142,17 @@ watch(
 )
 const menus = ref([
   {
+    title: '工作台',
+    key: 'workbench',
+    path: '/workbench',
+    icon: 工作台
+  },
+  {
     title: '订单管理',
     key: 'order',
     children: [
       { title: '订单列表', path: '/order/list', key: 'order-list' },
-      { title: '订单未创建', path: '/order/created', key: 'order-created' },
-      { title: '订单已创建', path: '/order/unCreate', key: 'order-unCreate' }
+      { title: '创建订单', path: '/order/create', key: 'order-create' }
     ],
     path: '/order',
     icon: 订单
@@ -125,7 +160,10 @@ const menus = ref([
   {
     title: '会员管理',
     key: 'member',
-    children: [{ title: '会员列表', path: '/member/list', key: 'member-list' }],
+    children: [
+      { title: '会员列表', path: '/member/list', key: 'member-list' },
+      { title: '会员模式', path: '/member/type/list', key: 'member-type-list' }
+    ],
     path: '/member',
     icon: 会员
   },
@@ -158,10 +196,19 @@ const menus = ref([
     icon: 门店
   },
   {
-    title: '运营管理',
-    key: 'operation',
+    title: '统计报表',
+    key: 'chart',
     children: [
-      { title: '充值规则', path: '/operation/list', key: 'operation-list' }
+      {
+        title: '营业额统计',
+        path: '/chart/turnover/list',
+        key: 'turnover-list'
+      },
+      {
+        title: '员工业绩统计',
+        path: '/chart/outstanding/list',
+        key: 'outstanding-list'
+      }
     ],
     path: '/operation',
     icon: 运营
@@ -172,7 +219,7 @@ const menus = ref([
     children: [
       { title: '房间列表', path: '/room/list', key: 'home-list' },
       { title: '房间类型', path: '/room-type/list', key: 'room-type-list' },
-      { title: '服务项目设置', path: '/project/list', key: 'project-list' },
+      { title: '价目表设置', path: '/project/list', key: 'project-list' },
       { title: '支付方式设置', path: '/pay-type', key: 'pay-type' },
       { title: '营业额标准设置', path: '/turnover', key: 'turnover' }
     ],
@@ -202,3 +249,15 @@ const onLogout = () => {
   router.push('/login')
 }
 </script>
+
+<style scoped lang="scss">
+.header {
+  height: 50px !important;
+}
+.sider {
+  .ant-menu.ant-menu-root.ant-menu-vertical {
+    background: #7749a3;
+    color: #fff;
+  }
+}
+</style>

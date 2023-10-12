@@ -8,24 +8,32 @@
         <a type="link" class="table-btn last">编辑</a>
       </div>
       <template v-else>{{ data.text }}</template>
-    </template></TableRender
-  >
+    </template>
+  </TableRender>
 </template>
 
 <script lang="ts" setup>
 import { TableRender } from 'store-operations-ui'
 import { schema } from './config'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const goAdd = () => {
+  router.push('/operation/add')
+}
 
 const mockData = [
   {
-    no: '001',
-    bannerName: '天天好',
-    storeName: '总店',
-    address: '上海市黄浦区人民广场',
-    phone1: '021-57678888',
-    phone2: '15555555555',
-    yyAt: '10:00:00-23:00:00',
-    createAt: '2022-10-01'
+    month: '2022-12月',
+    no: '2',
+    name: '王小明',
+    number1: '200',
+    number2: '150',
+    number3: '50',
+    userNumber: '120',
+    number4: '18000.00',
+    number5: '14400.00'
   }
 ]
 </script>

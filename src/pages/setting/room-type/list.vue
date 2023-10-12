@@ -1,5 +1,9 @@
 <template>
-  <TableRender :schema="schema">
+  <TableRender
+    :schema="schema"
+    :list="mockData"
+    :table-props="{ scroll: { x: 1000 } }"
+  >
     <template #formButton
       ><a-button type="primary" :onClick="goAdd" class="ml-[10px]"
         >新增房间类型</a-button
@@ -28,4 +32,13 @@ const router = useRouter()
 const goAdd = () => {
   router.push('/room-type/add')
 }
+
+const mockData = [
+  {
+    no: '1',
+    type: '单人间',
+    number: '1',
+    createAt: '2022-10-01'
+  }
+]
 </script>

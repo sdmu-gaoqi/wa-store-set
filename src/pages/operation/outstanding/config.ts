@@ -1,7 +1,7 @@
 import { TableProps } from 'store-operations-ui'
 
 export const schema: TableProps['schema'] = {
-  title: '营业额统计',
+  title: '员工业绩统计',
   form: {
     search: true,
     export: false,
@@ -12,6 +12,16 @@ export const schema: TableProps['schema'] = {
         label: '月份',
         key: 'createTime',
         format: 'month'
+      },
+      {
+        type: 'search',
+        label: '工号',
+        key: 'name'
+      },
+      {
+        type: 'search',
+        label: '姓名',
+        key: 'status'
       }
     ]
   },
@@ -22,57 +32,52 @@ export const schema: TableProps['schema'] = {
       columns: [
         {
           fixed: true,
-          title: '日期',
-          dataIndex: 'time'
+          title: '月份',
+          dataIndex: 'month'
         },
         {
-          title: '非会员',
-          dataIndex: 'a1',
+          title: '工号',
+          dataIndex: 'no'
+        },
+        {
+          title: '姓名',
+          dataIndex: 'name'
+        },
+        {
+          title: '钟数',
+          dataIndex: 'detail',
           children: [
             {
+              title: '总钟数/小时',
+              dataIndex: 'number1'
+            },
+            {
+              title: '排钟/小时',
+              dataIndex: 'number2'
+            },
+            {
+              title: '点钟/小时',
+              dataIndex: 'number3'
+            },
+            {
               title: '客数',
-              dataIndex: 'a1Number'
-            },
-            {
-              title: '支付宝/元',
-              dataIndex: 'a1Zfb'
-            },
-            {
-              title: '微信/元',
-              dataIndex: 'a1Wx'
-            },
-            {
-              title: '现金/元',
-              dataIndex: 'a1Rmb'
+              dataIndex: 'userNumber'
             }
           ]
         },
         {
-          title: '会员',
-          dataIndex: 'a2',
+          title: '贡献营业额',
+          dataIndex: 'status',
           children: [
             {
-              title: '客数',
-              dataIndex: 'a2Number'
+              title: '项目原价/元',
+              dataIndex: 'number4'
             },
             {
-              title: '支付宝/元',
-              dataIndex: 'a2Zfb'
-            },
-            {
-              title: '微信/元',
-              dataIndex: 'a2Wx'
-            },
-            {
-              title: '现金/元',
-              dataIndex: 'a2Rmb'
+              title: '优惠后/元',
+              dataIndex: 'number5'
             }
           ]
-        },
-        {
-          fixed: 'right',
-          title: '日营业额/元',
-          dataIndex: 'money'
         }
       ]
     }

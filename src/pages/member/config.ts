@@ -52,17 +52,17 @@ export const schema: TableProps['schema'] = {
         {
           fixed: true,
           title: '会员卡号',
-          dataIndex: 'money',
+          dataIndex: 'card',
           format: 'money'
         },
         {
           title: '姓名',
-          dataIndex: 'currency',
+          dataIndex: 'name',
           format: 'money'
         },
         {
           title: '手机号',
-          dataIndex: 'detail',
+          dataIndex: 'phone',
           format: 'money'
         },
         {
@@ -75,19 +75,19 @@ export const schema: TableProps['schema'] = {
         },
         {
           title: '会员状态',
-          dataIndex: 'level'
+          dataIndex: 'status'
         },
         {
           title: '累计消费金额',
-          dataIndex: 'phone'
+          dataIndex: 'money'
         },
         {
           title: '会员卡余额',
-          dataIndex: 'cardMoney'
+          dataIndex: 'yue'
         },
         {
           title: '积分',
-          dataIndex: 'createTime'
+          dataIndex: 'jifen'
         },
         {
           title: '开卡日期',
@@ -145,9 +145,33 @@ export const editSchema = {
     recharge: [{ required: true, message: '请选择是否充值' }],
     money: [{ required: true, message: '请输入充值金额' }],
     giveMoney: [{ required: true, message: '请输入赠送金额' }],
-    payType: [{ required: true, message: '请选择充值方式' }]
+    payType: [{ required: true, message: '请选择充值方式' }],
+    memberType: [{ required: true, message: '请选择会员模式' }]
   },
   properties: {
+    'op-group-0': {
+      title: '会员模式'
+    },
+    memberType: {
+      title: '会员模式',
+      type: 'string',
+      props: {
+        style: {
+          width: '100%'
+        },
+        options: [
+          {
+            label: '根据充值金额,设置会员优惠折扣',
+            value: '1'
+          },
+          {
+            label: '购买次卡,设置项目优惠次数',
+            value: '2'
+          }
+        ]
+      },
+      widget: 'radio'
+    },
     'op-group-1': {
       title: '会员信息'
     },
@@ -253,14 +277,6 @@ export const editSchema = {
     },
     money: {
       title: '充值金额',
-      type: 'number',
-      widget: 'input',
-      props: {
-        type: 'number'
-      }
-    },
-    giveMoney: {
-      title: '赠送金额',
       type: 'number',
       widget: 'input',
       props: {

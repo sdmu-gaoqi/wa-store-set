@@ -20,7 +20,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'workbench',
         name: '工作台',
-        component: () => import('./pages/order/list.vue')
+        component: () => import('./pages/workbench/workbench')
       },
       {
         path: '/order',
@@ -33,6 +33,11 @@ const routes: RouteRecordRaw[] = [
             path: 'list',
             name: '订单列表页',
             component: () => import('./pages/order/list.vue')
+          },
+          {
+            path: 'create',
+            name: '订单创建',
+            component: () => import('./pages/order/create')
           }
         ]
       },
@@ -52,6 +57,17 @@ const routes: RouteRecordRaw[] = [
             path: 'add',
             name: '新增会员',
             component: () => import('./pages/member/add.vue')
+          },
+          {
+            path: 'type/list',
+            name: '会员模式',
+            component: () => import('./pages/member/type/list.vue')
+          },
+
+          {
+            path: 'type/add',
+            name: '设置会员模式',
+            component: () => import('./pages/member/type/add.vue')
           }
         ]
       },
@@ -118,21 +134,21 @@ const routes: RouteRecordRaw[] = [
         ]
       },
       {
-        path: '/operation',
-        name: '运营管理',
+        path: '/chart',
+        name: '统计报表',
         redirect: () => {
           return { path: 'list' }
         },
         children: [
           {
-            path: 'list',
-            name: '充值赠送规则',
+            path: 'turnover/list',
+            name: '营业额统计',
             component: () => import('./pages/operation/list.vue')
           },
           {
-            path: 'add',
-            name: '新增充值赠送规则',
-            component: () => import('./pages/operation/add.vue')
+            path: 'outstanding/list',
+            name: '员工业绩统计',
+            component: () => import('./pages/operation/outstanding/list.vue')
           }
         ]
       },
