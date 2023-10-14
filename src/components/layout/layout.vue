@@ -2,7 +2,7 @@
   <a-layout>
     <a-layout-sider
       width="200"
-      style="background: #7749a3"
+      style="background: #6300bb"
       class="shadow-lg sider"
       collapsible
     >
@@ -55,8 +55,8 @@
         </a-sub-menu>
       </a-menu>
     </a-layout-sider>
-    <a-layout class="bg-[#f9f8fd]">
-      <a-layout-header class="header !bg-[#fff]">
+    <a-layout class="bg-[#f9f8fd] overflow-x-hidden overflow-y-auto">
+      <a-layout-header class="header sticky top-0 z-[999] !bg-[#fff]">
         <div
           class="text-white text-[18px] font-bold cursor-pointer select-none flex justify-between"
         >
@@ -84,12 +84,9 @@
       </a-layout-header>
       <a-layout-content
         :style="{
-          background: '#fff',
-          margin: '12px 12px 0',
           padding: '20px',
-          minHeight: '280px',
-          maxHeight: '100vh',
-          overflow: 'hidden auto'
+          background: '#f9f9f9',
+          minHeight: 'unset'
         }"
         class="shadow-lg"
       >
@@ -256,7 +253,7 @@ const onLogout = () => {
 }
 .sider {
   .ant-menu.ant-menu-root.ant-menu-vertical {
-    background: #7749a3;
+    background: #6300bb;
     color: #fff;
   }
 }

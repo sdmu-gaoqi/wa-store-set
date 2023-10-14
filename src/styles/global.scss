@@ -1,6 +1,12 @@
 html {
   font-size: 16px;
 
+  ul {
+    li {
+      list-style: none;
+    }
+  }
+
   ::-webkit-scrollbar {
     width: 6px;
     /* 纵向滚动条*/
@@ -79,7 +85,7 @@ html {
 }
 
 .ant-layout-sider-trigger {
-  background-color: #7749a3 !important;
+  background-color: #6300bb !important;
   svg {
     path {
       fill: #fff;

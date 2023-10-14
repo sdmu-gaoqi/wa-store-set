@@ -4,7 +4,7 @@
   <a-config-provider
     :theme="{
       token: {
-        colorPrimary: '#7749a3',
+        colorPrimary: '#6300bb',
         colorTextBase: '#6a6d82',
         colorBgBase: '#fff',
         borderRadius: 20
