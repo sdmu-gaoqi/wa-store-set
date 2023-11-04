@@ -1,4 +1,4 @@
-import { TableProps } from 'store-operations-ui'
+import { Schema, TableProps } from 'store-operations-ui'
 import { isEmpty } from 'wa-utils'
 import { isTelNumber } from 'wa-utils/dist/regex/regex'
 
@@ -124,7 +124,7 @@ export const schema: TableProps['schema'] = {
   }
 }
 
-export const editSchema = {
+export const editSchema: Schema = {
   type: 'object',
   rules: {
     card: [{ required: true, message: '请输入会员卡号' }],

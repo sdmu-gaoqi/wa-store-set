@@ -7,18 +7,36 @@
   >
     <template #bodyCell="{ data }">
       <template v-if="data.column.dataIndex === 'options'"
-        ><a-button type="primary" :ghost="true">详情</a-button></template
+        ><a-button
+          type="primary"
+          :ghost="true"
+          @click="
+            () => {
+              open = true
+            }
+          "
+          >结算</a-button
+        ></template
       >
-      <a-switch v-else-if="data.column.dataIndex === 'status'"></a-switch>
+      <template v-else-if="data.column.dataIndex === 'status'">进行中</template>
       <template v-else>{{ data.text }}</template>
     </template>
   </TableRender>
+  <BusinessModal
+    :open="open"
+    :onCancel="() => (open = false)"
+    :type="BusinessModalType.会员结算"
+  />
 </template>
 
 <script lang="ts" setup>
 import { TableRender } from 'store-operations-ui'
 import { schema } from './config'
 import { ref } from 'vue'
+import BusinessModal from '@/components/businessModal/businessModal'
+import { BusinessModalType } from '@/components/businessModal/businessModal.type'
+
+const open = ref(false)
 
 const activeKey = ref('')
 

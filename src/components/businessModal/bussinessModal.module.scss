@@ -1,0 +1,18 @@
+.formModal {
+  :global {
+    .ant-modal-content {
+      padding-bottom: 0;
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .ant-modal-content {
+      overflow: hidden;
+    }
+    .ant-modal-header {
+      padding: 0 16px;
+    }
+    .op-ui-form-render-body {
+      max-height: 80vh;
+    }
+  }
+}

@@ -50,7 +50,7 @@
     "path": "^0.12.7",
     "prettier": "^3.0.0",
     "sass": "^1.64.1",
-    "store-operations-ui": "^0.2.8",
+    "store-operations-ui": "^0.3.2",
     "store-request": "^0.0.4",
     "url": "^0.11.1",
     "vite-plugin-mkcert": "^1.16.0",

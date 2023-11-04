@@ -11,25 +11,77 @@
         class="flex justify-center items-center"
       >
         <a type="link" class="table-btn">编辑</a>
-        <a type="link" class="table-btn">充值</a>
-        <a type="link" class="table-btn">充值记录</a>
-        <a type="link" class="table-btn">消费记录</a>
-        <a-popconfirm title="是否确认退卡" cancelText="取消" okText="确认">
-          <a type="link" class="table-btn-danger last">退卡</a>
-        </a-popconfirm>
+        <a
+          type="link"
+          class="table-btn"
+          @click="
+            () => {
+              businessModalType = BusinessModalType.会员充值
+              payOpen = true
+            }
+          "
+          >充值</a
+        >
+        <a
+          type="link"
+          class="table-btn"
+          @click="
+            () => {
+              businessModalType = BusinessModalType.会员充值记录
+              payOpen = true
+            }
+          "
+          >充值记录</a
+        >
+        <a
+          type="link"
+          class="table-btn"
+          @click="
+            () => {
+              businessModalType = BusinessModalType.会员消费记录
+              payOpen = true
+            }
+          "
+          >消费记录</a
+        >
+        <a
+          type="link"
+          class="table-btn-danger last"
+          @click="
+            () => {
+              businessModalType = BusinessModalType.会员退卡
+              payOpen = true
+            }
+          "
+          >退卡</a
+        >
       </div>
       <a-switch v-else-if="data?.column?.dataIndex === 'status'"></a-switch>
       <template v-else>{{ data.text }}</template>
     </template>
   </TableRender>
+  <BusinessModal
+    :open="payOpen"
+    :onCancel="() => (payOpen = false)"
+    :type="businessModalType"
+  />
 </template>
 
 <script lang="ts" setup>
 import { TableRender } from 'store-operations-ui'
 import { schema } from './config'
 import { useRouter } from 'vue-router'
+import BusinessModal from '@/components/businessModal/businessModal'
+import { ref } from 'vue'
+import {
+  BusinessModalType,
+  BusinessModalTypes
+} from '@/components/businessModal/businessModal.type'
 
 const router = useRouter()
+
+const payOpen = ref(false)
+const businessModalType = ref<BusinessModalTypes>(BusinessModalType.会员充值)
 
 const goAdd = () => {
   router.push('/member/add')
