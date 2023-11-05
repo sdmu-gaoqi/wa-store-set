@@ -18,7 +18,7 @@
       <a-menu
         v-model:selectedKeys="activeKey"
         :style="{ height: '100%', borderRight: 0 }"
-        mode="vertical"
+        mode="inline"
       >
         <a-menu-item
           v-for="item in menus.filter((item) => !item.children)"
@@ -252,7 +252,8 @@ const onLogout = () => {
   height: 50px !important;
 }
 .sider {
-  .ant-menu.ant-menu-root.ant-menu-vertical {
+  .ant-menu.ant-menu-root.ant-menu-vertical,
+  .ant-menu.ant-menu-root.ant-menu-inline {
     background: #6300bb;
     color: #fff;
   }
