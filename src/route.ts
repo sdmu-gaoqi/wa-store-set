@@ -1,5 +1,9 @@
 import type { RouteRecordRaw } from 'vue-router'
-import { createRouter, createWebHistory } from 'vue-router'
+import {
+  createRouter,
+  createWebHashHistory,
+  createWebHistory
+} from 'vue-router'
 import Layout from './components/layout/layout.vue'
 import path from 'path'
 
@@ -244,7 +248,7 @@ const routes: RouteRecordRaw[] = [
 
 const route = createRouter({
   routes,
-  history: createWebHistory()
+  history: createWebHashHistory()
 })
 
 route.beforeEach((to, from, next) => {
