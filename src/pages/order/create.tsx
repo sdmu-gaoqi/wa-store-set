@@ -190,7 +190,9 @@ const CreateOrder = defineComponent({
                     const has = realChecked.filter(
                       (i) =>
                         i?.roomId === item.roomId ||
-                        item.orderItemInfo.some((i1) => i1.orderId == i.orderId)
+                        item.orderItemInfo.some(
+                          (i1: any) => i1.orderId == i.orderId
+                        )
                     )
                     if (isEmpty(has)) {
                       return message.error(`请选择${item.roomNo}的订单进行结算`)

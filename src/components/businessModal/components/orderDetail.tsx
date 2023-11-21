@@ -187,7 +187,7 @@ const OrderDetail = defineComponent({
     }
     onMounted(async () => {
       if (orderId) {
-        const res = await common.orderDetail({ orderId, orderNo })
+        const res = (await common.orderDetail({ orderId, orderNo })) as any
         formRef.value.changeState({
           orderNo: res?.data?.orderNo,
           originalPrice: res?.data?.originalPrice,

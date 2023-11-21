@@ -23,7 +23,7 @@ import { message } from 'ant-design-vue'
 
 const defaultSchema = ref()
 const loading = ref(false)
-const detailData = reactive({})
+const detailData = reactive<any>({})
 const router = useRouter()
 const {
   params: { id }
@@ -35,8 +35,8 @@ onMounted(() => {
     loading.value = true
     role
       .roleInfo(id as string)
-      .then((res) => {
-        const cloneSchema = cloneDeep(editSchema)
+      .then((res: any) => {
+        const cloneSchema = cloneDeep(editSchema) as any
         cloneSchema.properties.roleName.defaultValue = res?.data?.roleName
         cloneSchema.properties.status.defaultValue =
           Number(res?.data?.status) === 0

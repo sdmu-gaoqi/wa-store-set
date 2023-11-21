@@ -44,7 +44,7 @@
         v-else-if="data?.column?.dataIndex === 'enabled'"
         :checked="data.text == 1"
         @change="
-          (v) => {
+          (v: any) => {
             const value = v ? 1 : 0
             common
               .projectStatus({

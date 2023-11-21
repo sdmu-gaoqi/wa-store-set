@@ -99,7 +99,7 @@ export default defineComponent({
         tableProps={{
           scroll: { x: 900 }
         }}
-        request={(data) =>
+        request={(data: any) =>
           member.payLogs({
             ...data,
             memberId: props.formState.memberId

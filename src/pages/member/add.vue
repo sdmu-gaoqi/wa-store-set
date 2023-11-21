@@ -46,7 +46,7 @@ onMounted(() => {
   if (id) {
     member
       .memberDetail(id)
-      .then((res) => {
+      .then((res: any) => {
         if (formRef.value.changeState) {
           detailData.value = res.data
           const data = res?.data || {}

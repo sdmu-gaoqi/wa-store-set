@@ -42,7 +42,7 @@
         v-else-if="data?.column?.dataIndex === 'status'"
         :checked="data.record?.status == 0 ? true : false"
         @change="
-          (v) => {
+          (v: any) => {
             employee
               .status({ userId: data.record.userId, status: v ? 0 : 1 })
               .then(() => {
@@ -73,7 +73,9 @@ const tableRef = ref()
 onMounted(async () => {
   await role.roleMap()
   const cloneData = cloneDeep(schema)
-  cloneData.options.roleId = role.roles
+  if (cloneData.options) {
+    cloneData.options.roleId = role.roles
+  }
   schemaValue.value = cloneData
 })
 

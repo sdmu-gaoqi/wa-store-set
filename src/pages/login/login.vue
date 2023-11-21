@@ -30,7 +30,7 @@ interface FormState {
   uuid?: string
 }
 
-const onFinish = (res) => {
+const onFinish = (res: any) => {
   dispatch('userInfo/changeUser', { data: res.user })
   router.replace('/')
 }

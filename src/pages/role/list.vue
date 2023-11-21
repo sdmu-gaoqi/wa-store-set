@@ -35,8 +35,9 @@
         :checked="data?.record?.status == 0"
         @change="
           (v: boolean) => {
+            const s = v ? 0 : (1 as any)
             role
-              .roleStatus({ roleId: data?.record.roleId, status: v ? 0 : 1 })
+              .roleStatus({ roleId: data?.record.roleId, status: s })
               .then(() => {
                 data.record.status = data.record.status == 1 ? 0 : 1
               })
@@ -57,12 +58,12 @@ import { onMounted, reactive, ref } from 'vue'
 import { cloneDeep, isEmpty } from 'wa-utils'
 import { message } from 'ant-design-vue'
 
-const listSchema = reactive({})
+const listSchema = reactive<any>({})
 const tableRef = ref()
 
 const router = useRouter()
 
-const formatParams = (params) => {
+const formatParams = (params: any) => {
   if (params.createTime) {
     params.params = {
       beginTime: params.createTime,
@@ -76,7 +77,9 @@ const formatParams = (params) => {
 onMounted(async () => {
   const roleMap = await role.roleMap()
   const newSchema = cloneDeep(schema)
-  newSchema.options.roleId = roleMap
+  if (newSchema.options) {
+    newSchema.options.roleId = roleMap
+  }
   listSchema.value = newSchema
 })
 

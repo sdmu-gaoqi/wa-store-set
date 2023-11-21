@@ -67,7 +67,7 @@
             :fieldNames="{ label: 'name', value: 'code' }"
             :value="userInfo.userInfo.currentStoreCode"
             @change="
-              (_, r) => {
+              (_v: any, r: any) => {
                 common
                   .changeStore({ storeCode: r.code })
                   .then(() => {
@@ -156,7 +156,7 @@ const activeKey = ref<string[]>([])
 const matched = ref<Record<string, any>[]>([])
 const routerData = ref<Record<string, any>>({})
 const router = useRouter()
-const { data } = useRequest(() => s.list({ pageSize: 50 }))
+const { data } = useRequest(() => s.list({ pageSize: 50 })) as any
 
 watch(
   () => router.currentRoute.value,

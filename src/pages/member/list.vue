@@ -4,7 +4,7 @@
     :changeTab="changeTab"
     :request="member.list"
     :format-params="
-      (v) => {
+      (v: any) => {
         return v
       }
     "
