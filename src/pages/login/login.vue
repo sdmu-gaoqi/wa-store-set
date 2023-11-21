@@ -3,7 +3,7 @@
     <Login
       ref="loginRef"
       class="m-auto"
-      :on-finish="onFinish"
+      :login-after="onFinish"
       :get-code="getCode"
     ></Login>
   </div>
@@ -30,23 +30,9 @@ interface FormState {
   uuid?: string
 }
 
-const onFinish = async (value: FormState) => {
-  try {
-    const res = await user.login({
-      code: value.imgCode,
-      username: value.account,
-      password: value.password,
-      uuid: value.uuid
-    })
-    dispatch('userInfo/login', {
-      data: { account: value.account, token: +new Date() }
-    })
-    dispatch('userInfo/changeUser', { data: res.user })
-    router.push('/')
-  } catch (err) {
-    const loginCurrent = loginRef.value as any
-    loginCurrent?.getImgCode()
-  }
+const onFinish = (res) => {
+  dispatch('userInfo/changeUser', { data: res.user })
+  router.replace('/')
 }
 
 const getCode = (value: FormState) => {

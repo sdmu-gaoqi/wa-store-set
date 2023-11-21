@@ -8,10 +8,10 @@ export const schema: TableProps['schema'] = {
     reset: true,
     fields: [
       {
-        type: 'select',
+        type: 'search',
         label: '品牌',
         placeholder: '品牌',
-        key: 'banner'
+        key: 'headquartersCode'
       },
       {
         type: 'search',
@@ -34,15 +34,16 @@ export const schema: TableProps['schema'] = {
         {
           fixed: true,
           title: '门店编号',
-          dataIndex: 'no'
+          dataIndex: 'code',
+          width: 100
         },
         {
           title: '品牌名称',
-          dataIndex: 'bannerName'
+          dataIndex: 'headquartersCode'
         },
         {
           title: '门店名称',
-          dataIndex: 'storeName'
+          dataIndex: 'name'
         },
         {
           title: '门店地址',
@@ -50,32 +51,27 @@ export const schema: TableProps['schema'] = {
         },
         {
           title: '门店座机',
-          dataIndex: 'phone1'
+          dataIndex: 'tel'
         },
         {
           title: '门店手机号',
-          dataIndex: 'phone2'
+          dataIndex: 'phone'
         },
         {
           title: '营业时间',
-          dataIndex: 'yyAt'
+          dataIndex: 'businessHours'
         },
         {
           title: '创建日期',
-          dataIndex: 'createAt'
-        },
-        {
-          title: '操作',
-          dataIndex: 'options',
-          fixed: 'right'
+          dataIndex: 'createTime'
         }
+        // {
+        //   title: '操作',
+        //   dataIndex: 'options',
+        //   fixed: 'right'
+        // }
       ]
     }
   ],
-  options: {
-    banner: [
-      { label: '乐益生', value: 1 },
-      { label: '盲点', value: 2 }
-    ]
-  }
+  options: {}
 }

@@ -4,7 +4,7 @@ export const schema: TableProps['schema'] = {
   title: '订单列表',
   form: {
     search: true,
-    export: true,
+    export: false,
     reset: true,
     fields: [
       {
@@ -19,10 +19,11 @@ export const schema: TableProps['schema'] = {
       }
     ]
   },
+  tabKey: 'settleType',
   tabs: [
     {
       title: '会员订单',
-      key: 'one',
+      key: '1',
       columns: [
         {
           fixed: true,
@@ -82,7 +83,7 @@ export const schema: TableProps['schema'] = {
     },
     {
       title: '非会员订单',
-      key: 'two',
+      key: '0',
       columns: [
         {
           fixed: true,

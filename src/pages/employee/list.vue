@@ -1,5 +1,10 @@
 <template>
-  <TableRender :schema="schema" :list="mockData">
+  <TableRender
+    v-if="schemaValue"
+    :schema="schemaValue"
+    :request="employee.list"
+    ref="tableRef"
+  >
     <template #formButton>
       <a-button type="primary" class="ml-[10px]" :onClick="goAdd"
         >新增员工</a-button
@@ -10,10 +15,43 @@
         v-if="data?.column?.dataIndex === 'options'"
         class="flex justify-center items-center"
       >
-        <a type="link" class="table-btn">编辑</a>
-        <a type="link" class="table-btn-danger last">删除</a>
+        <a
+          type="link"
+          class="table-btn"
+          @click="
+            () => {
+              router.push(`/employee/edit/${data.record.userId}`)
+            }
+          "
+          >编辑</a
+        >
+        <a
+          type="link"
+          class="table-btn-danger last"
+          @click="
+            () =>
+              employee.delete(data.record.userId).then((res) => {
+                message.success('删除成功')
+                tableRef.run(tableRef.params)
+              })
+          "
+          >删除</a
+        >
       </div>
-      <a-switch v-else-if="data?.column?.dataIndex === 'status'"></a-switch>
+      <a-switch
+        v-else-if="data?.column?.dataIndex === 'status'"
+        :checked="data.record?.status == 0 ? true : false"
+        @change="
+          (v) => {
+            employee
+              .status({ userId: data.record.userId, status: v ? 0 : 1 })
+              .then(() => {
+                data.record.status = data.record?.status == 1 ? 0 : 1
+              })
+          }
+        "
+      ></a-switch>
+      <template v-else-if="data.customer">{{ data.customer }}</template>
       <template v-else>{{ data.text }}</template>
     </template>
   </TableRender>
@@ -23,21 +61,21 @@
 import { TableRender } from 'store-operations-ui'
 import { schema } from './config'
 import { useRouter } from 'vue-router'
+import employee from '@/servers/employee'
+import { onMounted, ref } from 'vue'
+import role from '@/servers/role'
+import { cloneDeep } from 'wa-utils'
+import { message } from 'ant-design-vue'
 
-const mockData = [
-  {
-    no: '000001',
-    name: '张三',
-    phone: '15555555555',
-    role: '收银员',
-    gender: '女',
-    status: true,
-    store: '上海黄浦区人民广场1店',
-    createAt: '2022-10-01',
-    ruzhiAt: '2022-10-01',
-    lizhiAt: '-'
-  }
-]
+const schemaValue = ref()
+const tableRef = ref()
+
+onMounted(async () => {
+  await role.roleMap()
+  const cloneData = cloneDeep(schema)
+  cloneData.options.roleId = role.roles
+  schemaValue.value = cloneData
+})
 
 const router = useRouter()
 

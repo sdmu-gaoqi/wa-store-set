@@ -2,7 +2,7 @@
   <a-layout>
     <a-layout-sider
       width="200"
-      style="background: #6300bb"
+      style="background: #6102fd"
       class="shadow-lg sider"
       collapsible
     >
@@ -12,13 +12,14 @@
           class="rounded-full w-[66px] h-[66px]"
         />
         <div class="w-[100%] text-[#fff] text-center text-[16px] my-[10px]">
-          管理员
+          {{ userInfo?.userInfo?.remark }}
         </div>
       </div>
       <a-menu
         v-model:selectedKeys="activeKey"
         :style="{ height: '100%', borderRight: 0 }"
         mode="inline"
+        id="sideMenu"
       >
         <a-menu-item
           v-for="item in menus.filter((item) => !item.children)"
@@ -58,9 +59,24 @@
     <a-layout class="bg-[#f9f8fd] overflow-x-hidden overflow-y-auto">
       <a-layout-header class="header sticky top-0 z-[999] !bg-[#fff]">
         <div
-          class="text-white text-[18px] font-bold cursor-pointer select-none flex justify-between"
+          class="text-primary text-[18px] font-bold cursor-pointer select-none flex justify-between items-center"
         >
-          门店管理系统
+          <a-select
+            class="w-[200px] h-[32px]"
+            :options="data?.data"
+            :fieldNames="{ label: 'name', value: 'code' }"
+            :value="userInfo.userInfo.currentStoreCode"
+            @change="
+              (_, r) => {
+                common
+                  .changeStore({ storeCode: r.code })
+                  .then(() => {
+                    changeLoginSuccess(r.code)
+                  })
+                  .catch((err: any) => changeLoginErr(err, r.code))
+              }
+            "
+          ></a-select>
           <a-dropdown
             class="h-[50px] text-[#bbb] flex justify-center items-center"
           >
@@ -69,7 +85,7 @@
                 src="https://tse1-mm.cn.bing.net/th/id/OIP-C.aMo33QDFG8U9D5fPZqmB9wHaHa"
                 class="w-[30px] h-[30px] mr-[5px] rounded-full"
               />
-              {{ userInfo?.userInfo.userName || '测试用户' }}
+              {{ userInfo?.userInfo?.userName || '测试用户' }}
             </div>
             <template #overlay
               ><div
@@ -94,7 +110,10 @@
           v-if="!routerData?.path.includes('workbench')"
           class="relative top-[-10px]"
         >
-          <a-breadcrumb-item v-for="item in matched">
+          <a-breadcrumb-item
+            v-for="(item, index) in matched"
+            v-bind:key="index"
+          >
             <RouterLink :to="item.path || '/workbench'">
               <span class="text-[#bbb] font-bold">{{ item.name }}</span>
             </RouterLink>
@@ -120,6 +139,14 @@ import 日志 from '@/assets/日志.svg'
 import 工作台 from '@/assets/工作台.svg'
 import store from '@/store/store'
 import { isLogin, logout } from '@/utils'
+import user from '@/servers/user'
+import scrollBar from 'smooth-scrollbar'
+import { useRequest } from 'vue-hooks-plus'
+import { Store as S } from 'store-request'
+import common from '@/servers/common'
+import { Modal } from 'ant-design-vue'
+
+const s = new S()
 
 const {
   state: { userInfo }
@@ -129,6 +156,8 @@ const activeKey = ref<string[]>([])
 const matched = ref<Record<string, any>[]>([])
 const routerData = ref<Record<string, any>>({})
 const router = useRouter()
+const { data } = useRequest(() => s.list({ pageSize: 50 }))
+
 watch(
   () => router.currentRoute.value,
   (newValue: any) => {
@@ -214,9 +243,9 @@ const menus = ref([
     title: '系统管理',
     key: 'setting',
     children: [
-      { title: '房间列表', path: '/room/list', key: 'home-list' },
+      { title: '房间管理', path: '/room/list', key: 'home-list' },
       { title: '房间类型', path: '/room-type/list', key: 'room-type-list' },
-      { title: '价目表设置', path: '/project/list', key: 'project-list' },
+      { title: '价目表信息', path: '/project/list', key: 'project-list' },
       { title: '支付方式设置', path: '/pay-type', key: 'pay-type' },
       { title: '营业额标准设置', path: '/turnover', key: 'turnover' }
     ],
@@ -236,14 +265,36 @@ const menus = ref([
 ])
 
 onMounted(() => {
+  const dom = document.querySelector('#sideMenu') as HTMLElement
+  if (dom && dom.classList.contains('ant-menu-inline')) {
+    scrollBar.init(dom, {
+      damping: 1,
+      alwaysShowTracks: true
+    })
+  }
   if (!isLogin()) {
-    router.push('login')
+    location.hash = '#/login'
   }
 })
 
-const onLogout = () => {
+const onLogout = async () => {
+  await user.logout()
   logout()
   router.push('/login')
+}
+
+const changeLoginSuccess = (code: any) => {
+  localStorage.setItem('storeCode', code)
+  location.reload()
+}
+const changeLoginErr = (err: any, code: any) => {
+  if (err?.code == 500) {
+    const params = new URLSearchParams(location.search)
+    params.append('storeCode', code)
+    location.href = `${location.origin}${
+      location.pathname
+    }?${params.toString()}#/login`
+  }
 }
 </script>
 
@@ -254,8 +305,41 @@ const onLogout = () => {
 .sider {
   .ant-menu.ant-menu-root.ant-menu-vertical,
   .ant-menu.ant-menu-root.ant-menu-inline {
-    background: #6300bb;
+    background: #6102fd;
     color: #fff;
+  }
+}
+</style>
+
+<style lang="scss">
+#sideMenu {
+  overflow: hidden;
+  height: calc(100% - 130px) !important;
+  .scrollbar-track.scrollbar-track-y {
+    background: transparent !important;
+  }
+  .scrollbar-thumb.scrollbar-thumb-y {
+    opacity: 0.4;
+    background: #fff;
+    width: 6px !important;
+    left: unset;
+    right: 0;
+  }
+}
+.ant-menu-inline-collapsed {
+  .ant-menu-item {
+    text-overflow: unset !important;
+  }
+  .ant-menu-submenu-title {
+    text-overflow: unset !important;
+  }
+  .ant-menu-title-content {
+    display: none !important;
+  }
+  .ant-menu-submenu.ant-menu-submenu-vertical {
+    i {
+      display: none !important;
+    }
   }
 }
 </style>

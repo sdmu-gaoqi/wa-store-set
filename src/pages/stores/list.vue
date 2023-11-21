@@ -1,5 +1,9 @@
 <template>
-  <TableRender :schema="schema" :list="mockData">
+  <TableRender
+    :schema="schema"
+    :request="store.loginList"
+    :tableProps="{ scroll: { x: 1600 } }"
+  >
     <template #bodyCell="{ data }">
       <div
         v-if="data?.column?.dataIndex === 'options'"
@@ -15,17 +19,7 @@
 <script lang="ts" setup>
 import { TableRender } from 'store-operations-ui'
 import { schema } from './config'
+import { Store } from 'store-request'
 
-const mockData = [
-  {
-    no: '001',
-    bannerName: '天天好',
-    storeName: '总店',
-    address: '上海市黄浦区人民广场',
-    phone1: '021-57678888',
-    phone2: '15555555555',
-    yyAt: '10:00:00-23:00:00',
-    createAt: '2022-10-01'
-  }
-]
+const store = new Store()
 </script>

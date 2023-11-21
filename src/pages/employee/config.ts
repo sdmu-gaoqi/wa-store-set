@@ -1,36 +1,42 @@
+import store from '@/store/store'
 import { TableProps } from 'store-operations-ui'
 import { isEmpty } from 'wa-utils'
 import { isTelNumber } from 'wa-utils/dist/regex/regex'
+
+import { Store } from 'store-request'
+import { PostMap } from '@/types'
+
+const storeRequest = new Store()
 
 export const schema: TableProps['schema'] = {
   title: '员工列表',
   form: {
     search: true,
-    export: true,
+    export: false,
     reset: true,
     fields: [
       {
         type: 'search',
         label: '工号',
         placeholder: '工号',
-        key: 'card'
+        key: 'userId'
       },
       {
         type: 'search',
         label: '姓名',
         placeholder: '姓名',
-        key: 'name'
+        key: 'userName'
       },
       {
         type: 'search',
         label: '手机号码',
         placeholder: '手机号码',
-        key: 'phone'
+        key: 'phonenumber'
       },
       {
         type: 'select',
         label: '角色',
-        key: 'role'
+        key: 'roleId'
       }
     ]
   },
@@ -42,23 +48,30 @@ export const schema: TableProps['schema'] = {
         {
           fixed: true,
           title: '员工工号',
-          dataIndex: 'no'
+          dataIndex: 'userId'
         },
         {
           title: '姓名',
-          dataIndex: 'name'
+          dataIndex: 'userName'
         },
         {
           title: '手机号码',
-          dataIndex: 'phone'
+          dataIndex: 'phonenumber'
         },
         {
           title: '角色',
-          dataIndex: 'role'
+          dataIndex: 'roleId'
         },
         {
           title: '性别',
-          dataIndex: 'gender'
+          dataIndex: 'sex',
+          options: [
+            { label: '男', value: '0' },
+            {
+              label: '女',
+              value: '1'
+            }
+          ]
         },
         {
           title: '帐号状态',
@@ -66,11 +79,12 @@ export const schema: TableProps['schema'] = {
         },
         {
           title: '所属门店',
-          dataIndex: 'store'
+          dataIndex: 'storeName'
         },
         {
           title: '创建日期',
-          dataIndex: 'createAt'
+          dataIndex: 'createTime',
+          format: 'date'
         },
         {
           title: '入职日期',
@@ -89,25 +103,21 @@ export const schema: TableProps['schema'] = {
     }
   ],
   options: {
-    role: [
-      { label: '收银', value: 1 },
-      { label: '技师', value: 2 },
-      { label: '店长', value: 3 },
-      { label: '老板', value: 4 }
-    ]
+    roleId: []
   }
 }
 
 export const editSchema = {
   type: 'object',
   rules: {
-    name: [{ required: true, message: '请输入员工姓名' }],
+    userName: [{ required: true, message: '请输入员工姓名' }],
     code: [{ required: true, message: '请输入工号' }],
-    phone: [
+    phonenumber: [
+      { required: true },
       {
         validator: (_: any, value: string) => {
           if (isEmpty(value)) {
-            return Promise.reject('请输入手机号码')
+            return Promise.resolve('')
           } else if (!isTelNumber(value)) {
             return Promise.reject('请输入正确的手机号')
           }
@@ -117,10 +127,16 @@ export const editSchema = {
     ],
     password: [{ required: true, message: '请输入登陆密码' }],
     role: [{ required: true, message: '请选择角色' }],
-    time: [{ required: true, message: '请选择入职日期' }]
+    time: [{ required: true, message: '请选择入职日期' }],
+    store: [{ required: true, message: '请选择所属门店' }]
   },
   properties: {
-    name: {
+    isLogin: {
+      title: '是否登录账号',
+      defaultValue: true,
+      widget: 'switch'
+    },
+    userName: {
       title: '姓名',
       type: 'string',
       props: {
@@ -136,13 +152,23 @@ export const editSchema = {
       },
       widget: 'input'
     },
-    phone: {
+    phonenumber: {
       title: '手机号',
       type: 'string',
       props: {
         placeholder: '请输入'
       },
       widget: 'input'
+    },
+    isTechnician: {
+      type: 'string',
+      props: {
+        placeholder: '请选择',
+        options: PostMap
+      },
+      defaultValue: true,
+      title: '是否技师',
+      widget: 'switch'
     },
     password: {
       title: '登陆密码',
@@ -157,29 +183,25 @@ export const editSchema = {
       type: 'array',
       widget: 'multiSelect',
       props: {
-        options: [
-          {
-            label: 'A',
-            value: 'A'
-          },
-          {
-            label: 'B',
-            value: 'B'
-          }
-        ],
+        options: [],
         placeholder: '请选择'
       }
     },
-    store: {
-      title: '所属门店',
-      type: 'string',
-      props: {
-        placeholder: '请输入',
-        readonly: true,
-        bordered: false
-      },
-      widget: 'input'
-    },
+    // store: {
+    //   title: '所属门店',
+    //   type: 'select',
+    //   search: {
+    //     request: storeRequest.list,
+    //     key: 'string', // 搜索的key
+    //     label: 'name', // label字段,
+    //     value: 'code', // value字段
+    //     dataKey: 'data' // 渲染的data
+    //   },
+    //   props: {
+    //     placeholder: '请输入'
+    //   },
+    //   widget: 'searchSelect'
+    // },
     time: {
       title: '入职日期',
       type: 'string',
@@ -191,26 +213,28 @@ export const editSchema = {
     status: {
       title: '账号状态',
       type: 'boolean',
-      widget: 'switch'
+      widget: 'switch',
+      defaultValue: true
     },
-    gender: {
+    sex: {
       title: '性别',
       type: 'string',
+      defaultValue: '0',
       props: {
         options: [
           {
             label: '男',
-            value: '1'
+            value: '0'
           },
           {
             label: '女',
-            value: '2'
+            value: '1'
           }
         ]
       },
       widget: 'radio'
     },
-    'fr-8046': {
+    remark: {
       title: '备注',
       type: 'string',
       props: {

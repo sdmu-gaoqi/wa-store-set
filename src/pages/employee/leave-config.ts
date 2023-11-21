@@ -6,7 +6,7 @@ export const schema: TableProps['schema'] = {
   title: '员工请假列表',
   form: {
     search: true,
-    export: true,
+    export: false,
     reset: true,
     fields: [
       {

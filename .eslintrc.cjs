@@ -9,6 +9,7 @@ module.exports = {
   },
   parser: '@typescript-eslint/parser',
   parserOptions: {
+    // Use babel-eslint for JavaScript
     parser: 'babel-eslint'
   },
   extends: [

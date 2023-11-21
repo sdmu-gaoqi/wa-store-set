@@ -1,25 +1,29 @@
+import { MemberType, memberTypes } from '@/types'
 import { Schema, TableProps } from 'store-operations-ui'
 import { isEmpty } from 'wa-utils'
 import { isTelNumber } from 'wa-utils/dist/regex/regex'
+import { Store } from 'store-request'
+
+const storeRequest = new Store()
 
 export const schema: TableProps['schema'] = {
   title: '会员列表',
   form: {
     search: true,
-    export: true,
+    export: false,
     reset: true,
     fields: [
       {
         type: 'search',
         label: '会员卡号',
         placeholder: '会员卡号',
-        key: 'card'
+        key: 'memberNo'
       },
       {
         type: 'search',
         label: '姓名',
         placeholder: '姓名',
-        key: 'name'
+        key: 'memberName'
       },
       {
         type: 'search',
@@ -29,18 +33,24 @@ export const schema: TableProps['schema'] = {
       },
       {
         type: 'select',
-        label: '会员等级',
-        key: 'level'
+        label: '会员类型',
+        key: 'memberType'
       },
       {
-        type: 'date',
-        label: '开发日期',
-        key: 'createTime'
+        type: 'range',
+        label: '开卡日期',
+        placeholder: ['开始时间', '结束时间'],
+        key: 'openStartTime',
+        format: 'timestamp',
+        names: ['openStartTime', 'openEndTime']
       },
       {
-        type: 'date',
+        type: 'range',
         label: '消费日期',
-        key: 'payTime'
+        placeholder: ['开始时间', '结束时间'],
+        key: 'latestSpendTime',
+        format: 'timestamp',
+        names: ['spendStartTime', 'spendEndTime']
       }
     ]
   },
@@ -52,26 +62,29 @@ export const schema: TableProps['schema'] = {
         {
           fixed: true,
           title: '会员卡号',
-          dataIndex: 'card',
-          format: 'money'
+          dataIndex: 'memberNo'
         },
         {
           title: '姓名',
-          dataIndex: 'name',
+          dataIndex: 'memberName',
           format: 'money'
         },
         {
           title: '手机号',
-          dataIndex: 'phone',
-          format: 'money'
+          dataIndex: 'phone'
         },
         {
-          title: '会员等级',
-          dataIndex: 'level'
+          title: '会员类型',
+          dataIndex: 'memberType',
+          options: memberTypes
         },
         {
-          title: '所属门店',
-          dataIndex: 'store'
+          title: '优惠方式',
+          dataIndex: 'discountRate'
+        },
+        {
+          title: '开卡门店',
+          dataIndex: 'storeName'
         },
         {
           title: '会员状态',
@@ -79,11 +92,11 @@ export const schema: TableProps['schema'] = {
         },
         {
           title: '累计消费金额',
-          dataIndex: 'money'
+          dataIndex: 'totalSpendBalance'
         },
         {
           title: '会员卡余额',
-          dataIndex: 'yue'
+          dataIndex: 'availableBalance'
         },
         {
           title: '积分',
@@ -91,15 +104,16 @@ export const schema: TableProps['schema'] = {
         },
         {
           title: '开卡日期',
-          dataIndex: 'cardTime'
+          dataIndex: 'openCardTime',
+          format: 'date'
         },
         {
           title: '最近消费日期',
-          dataIndex: 'payTime'
+          dataIndex: 'latestSpendTime'
         },
         {
           title: '备注',
-          dataIndex: 'desc'
+          dataIndex: 'remark'
         },
         {
           fixed: 'right',
@@ -114,12 +128,12 @@ export const schema: TableProps['schema'] = {
   ],
   options: {
     status: [
-      { label: '正常', value: 1 },
-      { label: '不正常', value: 2 }
+      { label: '正常', value: 'ENABLED' },
+      { label: '不正常', value: 'UNENABLED' }
     ],
-    level: [
-      { label: '1级会员', value: 1 },
-      { label: '2级会员', value: 2 }
+    memberType: [
+      { label: '折扣卡', value: 1 },
+      { label: '次卡', value: 2 }
     ]
   }
 }
@@ -127,13 +141,14 @@ export const schema: TableProps['schema'] = {
 export const editSchema: Schema = {
   type: 'object',
   rules: {
-    card: [{ required: true, message: '请输入会员卡号' }],
-    name: [{ required: true, message: '请输入姓名' }],
+    memberNo: [{ required: true, message: '请输入会员卡号' }],
+    memberName: [{ required: true, message: '请输入姓名' }],
     phone: [
+      { required: true, message: '请输入手机号码' },
       {
         validator: (_: any, value: string) => {
           if (isEmpty(value)) {
-            return Promise.reject('请输入手机号码')
+            return Promise.resolve('')
           } else if (!isTelNumber(value)) {
             return Promise.reject('请输入正确的手机号')
           }
@@ -143,44 +158,22 @@ export const editSchema: Schema = {
     ],
     expiration: [{ required: true, message: '请选择有效期' }],
     recharge: [{ required: true, message: '请选择是否充值' }],
-    money: [{ required: true, message: '请输入充值金额' }],
-    giveMoney: [{ required: true, message: '请输入赠送金额' }],
-    payType: [{ required: true, message: '请选择充值方式' }],
-    memberType: [{ required: true, message: '请选择会员模式' }]
+    rechargeBalance: [{ required: true, message: '请输入充值金额' }],
+    payMethod: [{ required: true, message: '请选择支付方式' }],
+    discountRate: [{ required: true, message: '请输入折扣' }],
+    memberType: [{ required: true, message: '请选择会员模式' }],
+    rewardTimes: [{ required: true, message: '请输入优惠次数' }]
   },
   properties: {
-    'op-group-0': {
-      title: '会员模式'
-    },
-    memberType: {
-      title: '会员模式',
-      type: 'string',
-      props: {
-        style: {
-          width: '100%'
-        },
-        options: [
-          {
-            label: '根据充值金额,设置会员优惠折扣',
-            value: '1'
-          },
-          {
-            label: '购买次卡,设置项目优惠次数',
-            value: '2'
-          }
-        ]
-      },
-      widget: 'radio'
-    },
     'op-group-1': {
       title: '会员信息'
     },
-    card: {
+    memberNo: {
       title: '会员卡号',
       type: 'string',
       widget: 'input'
     },
-    name: {
+    memberName: {
       title: '姓名',
       type: 'string',
       widget: 'input'
@@ -190,27 +183,27 @@ export const editSchema: Schema = {
       type: 'string',
       widget: 'input'
     },
-    store: {
-      title: '开卡门店',
+    validateDate: {
+      title: '开卡日期',
       type: 'string',
       props: {
-        options: [
-          {
-            label: 'A',
-            value: 'A'
-          },
-          {
-            label: 'B',
-            value: 'B'
-          }
-        ],
-        placeholder: '请选择'
+        placeholder: '请选择日期'
       },
-      widget: 'select'
+      widget: 'datePicker'
     },
-    gender: {
+    birthDate: {
+      title: '生日',
+      type: 'string',
+      props: {
+        placeholder: '请选择日期'
+      },
+      widget: 'datePicker'
+    },
+    sex: {
       title: '性别',
       type: 'string',
+      defaultValue: '1',
+      span: 24,
       props: {
         options: [
           {
@@ -219,23 +212,16 @@ export const editSchema: Schema = {
           },
           {
             label: '女',
-            value: '2'
+            value: '0'
           }
         ]
       },
       widget: 'radio'
     },
-    birthday: {
-      title: '生日',
-      type: 'string',
-      props: {
-        placeholder: '请选择日期'
-      },
-      widget: 'datePicker'
-    },
     expiration: {
       title: '有效期',
       type: 'string',
+      defaultValue: '1',
       props: {
         options: [
           {
@@ -250,32 +236,41 @@ export const editSchema: Schema = {
       },
       widget: 'radio'
     },
+    youxiao: {
+      title: '自定义有效期',
+      type: 'string',
+      widget: 'datePicker',
+      'ui:hidden': 'formState.value.expiration !== "2"'
+    },
     remark: {
       title: ' 备注',
       type: 'string',
-      widget: 'textArea'
+      widget: 'textArea',
+      span: 24
     },
     'op-group-2': {
       title: '充值信息'
     },
-    recharge: {
-      title: '是否充值',
+    memberType: {
+      title: '会员类型',
       type: 'string',
+      widget: 'radio',
+      defaultValue: MemberType.折扣卡,
       props: {
         options: [
           {
-            label: '是',
-            value: '1'
-          },
-          {
-            label: '否',
-            value: '2'
+            label: 'A: 会员折扣卡',
+            value: MemberType.折扣卡
           }
+          // {
+          //   label: 'B: 会员次卡',
+          //   value: MemberType.次卡
+          // }
         ]
-      },
-      widget: 'radio'
+      }
     },
-    money: {
+    占位1: {},
+    rechargeBalance: {
       title: '充值金额',
       type: 'number',
       widget: 'input',
@@ -283,24 +278,100 @@ export const editSchema: Schema = {
         type: 'number'
       }
     },
-    payType: {
+    占位2: {},
+    giveBalance: {
+      title: '赠送金额',
+      type: 'number',
+      widget: 'input',
+      props: {
+        type: 'number'
+      },
+      'ui:hidden': "formState.value.memberType == '2'"
+    },
+    rewardTimes: {
+      title: '优惠次数',
+      type: 'number',
+      widget: 'input',
+      props: {
+        type: 'number'
+      },
+      'ui:hidden': "formState.value.memberType == '1'"
+    },
+    占位3: {},
+    discountRate: {
+      title: '折扣',
+      type: 'string',
+      widget: 'input',
+      defaultValue: 0.9,
+      props: {
+        // type: 'number'
+        options: [
+          {
+            label: '0.5',
+            value: 0.5
+          },
+          {
+            label: '0.6',
+            value: 0.6
+          },
+          {
+            label: '0.7',
+            value: 0.7
+          },
+          {
+            label: '0.8',
+            value: 0.8
+          },
+          {
+            label: '0.9',
+            value: 0.9
+          },
+          {
+            label: '0.95',
+            value: 0.95
+          }
+        ]
+      },
+      'ui:hidden': "formState.value.memberType == '2'"
+    },
+    giveTimes: {
+      title: '赠送次数',
+      type: 'number',
+      widget: 'input',
+      props: {
+        type: 'number'
+      },
+      'ui:hidden': "formState.value.memberType == '1'"
+    },
+    占位4: {},
+    payMethod: {
       title: '充值方式',
       type: 'string',
+      defaultValue: '1',
       props: {
         options: [
           {
-            label: '收钱吧',
+            label: '支付宝',
             value: '1'
           },
           {
-            label: '支付宝',
+            label: '微信',
             value: '2'
+          },
+          {
+            label: '收钱吧 ',
+            value: '3'
+          },
+          {
+            label: '现金 ',
+            value: '4'
           }
         ]
       },
       widget: 'radio'
     },
-    allMoney: {
+    占位5: {},
+    availableBalance: {
       title: '卡内总金额',
       type: 'string',
       widget: 'input',

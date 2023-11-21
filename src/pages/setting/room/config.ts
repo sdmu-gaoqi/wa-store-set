@@ -10,12 +10,15 @@ export const schema: TableProps['schema'] = {
       {
         type: 'search',
         label: '房间名称',
-        key: 'name'
+        key: 'roomNo'
       },
       {
-        type: 'date',
+        type: 'range',
         label: '创建日期',
-        key: 'createTime'
+        placeholder: ['开始日期', '结束日期'],
+        key: 'createTime',
+        format: 'timestamp',
+        names: ['startCreateTime', 'endCreateTime']
       }
     ]
   },
@@ -27,31 +30,31 @@ export const schema: TableProps['schema'] = {
         {
           fixed: true,
           title: '序号',
-          dataIndex: 'no'
+          dataIndex: 'card',
+          width: 100,
+          isIndex: true
         },
         {
           title: '房间名称',
-          dataIndex: 'name'
-        },
-        {
-          title: '房间类型',
-          dataIndex: 'type'
+          dataIndex: 'roomNo'
         },
         {
           title: '容纳客数',
-          dataIndex: 'number'
+          dataIndex: 'roomCap'
         },
         {
           title: '房间设备描述',
-          dataIndex: 'desc'
+          dataIndex: 'description'
         },
         {
           title: '创建日期',
-          dataIndex: 'createAt'
+          dataIndex: 'createTime',
+          format: 'date'
         },
         {
           title: '修改日期',
-          dataIndex: 'editAt'
+          dataIndex: 'updateTime',
+          format: 'date'
         },
         {
           title: '操作',
@@ -67,21 +70,21 @@ export const schema: TableProps['schema'] = {
 export const editSchema = {
   type: 'object',
   rules: {
-    name: {
+    roomNo: {
       required: true,
-      message: '请输入房间名称'
+      message: '请输入房间号'
     },
-    type: {
+    roomCap: {
       required: true,
-      message: '请选择房间类型'
+      message: '请输入容纳客数'
     }
   },
   properties: {
-    name: {
-      title: '房间名称',
+    roomNo: {
+      title: '房间号',
       type: 'string',
       props: {
-        placeholder: '强输入'
+        placeholder: '请输入'
       },
       required: true,
       message: {
@@ -89,37 +92,30 @@ export const editSchema = {
       },
       widget: 'input'
     },
-    type: {
-      title: '房间类型',
+    占位: {},
+    roomCap: {
+      title: '容纳客数',
       type: 'string',
       props: {
-        options: [
-          {
-            label: 'A',
-            value: 'A'
-          },
-          {
-            label: 'B',
-            value: 'B'
-          }
-        ],
-        placeholder: '请选择'
+        placeholder: '请输入'
       },
       required: true,
       message: {
-        required: '请选择房间类型'
+        required: '请输入容纳客数'
       },
-      widget: 'select'
+      widget: 'input'
     },
     description: {
       title: '房间设备描述',
       type: 'string',
-      widget: 'textArea'
+      widget: 'textArea',
+      span: 24
     },
     remark: {
       title: '备注',
       type: 'string',
-      widget: 'textArea'
+      widget: 'textArea',
+      span: 24
     }
   },
   displayType: 'row',

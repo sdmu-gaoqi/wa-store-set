@@ -63,6 +63,11 @@ const routes: RouteRecordRaw[] = [
             component: () => import('./pages/member/add.vue')
           },
           {
+            path: 'edit/:id',
+            name: '编辑会员',
+            component: () => import('./pages/member/add.vue')
+          },
+          {
             path: 'type/list',
             name: '会员模式',
             component: () => import('./pages/member/type/list.vue')
@@ -93,6 +98,11 @@ const routes: RouteRecordRaw[] = [
             component: () => import('./pages/employee/add.vue')
           },
           {
+            path: 'edit/:id',
+            name: '编辑员工',
+            component: () => import('./pages/employee/add.vue')
+          },
+          {
             path: 'leave/list',
             name: '员工请假列表',
             component: () => import('./pages/employee/leave-list.vue')
@@ -119,6 +129,11 @@ const routes: RouteRecordRaw[] = [
           {
             path: 'add',
             name: '新增角色',
+            component: () => import('./pages/role/add.vue')
+          },
+          {
+            path: 'edit/:id',
+            name: '编辑角色',
             component: () => import('./pages/role/add.vue')
           }
         ]
@@ -208,13 +223,29 @@ const routes: RouteRecordRaw[] = [
                 path: 'add',
                 name: '新增项目',
                 component: () => import('./pages/setting/project/add.vue')
+              },
+              {
+                path: 'edit/:id',
+                name: '编辑项目',
+                component: () => import('./pages/setting/project/add.vue')
               }
             ]
           },
           {
             path: 'pay-type',
             name: '支付方式设置',
-            component: () => import('./pages/setting/pay-type/pay-type.vue')
+            children: [
+              {
+                path: '',
+                name: '支付方式设置',
+                component: () => import('./pages/setting/pay-type/pay-type.vue')
+              },
+              {
+                path: 'add',
+                name: '新增支付方式',
+                component: () => import('./pages/setting/pay-type/edit.vue')
+              }
+            ]
           },
           {
             path: 'turnover',
@@ -254,7 +285,8 @@ const route = createRouter({
 route.beforeEach((to, from, next) => {
   const toPath = to.path
   if (!['/login', '/test'].includes(toPath) && !localStorage.getItem('token')) {
-    next({ path: '/login' })
+    next('/login')
+    return
   }
   next()
 })

@@ -7,7 +7,7 @@ export default defineComponent({
       title: '',
       form: {
         search: true,
-        export: true,
+        export: false,
         reset: false,
         fields: [
           {

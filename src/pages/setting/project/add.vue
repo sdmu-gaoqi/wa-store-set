@@ -13,14 +13,32 @@
 <script lang="ts" setup>
 import { FormRender, FormCard } from 'store-operations-ui'
 import { editSchema } from './config'
-import { useRouter } from 'vue-router'
-import { debounce } from 'wa-utils'
+import { useRoute, useRouter } from 'vue-router'
+import { debounce, sleep } from 'wa-utils'
+import common from '@/servers/common'
+import { message } from 'ant-design-vue'
+import { onMounted } from 'vue'
+const {
+  params: { id }
+} = useRoute()
+const isEdit = !!id
 
 const router = useRouter()
 
-const onFinish = (value: Record<string, any>) => {
-  console.log(value)
+const onFinish = async (value: Record<string, any>) => {
+  if (isEdit) {
+    await common.updateProject({
+      ...value,
+      serviceProjectId: id
+    })
+  } else {
+    await common.addProject(value)
+  }
+  message.success('保存成功')
+  await sleep(300)
+  router.back()
 }
+
 const onCancel = debounce(() => {
   router.back()
 })

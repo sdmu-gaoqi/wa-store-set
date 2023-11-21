@@ -10,7 +10,7 @@ export const schema: TableProps['schema'] = {
       {
         type: 'search',
         label: '服务项目',
-        key: 'name'
+        key: 'serviceName'
       }
     ]
   },
@@ -22,43 +22,53 @@ export const schema: TableProps['schema'] = {
         {
           fixed: true,
           title: '项目编号',
-          dataIndex: 'no'
+          dataIndex: 'id'
         },
         {
           title: '服务项目',
-          dataIndex: 'name'
+          dataIndex: 'serviceName'
         },
         {
           title: '项目价格 /元',
-          dataIndex: 'currency'
+          dataIndex: 'price'
         },
         {
           title: '项目时长/分钟',
-          dataIndex: 'time'
+          dataIndex: 'duration'
         },
         {
           title: '启用状态',
-          dataIndex: 'status'
+          dataIndex: 'enabled'
         },
         {
           title: '所属门店',
-          dataIndex: 'store'
+          dataIndex: 'storeName'
         },
         {
           title: '排钟提成/元',
-          dataIndex: 'number1'
+          dataIndex: 'pzRoyalty'
         },
         {
           title: '点钟提成/元',
-          dataIndex: 'number2'
+          dataIndex: 'dzRoyalty'
+        },
+        {
+          title: '是否参与折扣优惠',
+          dataIndex: 'canDiscount',
+          options: [
+            { label: '是', value: 1 },
+            { label: '否', value: 0 }
+          ]
         },
         {
           title: '创建日期',
-          dataIndex: 'createAt'
+          dataIndex: 'createTime',
+          format: 'date'
         },
         {
           title: '修改日期',
-          dataIndex: 'editAt'
+          dataIndex: 'updateTime',
+          format: 'date'
         },
         {
           title: '操作',
@@ -79,13 +89,14 @@ export const schema: TableProps['schema'] = {
 export const editSchema = {
   type: 'object',
   rules: {
-    project: [{ required: true, message: '请输入' }],
-    pirce: [{ required: true, message: '请输入' }],
+    serviceName: [{ required: true, message: '请输入' }],
+    price: [{ required: true, message: '请输入' }],
     duration: [{ required: true, message: '请输入' }],
-    store: [{ required: true, message: '请选择' }]
+    dzRoyalty: [{ required: true, message: '请输入' }],
+    pzRoyalty: [{ required: true, message: '请输入' }]
   },
   properties: {
-    project: {
+    serviceName: {
       title: '服务项目',
       type: 'string',
       props: {
@@ -97,7 +108,7 @@ export const editSchema = {
       },
       widget: 'input'
     },
-    pirce: {
+    price: {
       title: '项目价格',
       type: 'number',
       props: {
@@ -117,23 +128,14 @@ export const editSchema = {
     },
     store: {
       title: '所属门店',
-      type: 'array',
-      widget: 'multiSelect',
+      type: 'string',
+      widget: 'input',
       props: {
-        options: [
-          {
-            label: 'A',
-            value: 'A'
-          },
-          {
-            label: 'B',
-            value: 'B'
-          }
-        ],
-        placeholder: '请选择'
+        readonly: true,
+        bordered: false
       }
     },
-    commission: {
+    pzRoyalty: {
       title: '项目排钟提成',
       type: 'number',
       props: {
@@ -143,7 +145,7 @@ export const editSchema = {
       },
       widget: 'input'
     },
-    commission2: {
+    dzRoyalty: {
       title: '项目点钟提成',
       type: 'number',
       props: {
@@ -153,13 +155,26 @@ export const editSchema = {
       },
       widget: 'input'
     },
+    canDiscount: {
+      title: '是否参与折扣优惠',
+      widget: 'radio',
+      type: 'string',
+      defaultValue: '0',
+      props: {
+        options: [
+          { label: '是', value: 1 },
+          { label: '否', value: 0 }
+        ]
+      }
+    },
     remark: {
       title: '备注',
       type: 'string',
       props: {
         placeholder: '请输入'
       },
-      widget: 'textArea'
+      widget: 'textArea',
+      span: 24
     }
   },
   displayType: 'row',

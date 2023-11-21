@@ -1,17 +1,32 @@
+import { memberTypes, payTypes } from '@/types'
 import { TableProps, TableRender } from 'store-operations-ui'
-import { defineComponent } from 'vue'
+import { Member } from 'store-request'
+import { defineComponent, toRaw, watch } from 'vue'
 
 export default defineComponent({
-  setup() {
+  props: {
+    formState: Object
+  },
+  // @ts-ignore
+  setup(props: { formState: Record<string, any> }) {
+    const member = new Member()
+    // payLogs
+    watch(
+      () => props.formState,
+      () => {
+        console.log(toRaw(props), 'propsaaa')
+      }
+    )
+    console.log(toRaw(props.formState), 'propsbbb')
     const schema: TableProps['schema'] = {
       title: '',
       form: {
         search: true,
-        export: true,
+        export: false,
         reset: false,
         fields: [
           {
-            key: 'time',
+            key: 'createTime',
             type: 'date',
             label: '充值日期'
           }
@@ -26,56 +41,71 @@ export default defineComponent({
               fixed: true,
               title: '序号',
               dataIndex: 'card',
-              format: 'money'
+              isIndex: true,
+              width: 90
             },
             {
               title: '会员卡号',
-              dataIndex: 'name',
-              format: 'money'
+              dataIndex: 'memberNo',
+              width: 100
             },
             {
               title: '姓名',
-              dataIndex: 'phone',
-              format: 'money'
+              dataIndex: 'memberName',
+              width: 100
             },
             {
               title: '手机号',
-              dataIndex: 'level'
+              dataIndex: 'phone',
+              width: 200
             },
             {
               title: '会员类型',
-              dataIndex: 'store'
+              dataIndex: 'memberType',
+              options: memberTypes,
+              width: 100
             },
             {
               title: '充值金额',
-              dataIndex: 'status'
+              dataIndex: 'rechargeBalance',
+              width: 100
             },
             {
               title: '赠送金额',
-              dataIndex: 'money'
+              dataIndex: 'giveBalance',
+              width: 100,
+              format: 'money'
             },
             {
               title: '充值方式',
-              dataIndex: 'yue'
+              dataIndex: 'payMethod',
+              options: payTypes,
+              width: 100
             },
             {
               title: '充值日期',
-              dataIndex: 'jifen'
+              dataIndex: 'createTime',
+              format: 'time',
+              width: 200
             }
           ]
         }
       ],
-      options: {
-        status: [
-          { label: '正常', value: 1 },
-          { label: '不正常', value: 2 }
-        ],
-        level: [
-          { label: '1级会员', value: 1 },
-          { label: '2级会员', value: 2 }
-        ]
-      }
+      options: {}
     }
-    return () => <TableRender schema={schema} />
+    return () => (
+      <TableRender
+        schema={schema}
+        tableProps={{
+          scroll: { x: 900 }
+        }}
+        request={(data) =>
+          member.payLogs({
+            ...data,
+            memberId: props.formState.memberId
+          })
+        }
+      />
+    )
   }
 })

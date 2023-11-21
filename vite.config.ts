@@ -21,6 +21,7 @@ export default defineConfig({
       pages: path.resolve(__dirname, 'src/pages'),
       components: path.resolve(__dirname, 'src/components'),
       mocks: path.resolve(__dirname, 'mocks')
+      // 'store-operations-ui': path.resolve(__dirname, '../store-request/src')
     }
   },
   server: {

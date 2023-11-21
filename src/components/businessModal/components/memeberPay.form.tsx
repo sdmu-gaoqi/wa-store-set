@@ -1,10 +1,15 @@
+import { MemberType, payTypes } from '@/types'
 import { FormRender, FormRenderProps, Schema } from 'store-operations-ui'
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 
 const schema: Schema = {
   type: 'object',
   rules: {
-    payType: [{ required: true, message: '请选择充值方式' }]
+    payType: [{ required: true, message: '请选择充值方式' }],
+    rechargeBalance: [{ required: true, message: '请输入充值金额' }],
+    discountRate: [{ required: true, message: '请输入折扣' }],
+    memberType: [{ required: true, message: '请选择会员类型' }],
+    rewardTimes: [{ required: true, message: '请输入优惠次数' }]
   },
   properties: {
     'op-group-0': {
@@ -17,16 +22,12 @@ const schema: Schema = {
         options: [
           {
             label: 'A.会员折扣卡',
-            value: '1'
-          },
-          {
-            label: 'B.会员次卡',
-            value: '2'
-          },
-          {
-            label: 'C.会员等级卡',
-            value: '3'
+            value: MemberType.折扣卡
           }
+          // {
+          //   label: 'B.会员次卡',
+          //   value: MemberType.次卡
+          // }
         ]
       },
       widget: 'radio'
@@ -34,21 +35,19 @@ const schema: Schema = {
     'op-group-1': {
       title: '充值信息'
     },
-    card: {
+    memberNo: {
       title: '会员卡号',
       type: 'string',
       widget: 'input',
-      defaultValue: '1',
       props: {
         readonly: true,
         bordered: false
       }
     },
-    name: {
+    memberName: {
       title: '姓名',
       type: 'string',
       widget: 'input',
-      defaultValue: '王小明',
       props: {
         readonly: true,
         bordered: false
@@ -64,7 +63,7 @@ const schema: Schema = {
         bordered: false
       }
     },
-    money1: {
+    rechargeBalance: {
       title: '充值金额',
       type: 'number',
       widget: 'input',
@@ -72,49 +71,94 @@ const schema: Schema = {
         type: 'number'
       }
     },
-    money2: {
+    giveBalance: {
       title: '赠送金额',
       type: 'number',
       widget: 'input',
       props: {
         type: 'number'
-      }
+      },
+      'ui:hidden': 'formState.value.memberType === 2'
     },
-    store: {
+    discountRate: {
+      title: '折扣',
+      type: 'string',
+      widget: 'input',
+      props: {
+        // type: 'number'
+        options: [
+          {
+            label: '0.5',
+            value: 0.5
+          },
+          {
+            label: '0.6',
+            value: 0.6
+          },
+          {
+            label: '0.7',
+            value: 0.7
+          },
+          {
+            label: '0.8',
+            value: 0.8
+          },
+          {
+            label: '0.9',
+            value: 0.9
+          },
+          {
+            label: '0.95',
+            value: 0.95
+          }
+        ]
+      },
+      'ui:hidden': 'formState.value.memberType === 2'
+    },
+    rewardTimes: {
+      title: '优惠次数',
+      type: 'number',
+      widget: 'input',
+      props: {
+        type: 'number'
+      },
+      'ui:hidden': 'formState.value.memberType === 1'
+    },
+    giveTimes: {
+      title: '赠送次数',
+      type: 'number',
+      widget: 'input',
+      props: {
+        type: 'number'
+      },
+      'ui:hidden': 'formState.value.memberType === 1'
+    },
+    payMethod: {
       title: '充值方式',
       type: 'string',
       props: {
-        options: [
-          {
-            label: '收钱吧',
-            value: 'A'
-          },
-          {
-            label: '支付宝',
-            value: 'B'
-          },
-          {
-            label: '微信',
-            value: 'C'
-          },
-          {
-            label: '现金',
-            value: 'D'
-          }
-        ],
+        options: payTypes,
         placeholder: '请选择'
       },
       widget: 'radio'
     },
-    money3: {
+    beforeDepositBalance: {
       title: '充值前金额',
       type: 'string',
-      widget: 'text'
+      widget: 'input',
+      props: {
+        readOnly: true,
+        bordered: false
+      }
     },
     money4: {
       title: '充值后金额',
       type: 'string',
-      widget: 'text'
+      widget: 'input',
+      props: {
+        readOnly: true,
+        bordered: false
+      }
     },
     remark: {
       title: ' 备注',
@@ -134,16 +178,40 @@ const schema: Schema = {
 export default defineComponent({
   props: {
     onFinish: Function,
-    onCancel: Function
+    onCancel: Function,
+    formState: Object
   },
   // @ts-ignore
-  setup: (props: FormRenderProps) => {
+  setup: (
+    props: FormRenderProps & { formState: Record<string, any>; onFinish?: any }
+  ) => {
+    const formRef = ref()
+    onMounted(() => {
+      if (formRef.value.changeState) {
+        formRef.value.changeState({
+          ...props?.formState,
+          beforeDepositBalance:
+            props.formState?.availableBalance -
+            props.formState?.totalSpendBalance,
+          payMethod: 1
+        })
+      }
+    })
     return () => {
       return (
         <FormRender
           schema={schema}
           onFinish={props.onFinish}
           onCancel={props.onCancel}
+          ref={formRef}
+          onFieldsChanged={(v) => {
+            formRef.value.changeState({
+              money4:
+                (v.beforeDepositBalance || 0) +
+                (v.rechargeBalance || 0) +
+                (v.giveBalance || 0)
+            })
+          }}
         />
       )
     }

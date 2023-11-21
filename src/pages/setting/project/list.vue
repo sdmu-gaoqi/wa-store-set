@@ -1,5 +1,5 @@
 <template>
-  <TableRender :schema="schema" :list="mockData">
+  <TableRender :schema="schema" :request="common.projectList" ref="tableRef">
     <template #formButton
       ><a-button type="primary" :onClick="goAdd" class="ml-[10px]"
         >新增项目</a-button
@@ -10,37 +10,85 @@
         v-if="data?.column?.dataIndex === 'options'"
         class="flex justify-center items-center"
       >
-        <a type="link" class="table-btn">编辑</a>
-        <a type="link" class="table-btn-danger last">删除</a>
+        <a
+          type="link"
+          class="table-btn"
+          @click="
+            () => {
+              open = true
+              detail = data.record
+            }
+          "
+          >编辑</a
+        >
+        <a
+          type="link"
+          class="table-btn-danger last"
+          @click="
+            () => {
+              common
+                .deleteProject({
+                  serviceProjectId: data.record.id,
+                  serviceName: data.record.serviceName
+                })
+                .then(() => {
+                  message.success('删除成功')
+                  tableRef.run(tableRef.params)
+                })
+            }
+          "
+          >删除</a
+        >
       </div>
-      <a-switch v-else-if="data?.column?.dataIndex === 'status'"></a-switch>
+      <a-switch
+        v-else-if="data?.column?.dataIndex === 'enabled'"
+        :checked="data.text == 1"
+        @change="
+          (v) => {
+            const value = v ? 1 : 0
+            common
+              .projectStatus({
+                enabled: value,
+                serviceProjectId: data.record.id,
+                serviceName: data.record.serviceName
+              })
+              .then(() => {
+                data.record.enabled = value
+              })
+          }
+        "
+      ></a-switch>
+      <template v-else-if="data.customer">{{ data.customer }}</template>
       <template v-else>{{ data.text }}</template>
     </template></TableRender
   >
+  <BusinessModal
+    :type="BusinessModalType.编辑价目表"
+    :open="open"
+    :onCancel="() => (open = false)"
+    :formState="detail"
+  ></BusinessModal>
 </template>
 
 <script lang="ts" setup>
 import { TableRender } from 'store-operations-ui'
 import { schema } from './config'
 import { useRouter } from 'vue-router'
+import { CommonService } from 'store-request'
+import { message } from 'ant-design-vue'
+import { ref } from 'vue'
+import BusinessModal from '@/components/businessModal/businessModal'
+import { BusinessModalType } from '@/components/businessModal/businessModal.type'
+
+const open = ref(false)
+const detail = ref({})
+
+const tableRef = ref()
+
+const common = new CommonService()
 
 const router = useRouter()
 const goAdd = () => {
   router.push('/project/add')
 }
-
-const mockData = [
-  {
-    no: '1001',
-    name: '中医推拿',
-    money: '128.00',
-    time: '60',
-    status: true,
-    store: '乐益生盲人推拿店',
-    number1: '40.00',
-    number2: '45.00',
-    createAt: '2022-10-01 10:00:00',
-    editAt: '2022-10-01 10:00:00'
-  }
-]
 </script>

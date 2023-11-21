@@ -11,7 +11,7 @@ export const schema: TableProps['schema'] = {
         type: 'select',
         label: '角色',
         placeholder: '角色',
-        key: 'role'
+        key: 'roleId'
       },
       {
         type: 'select',
@@ -20,10 +20,10 @@ export const schema: TableProps['schema'] = {
         key: 'status'
       },
       {
-        type: 'range',
+        type: 'date',
         label: '创建日期',
-        placeholder: ['开始日期', '结束日期'],
-        key: 'time'
+        placeholder: '创建日期',
+        key: 'createTime'
       }
     ]
   },
@@ -35,11 +35,11 @@ export const schema: TableProps['schema'] = {
         {
           fixed: true,
           title: '序号',
-          dataIndex: 'no'
+          dataIndex: 'roleId'
         },
         {
           title: '角色名称',
-          dataIndex: 'name'
+          dataIndex: 'roleName'
         },
         {
           title: '角色状态',
@@ -47,19 +47,19 @@ export const schema: TableProps['schema'] = {
         },
         {
           title: '用户数',
-          dataIndex: 'number'
+          dataIndex: 'dataScope'
         },
         {
           title: '创建日期',
-          dataIndex: 'createAt'
+          dataIndex: 'createTime'
         },
         {
           title: '修改日期',
-          dataIndex: 'editAt'
+          dataIndex: 'updateTime'
         },
         {
           title: '备注',
-          dataIndex: 'desc'
+          dataIndex: 'remark'
         },
         {
           title: '操作',
@@ -70,15 +70,10 @@ export const schema: TableProps['schema'] = {
     }
   ],
   options: {
-    role: [
-      { label: '收银', value: 1 },
-      { label: '技师', value: 2 },
-      { label: '店长', value: 3 },
-      { label: '老板', value: 4 }
-    ],
+    roleId: [],
     status: [
-      { label: '正常', value: 1 },
-      { label: '禁用', value: 2 }
+      { label: '正常', value: '0' },
+      { label: '禁用', value: '1' }
     ]
   }
 }
@@ -87,10 +82,10 @@ export const editSchema = {
   type: 'object',
   width: '66%',
   rules: {
-    name: [{ required: true, message: '请输入角色名称' }]
+    roleName: [{ required: true, message: '请输入角色名称' }]
   },
   properties: {
-    name: {
+    roleName: {
       title: '角色名称',
       type: 'string',
       props: {
@@ -101,9 +96,10 @@ export const editSchema = {
     status: {
       title: '角色状态',
       type: 'boolean',
-      widget: 'switch'
+      widget: 'switch',
+      defaultValue: true
     },
-    'fr-hjqk': {
+    remark: {
       title: '备注',
       type: 'string',
       props: {

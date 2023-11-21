@@ -1,36 +1,100 @@
-import { FormRender, FormRenderProps, Schema } from 'store-operations-ui'
-import { defineComponent } from 'vue'
+import common from '@/servers/common'
+import { MemberType, payTypes } from '@/types'
+import { formatMoney } from '@/utils'
+import { message } from 'ant-design-vue'
+import {
+  FormCard,
+  FormRender,
+  FormRenderProps,
+  Schema
+} from 'store-operations-ui'
+import { Member } from 'store-request'
+import { defineComponent, onMounted, ref, toRaw, watch } from 'vue'
+import { useRequest } from 'vue-hooks-plus'
+import { isEmpty, sleep } from 'wa-utils'
+
+const member = new Member()
+
+const payKey = 'payMethod'
 
 const schema: Schema = {
   type: 'object',
   rules: {
-    payType: [{ required: true, message: '请选择充值方式' }]
+    [payKey]: [{ required: true, message: '请选择支付方式' }]
   },
   properties: {
-    order: {
+    orderNo: {
       title: ' 订单编号',
       widget: 'input',
+      type: 'string',
       props: {
         readonly: true,
         bordered: false
       }
     },
-    memberType: {
+    settleType: {
       title: '订单类型',
       type: 'string',
+      defaultValue: '0',
       props: {
         options: [
           {
             label: '非会员',
-            value: '1'
+            value: '0'
           },
           {
             label: '会员',
-            value: '2'
+            value: '1'
           }
         ]
       },
       widget: 'radio'
+    },
+    memberId: {
+      title: '查找会员',
+      type: 'string',
+      search: {
+        key: 'memberName',
+        label: 'memberName',
+        value: 'memberId',
+        request: member.list,
+        dataKey: 'rows'
+      },
+      widget: 'searchSelect',
+      'ui:hidden': 'formState.value.settleType != 1'
+    },
+    table1: {
+      widget: 'table',
+      props: {
+        columns: [
+          {
+            title: '会员卡号',
+            dataIndex: 'memberNo'
+          },
+          {
+            title: '姓名',
+            dataIndex: 'memberName'
+          },
+          {
+            title: '手机号',
+            dataIndex: 'phone'
+          },
+          {
+            title: '会员类型',
+            dataIndex: 'memberTypeName'
+          },
+          {
+            title: '优惠方式',
+            dataIndex: 'discountRate'
+          },
+          {
+            title: '会员卡余额',
+            dataIndex: 'availableBalance'
+          }
+        ],
+        pagination: false
+      },
+      'ui:hidden': 'formState.value.settleType != 1'
     },
     table: {
       widget: 'table',
@@ -38,89 +102,109 @@ const schema: Schema = {
         columns: [
           {
             title: '项目名称',
-            dataIndex: 'name'
+            dataIndex: 'serviceProjectName'
           },
           {
             title: '单价',
-            dataIndex: 'money'
+            dataIndex: 'unitPrice'
           },
           {
             title: '客数',
-            dataIndex: 'number'
+            dataIndex: 'customNum'
           },
           {
-            title: '上钟时间',
-            dataIndex: 'time'
+            title: '上钟数',
+            dataIndex: 'serviceNum'
           },
           {
             title: '优惠',
-            dataIndex: 'a'
+            dataIndex: 'money'
           },
           {
             title: '小计',
-            dataIndex: 'b'
-          }
-        ]
-      }
-    },
-    money: {
-      title: '应收金额',
-      widget: 'input',
-      props: {
-        readonly: true,
-        bordered: false
-      }
-    },
-    money1: {
-      title: '应收金额',
-      type: 'number',
-      widget: 'input',
-      props: {
-        readonly: true,
-        bordered: false
-      }
-    },
-    money2: {
-      title: '优惠',
-      type: 'number',
-      widget: 'input',
-      props: {
-        type: 'number'
-      }
-    },
-    money3: {
-      title: '实收金额',
-      type: 'number',
-      widget: 'input',
-      props: {
-        type: 'number'
-      }
-    },
-    store: {
-      title: '支付方式',
-      type: 'string',
-      props: {
-        options: [
-          {
-            label: '收钱吧',
-            value: 'A'
-          },
-          {
-            label: '支付宝',
-            value: 'B'
-          },
-          {
-            label: '微信',
-            value: 'C'
-          },
-          {
-            label: '现金',
-            value: 'D'
+            dataIndex: 'discountPrice'
           }
         ],
+        pagination: false
+      }
+    },
+    originalPrice: {
+      title: '应收金额',
+      type: 'string',
+      widget: 'input',
+      span: 12,
+      props: {
+        readonly: true,
+        bordered: false
+      },
+      'ui:hidden':
+        '(formState.value.settleType == 1 && !formState.value?.memberId?.memberId)'
+    },
+    占位: {
+      span: 12
+    },
+    discountPrice: {
+      defaultValue: '0',
+      title: '优惠',
+      type: 'number',
+      span: 12,
+      widget: 'input',
+      props: {
+        min: 0
+      },
+      'ui:hidden':
+        '(formState.value.settleType == 1 && !formState.value?.memberId?.memberId)'
+    },
+    占位1: {
+      span: 12
+    },
+    receivePrice: {
+      title: '实收金额',
+      type: 'string',
+      span: 12,
+      widget: 'input',
+      props: {
+        readonly: true,
+        bordered: false
+      },
+      'ui:hidden':
+        '(formState.value.settleType == 1 && !formState.value?.memberId?.memberId)'
+    },
+    store2: {
+      title: '支付方式',
+      type: 'string',
+      widget: 'input',
+      defaultValue: '折扣卡',
+      props: {
+        readonly: true,
+        bordered: false
+      },
+      'ui:hidden': 'formState.value.settleType != 1'
+    },
+    replenishPrice: {
+      title: '补充金额',
+      widget: 'input',
+      type: 'string',
+      defaultValue: '0',
+      props: {
+        min: 1,
+        readonly: true,
+        bordered: false
+      },
+      'ui:hidden':
+        '(formState.value.settleType == 1 && !formState.value?.memberId?.memberId) || formState.value.settleType == 0'
+    },
+    [payKey]: {
+      title: '支付方式',
+      type: 'string',
+      defaultValue: 1,
+      props: {
+        options: payTypes,
         placeholder: '请选择'
       },
-      widget: 'radio'
+      widget: 'radio',
+      'ui:hidden':
+        'formState.value.settleType != 0 && (formState.value.replenishPrice || 0) <= 0'
     },
     remark: {
       title: ' 备注',
@@ -132,7 +216,7 @@ const schema: Schema = {
   column: 1,
   maxWidth: '340px',
   footer: {
-    submit: '确定充值',
+    submit: '结算',
     cancel: '取消'
   }
 }
@@ -140,17 +224,155 @@ const schema: Schema = {
 export default defineComponent({
   props: {
     onFinish: Function,
-    onCancel: Function
+    onCancel: Function,
+    formState: Object
   },
   // @ts-ignore
-  setup: (props: FormRenderProps) => {
+  setup: (
+    props: FormRenderProps & {
+      formState: { orderId: string; orderItemId: string; orderNo: string }
+    }
+  ) => {
+    const formRef = ref()
+    const defaultValue = ref<any>({})
+    const { run, data, params } = useRequest(common.preSettle, {
+      manual: true,
+      onSuccess: (res: any) => {
+        const v = {
+          orderNo: res?.data?.orderNo,
+          originalPrice: res?.data?.originalPrice,
+          receivePrice: res?.data?.receivePrice,
+          replenishPrice: res?.data?.replenishPrice || 0,
+          discountPrice: res?.data?.discountPrice,
+          oldDiscountPrice: res?.data?.receivePrice,
+          table: res?.data?.preOrderItemList?.map((item: any) => ({
+            ...item,
+            money: (item?.originalPrice || 0) - (item?.discountPrice || 0)
+          }))
+        }
+        formRef.value.changeState(v)
+        defaultValue.value = {
+          ...v,
+          metaData: res?.data
+        }
+      },
+      onError: (err: any) => {
+        if (err?.code === 1025) {
+          formRef.value.changeState({
+            settleType: '0',
+            discountPrice: '0'
+          })
+          message.error('会员卡余额为0,无法会员下单')
+        }
+      }
+    })
+    const selectUser = ref<any>()
+    onMounted(() => {
+      const orderId = props.formState?.orderId
+      const orderNo = props.formState?.orderNo
+      if (orderId) {
+        run({
+          orderId,
+          orderNo,
+          settleType: 0
+        })
+      }
+    })
     return () => {
       return (
         <FormRender
           schema={schema}
-          onFinish={props.onFinish}
+          onFinish={(v) => {
+            const memberOrderSubmitInfo = {
+              discountType: 0,
+              memberId: v?.memberId?.memberId,
+              phone: v?.memberId?.phone,
+              replenishPrice: v?.replenishPrice
+            }
+            const value = {
+              ...(v?.settleType == 1 && {
+                memberOrderSubmitInfo
+              }),
+              orderId: defaultValue?.value?.metaData?.orderId,
+              orderNo: v?.orderNo,
+              settleType: v?.settleType,
+              discountPrice: formatMoney(v?.discountPrice),
+              remark: v?.remark || '',
+              receivePrice: formatMoney(v?.receivePrice),
+              payMethod: v?.payMethod,
+              originalPrice: formatMoney(v?.originalPrice)
+            }
+            if (props?.onFinish) {
+              props.onFinish(value)
+            }
+          }}
           onCancel={props.onCancel}
-        />
+          onFieldChange={async (key, value) => {
+            await sleep(0)
+            const formValue = formRef.value.formRef.getFieldsValue()
+            const settleType = +formValue.settleType
+            const originalPrice = formValue?.originalPrice
+            if (key === 'settleType') {
+              const newDiscountedPrice = formValue?.memberId
+                ? ((100 - formValue?.memberId?.discountRate * 100) / 100) *
+                  originalPrice
+                : 0
+              formRef.value.changeState({
+                discountPrice: newDiscountedPrice
+              })
+            }
+            if (key === 'memberId') {
+              selectUser.value = value.option
+              if (value.option) {
+                const newDiscountedPrice =
+                  ((100 - value?.option?.discountRate * 100) / 100) *
+                  originalPrice
+                formRef.value.changeState({
+                  table1: [
+                    {
+                      memberNo: value?.option?.memberNo,
+                      memberName: value?.option?.memberName,
+                      phone: value?.option?.phone,
+                      memberTypeName: '折扣卡',
+                      discountRate: `${value?.option?.discountRate * 10}折`,
+                      availableBalance: `${value?.option?.availableBalance}元`
+                    }
+                  ],
+                  discountPrice: newDiscountedPrice
+                })
+                const orderId = props.formState?.orderId
+                const orderNo = props.formState?.orderNo
+                if (orderId) {
+                  run({
+                    orderId,
+                    orderNo,
+                    settleType: 0,
+                    memberId: selectUser?.value?.memberId,
+                    phone: selectUser?.value?.phone,
+                    discountPrice: newDiscountedPrice
+                  })
+                }
+              }
+            }
+            if (key === 'discountPrice') {
+              if (+value >= +originalPrice) {
+                message.error('优惠金额不能大于应收金额')
+                run({
+                  ...params.value?.[0],
+                  discountPrice: 0,
+                  settleType
+                })
+              } else {
+                run({
+                  ...params.value?.[0],
+                  discountPrice: value,
+                  settleType
+                })
+              }
+            }
+          }}
+          ref={formRef}
+        ></FormRender>
       )
     }
   }

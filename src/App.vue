@@ -4,10 +4,9 @@
   <a-config-provider
     :theme="{
       token: {
-        colorPrimary: '#6300bb',
+        colorPrimary: '#6102fd',
         colorTextBase: '#6a6d82',
-        colorBgBase: '#fff',
-        borderRadius: 20
+        colorBgBase: '#fff'
       }
     }"
   >
@@ -35,24 +34,21 @@ import { message } from 'ant-design-vue'
 import { onMounted } from 'vue'
 import { cookie } from 'wa-utils'
 import user from './servers/user'
+import common from './servers/common'
 import store from '@/store/store'
 import { useRouter } from 'vue-router'
+import router from './route'
 const { dispatch } = store
 onMounted(() => {
   const token = cookie.get('Admin-Token')
-  const router = useRouter()
   if (token) {
-    user
-      .getUserInfo()
-      .then((res) => {
-        dispatch('userInfo/changeUser', { data: res.user })
-      })
-      .catch((err) => {
-        if (err.code === 401) {
-          route.push('login')
-          cookie.remove('Admin-Token')
-        }
-      })
+    user.getUserInfo().then((res) => {
+      dispatch('userInfo/changeUser', { data: res.user })
+    })
+    console.log(common)
+    common.routers().then((res) => {
+      const realRouters = res.data.filter((item) => item.name !== 'System')
+    })
   }
 })
 </script>
