@@ -91,12 +91,18 @@ const CreateOrderModal = defineComponent({
       },
       {
         title: '项目金额/元',
-        dataIndex: 'originalPrice',
-        type: 'money'
+        dataIndex: 'price',
+        type: 'money',
+        slots: {
+          customRender: 'm1'
+        }
       },
       {
         title: '项目时长/分',
-        dataIndex: 'unitDuration'
+        dataIndex: 'duration',
+        slots: {
+          customRender: 'm2'
+        }
       },
       {
         title: '客数',
@@ -148,6 +154,12 @@ const CreateOrderModal = defineComponent({
       }
     ]
     const handleSlot = {
+      m1: ({ index, record }: any) => {
+        return record?.money || record?.originalPrice
+      },
+      m2: ({ index, record }: any) => {
+        return record?.money || record?.unitDuration
+      },
       //  对应 operation 的单元格 插槽内容
       ks: ({ index, record }: any) => {
         return (
