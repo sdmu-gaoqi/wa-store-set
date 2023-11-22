@@ -10,14 +10,6 @@ export default defineComponent({
   // @ts-ignore
   setup(props: { formState: Record<string, any> }) {
     const member = new Member()
-    // payLogs
-    watch(
-      () => props.formState,
-      () => {
-        console.log(toRaw(props), 'propsaaa')
-      }
-    )
-    console.log(toRaw(props.formState), 'propsbbb')
     const schema: TableProps['schema'] = {
       title: '',
       form: {

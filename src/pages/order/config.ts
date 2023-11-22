@@ -10,7 +10,7 @@ export const schema: TableProps['schema'] = {
       {
         type: 'search',
         label: '订单编号',
-        key: 'orderId'
+        key: 'orderNo'
       },
       {
         type: 'date',
@@ -28,7 +28,8 @@ export const schema: TableProps['schema'] = {
         {
           fixed: true,
           title: '订单编号',
-          dataIndex: 'orderId'
+          dataIndex: 'orderNo',
+          width: 300
         },
         {
           title: '订单金额/元',
@@ -37,41 +38,34 @@ export const schema: TableProps['schema'] = {
         },
         {
           title: '优惠金额/元',
-          dataIndex: 'currency',
+          dataIndex: 'discountPrice',
           format: 'money'
         },
         {
           title: '付款明细/元',
-          dataIndex: 'detail',
+          dataIndex: 'receivePrice',
           format: 'money'
         },
         {
           title: '订单状态',
-          dataIndex: 'status'
+          dataIndex: 'status',
+          options: [
+            { value: 'SUBMIT', label: '已结算' },
+            { value: 'CREATED', label: '未结算' }
+          ]
         },
         {
           title: '会员姓名',
-          dataIndex: 'name'
-        },
-        {
-          title: '会员等级',
-          dataIndex: 'level'
+          dataIndex: 'memberName'
         },
         {
           title: '手机号',
           dataIndex: 'phone'
         },
         {
-          title: '房间号',
-          dataIndex: 'homeCode'
-        },
-        {
-          title: '会员卡余额',
-          dataIndex: 'cardMoney'
-        },
-        {
           title: '创建日期',
-          dataIndex: 'createTime'
+          dataIndex: 'createTime',
+          format: 'date'
         },
         {
           fixed: 'right',
@@ -88,34 +82,36 @@ export const schema: TableProps['schema'] = {
         {
           fixed: true,
           title: '订单编号',
-          dataIndex: 'orderId'
+          dataIndex: 'orderNo',
+          width: 300
         },
         {
           title: '订单金额/元',
-          dataIndex: 'money',
+          dataIndex: 'originalPrice',
           format: 'money'
         },
         {
           title: '优惠金额/元',
-          dataIndex: 'currency',
+          dataIndex: 'discountPrice',
           format: 'money'
         },
         {
           title: '付款明细/元',
-          dataIndex: 'detail',
+          dataIndex: 'receivePrice',
           format: 'money'
         },
         {
           title: '订单状态',
-          dataIndex: 'status'
-        },
-        {
-          title: '房间号',
-          dataIndex: 'homeCode'
+          dataIndex: 'status',
+          options: [
+            { value: 'SUBMIT', label: '已结算' },
+            { value: 'CREATED', label: '未结算' }
+          ]
         },
         {
           title: '创建日期',
-          dataIndex: 'createTime'
+          dataIndex: 'createTime',
+          format: 'date'
         },
         {
           fixed: 'right',

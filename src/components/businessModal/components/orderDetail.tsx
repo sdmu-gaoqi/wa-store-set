@@ -1,16 +1,18 @@
 import common from '@/servers/common'
 import { RoyaltyType } from '@/types'
 import { FormRender, Schema } from 'store-operations-ui'
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, onMounted, ref, watch } from 'vue'
 
 // @ts-nocheck
 
 type Status = 'CREATED' | 'SUBMIT'
 
 const OrderDetail = defineComponent({
-  setup() {
-    const orderId = 13
-    const orderNo = '_Ol7kBkkyZKBLE-ys6_hg'
+  props: {
+    formState: Object
+  },
+  // @ts-ignore
+  setup(props: { formState: Record<string, any> }) {
     const formRef = ref()
     const schema: Schema = {
       type: 'object',
@@ -186,8 +188,11 @@ const OrderDetail = defineComponent({
       }
     }
     onMounted(async () => {
-      if (orderId) {
-        const res = (await common.orderDetail({ orderId, orderNo })) as any
+      if (props?.formState?.orderId) {
+        const res = (await common.orderDetail({
+          orderId: props.formState.orderId,
+          orderNo: props.formState.orderNo
+        })) as any
         formRef.value.changeState({
           orderNo: res?.data?.orderNo,
           originalPrice: res?.data?.originalPrice,
@@ -200,7 +205,6 @@ const OrderDetail = defineComponent({
           })),
           status: res.data?.status === 'SUBMIT' ? '已结算' : '未结算'
         })
-        console.log(res, 'res')
       }
     })
     return () => {
