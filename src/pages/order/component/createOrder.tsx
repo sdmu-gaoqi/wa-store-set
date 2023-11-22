@@ -155,10 +155,11 @@ const CreateOrderModal = defineComponent({
     ]
     const handleSlot = {
       m1: ({ index, record }: any) => {
-        return record?.money || record?.originalPrice
+        console.log(record, 'rrrrrr')
+        return record?.price || record?.originalPrice
       },
       m2: ({ index, record }: any) => {
-        return record?.money || record?.unitDuration
+        return record?.duration || record?.unitDuration
       },
       //  对应 operation 的单元格 插槽内容
       ks: ({ index, record }: any) => {
