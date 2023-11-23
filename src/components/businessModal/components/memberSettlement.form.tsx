@@ -240,14 +240,18 @@ export default defineComponent({
       onSuccess: (res: any) => {
         const v = {
           orderNo: res?.data?.orderNo,
-          originalPrice: res?.data?.originalPrice,
-          receivePrice: res?.data?.receivePrice,
-          replenishPrice: res?.data?.replenishPrice || 0,
-          discountPrice: res?.data?.discountPrice,
-          oldDiscountPrice: res?.data?.receivePrice,
+          originalPrice: formatMoney(res?.data?.originalPrice),
+          receivePrice: formatMoney(res?.data?.receivePrice),
+          replenishPrice: formatMoney(res?.data?.replenishPrice || 0),
+          discountPrice: formatMoney(res?.data?.discountPrice),
+          oldDiscountPrice: formatMoney(res?.data?.receivePrice),
           table: res?.data?.preOrderItemList?.map((item: any) => ({
             ...item,
-            money: (item?.originalPrice || 0) - (item?.discountPrice || 0)
+            unitPrice: formatMoney(item?.unitPrice),
+            money: formatMoney(
+              (item?.originalPrice || 0) - (item?.discountPrice || 0)
+            ),
+            discountPrice: formatMoney(item?.discountPrice)
           }))
         }
         formRef.value.changeState(v)

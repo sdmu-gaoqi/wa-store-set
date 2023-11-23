@@ -6,6 +6,7 @@ import {
 } from 'vue-router'
 import Layout from './components/layout/layout.vue'
 import path from 'path'
+import { cookie } from 'wa-utils'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -284,7 +285,7 @@ const route = createRouter({
 
 route.beforeEach((to, from, next) => {
   const toPath = to.path
-  if (!['/login', '/test'].includes(toPath) && !localStorage.getItem('token')) {
+  if (!['/login', '/test'].includes(toPath) && !cookie.get('Admin-Token')) {
     next('/login')
     return
   }

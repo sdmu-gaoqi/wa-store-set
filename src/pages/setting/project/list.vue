@@ -67,6 +67,7 @@
     :open="open"
     :onCancel="() => (open = false)"
     :formState="detail"
+    :onFinish="onFinish"
   ></BusinessModal>
 </template>
 
@@ -81,7 +82,7 @@ import BusinessModal from '@/components/businessModal/businessModal'
 import { BusinessModalType } from '@/components/businessModal/businessModal.type'
 
 const open = ref(false)
-const detail = ref({})
+const detail = ref<any>({})
 
 const tableRef = ref()
 
@@ -90,5 +91,14 @@ const common = new CommonService()
 const router = useRouter()
 const goAdd = () => {
   router.push('/project/add')
+}
+const onFinish = async (value: any) => {
+  await common.updateProject({
+    ...value,
+    serviceProjectId: detail.value?.id
+  })
+  message.success('编辑成功')
+  open.value = false
+  tableRef.value.run(tableRef.value.params)
 }
 </script>

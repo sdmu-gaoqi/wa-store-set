@@ -120,9 +120,12 @@ const onFinish = async (value: Record<string, any>) => {
     })
   } else {
     await member.update({
-      ...value.values,
-      id: id
+      ...sendValue,
+      memberId: value.memberId
     })
+    message.success('保存成功')
+    await sleep(300)
+    router.back()
   }
 }
 const onCancel = debounce(() => {

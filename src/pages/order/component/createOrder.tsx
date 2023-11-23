@@ -3,6 +3,7 @@
 import common from '@/servers/common'
 import employee from '@/servers/employee'
 import { RoyaltyType, royaltyTypeMap } from '@/types'
+import { formatMoney } from '@/utils'
 import {
   Button,
   Input,
@@ -155,8 +156,7 @@ const CreateOrderModal = defineComponent({
     ]
     const handleSlot = {
       m1: ({ index, record }: any) => {
-        console.log(record, 'rrrrrr')
-        return record?.price || record?.originalPrice
+        return formatMoney(record?.price || record?.originalPrice)
       },
       m2: ({ index, record }: any) => {
         return record?.duration || record?.unitDuration
@@ -166,7 +166,7 @@ const CreateOrderModal = defineComponent({
         return (
           <InputNumber
             type="number"
-            min={1}
+            min={0}
             value={record?.customNum}
             precision={0}
             onChange={(v) => {
@@ -266,11 +266,14 @@ const CreateOrderModal = defineComponent({
       if (isEmpty(orderServiceItemList.value)) {
         return message.error('请选择项目')
       }
+      const l = orderServiceItemList.value.filter(
+        (item) => !((item?.customNum || '') + '')
+      )
+      if (l.length === orderServiceItemList.value.length) {
+        message.error('请完善客数')
+        return
+      }
       for (let i of orderServiceItemList.value) {
-        if (!((i?.customNum || '') + '')) {
-          message.error('请完善客数')
-          return
-        }
         if (!((i?.operateUserId || '') + '')) {
           message.error('请选择技师')
           return

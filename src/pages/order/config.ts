@@ -65,7 +65,7 @@ export const schema: TableProps['schema'] = {
         {
           title: '创建日期',
           dataIndex: 'createTime',
-          format: 'date'
+          format: 'time'
         },
         {
           fixed: 'right',
@@ -111,7 +111,7 @@ export const schema: TableProps['schema'] = {
         {
           title: '创建日期',
           dataIndex: 'createTime',
-          format: 'date'
+          format: 'time'
         },
         {
           fixed: 'right',

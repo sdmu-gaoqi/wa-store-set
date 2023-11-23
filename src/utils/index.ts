@@ -32,8 +32,11 @@ export const numberRule = {
   }
 }
 export function formatMoney(value: any) {
+  if (!value) {
+    return '0'
+  }
   // 将参数转换为浮点数
-  let floatValue = parseFloat(value)
+  let floatValue = parseFloat(value || 0)
 
   // 检查是否是有效的数值
   if (isNaN(floatValue)) {

@@ -78,7 +78,7 @@ const CreateOrder = defineComponent({
               >
                 <span class={`${styles.tag} bg-primary`}>
                   {statusMap?.[item?.status as OrderStatus]}
-                  {/* {item?.availableAmount}/{item?.totalAmount} */}
+                  {item?.availableAmount}/{item?.totalAmount}
                 </span>
                 {item?.orderItemInfo?.map((appItem: any) => {
                   const realChecked = checked.value.map((item) =>
@@ -232,6 +232,7 @@ const CreateOrder = defineComponent({
           onFinish={async (value: any) => {
             await common.submitOrder(value)
             message.success('订单结算成功')
+            checked.value = []
             payOpen.value = false
             run({})
           }}

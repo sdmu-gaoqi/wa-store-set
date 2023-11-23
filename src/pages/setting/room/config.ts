@@ -49,12 +49,12 @@ export const schema: TableProps['schema'] = {
         {
           title: '创建日期',
           dataIndex: 'createTime',
-          format: 'date'
+          format: 'time'
         },
         {
           title: '修改日期',
           dataIndex: 'updateTime',
-          format: 'date'
+          format: 'time'
         },
         {
           title: '操作',

@@ -66,8 +66,7 @@ export const schema: TableProps['schema'] = {
         },
         {
           title: '姓名',
-          dataIndex: 'memberName',
-          format: 'money'
+          dataIndex: 'memberName'
         },
         {
           title: '手机号',
@@ -92,11 +91,13 @@ export const schema: TableProps['schema'] = {
         },
         {
           title: '累计消费金额',
-          dataIndex: 'totalSpendBalance'
+          dataIndex: 'totalSpendBalance',
+          format: 'money'
         },
         {
           title: '会员卡余额',
-          dataIndex: 'availableBalance'
+          dataIndex: 'availableBalance',
+          format: 'money'
         },
         {
           title: '积分',
@@ -105,11 +106,14 @@ export const schema: TableProps['schema'] = {
         {
           title: '开卡日期',
           dataIndex: 'openCardTime',
-          format: 'date'
+          format: 'time',
+          width: 200
         },
         {
           title: '最近消费日期',
-          dataIndex: 'latestSpendTime'
+          dataIndex: 'latestSpendTime',
+          format: 'time',
+          width: 200
         },
         {
           title: '备注',
@@ -189,7 +193,8 @@ export const editSchema: Schema = {
       props: {
         placeholder: '请选择日期'
       },
-      widget: 'datePicker'
+      widget: 'datePicker',
+      'ui:hidden': 'formState.value.memberId'
     },
     birthDate: {
       title: '生日',
@@ -248,8 +253,10 @@ export const editSchema: Schema = {
       widget: 'textArea',
       span: 24
     },
+    memberId: {},
     'op-group-2': {
-      title: '充值信息'
+      title: '充值信息',
+      'ui:hidden': 'formState.value.memberId'
     },
     memberType: {
       title: '会员类型',
@@ -267,7 +274,8 @@ export const editSchema: Schema = {
           //   value: MemberType.次卡
           // }
         ]
-      }
+      },
+      'ui:hidden': 'formState.value.memberId'
     },
     占位1: {},
     rechargeBalance: {
@@ -276,7 +284,8 @@ export const editSchema: Schema = {
       widget: 'input',
       props: {
         type: 'number'
-      }
+      },
+      'ui:hidden': 'formState.value.memberId'
     },
     占位2: {},
     giveBalance: {
@@ -286,7 +295,8 @@ export const editSchema: Schema = {
       props: {
         type: 'number'
       },
-      'ui:hidden': "formState.value.memberType == '2'"
+      'ui:hidden':
+        "formState.value.memberType == '2' || formState.value.memberId"
     },
     rewardTimes: {
       title: '优惠次数',
@@ -295,7 +305,8 @@ export const editSchema: Schema = {
       props: {
         type: 'number'
       },
-      'ui:hidden': "formState.value.memberType == '1'"
+      'ui:hidden':
+        "formState.value.memberType == '1' || formState.value.memberId"
     },
     占位3: {},
     discountRate: {
@@ -332,7 +343,8 @@ export const editSchema: Schema = {
           }
         ]
       },
-      'ui:hidden': "formState.value.memberType == '2'"
+      'ui:hidden':
+        "formState.value.memberType == '2' || formState.value.memberId"
     },
     giveTimes: {
       title: '赠送次数',
@@ -341,7 +353,8 @@ export const editSchema: Schema = {
       props: {
         type: 'number'
       },
-      'ui:hidden': "formState.value.memberType == '1'"
+      'ui:hidden':
+        "formState.value.memberType == '1' || formState.value.memberId"
     },
     占位4: {},
     payMethod: {
@@ -368,7 +381,8 @@ export const editSchema: Schema = {
           }
         ]
       },
-      widget: 'radio'
+      widget: 'radio',
+      'ui:hidden': 'formState.value.memberId'
     },
     占位5: {},
     availableBalance: {
@@ -378,7 +392,8 @@ export const editSchema: Schema = {
       props: {
         readonly: true,
         bordered: false
-      }
+      },
+      'ui:hidden': 'formState.value.memberId'
     }
   },
   displayType: 'row',

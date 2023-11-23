@@ -63,12 +63,12 @@ export const schema: TableProps['schema'] = {
         {
           title: '创建日期',
           dataIndex: 'createTime',
-          format: 'date'
+          format: 'time'
         },
         {
           title: '修改日期',
           dataIndex: 'updateTime',
-          format: 'date'
+          format: 'time'
         },
         {
           title: '操作',
@@ -122,7 +122,8 @@ export const editSchema = {
       type: 'number',
       props: {
         placeholder: '请输入',
-        suffix: 'time'
+        suffix: 'time',
+        precision: 0
       },
       widget: 'input'
     },

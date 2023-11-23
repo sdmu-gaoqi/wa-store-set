@@ -1,5 +1,6 @@
 import common from '@/servers/common'
 import { RoyaltyType } from '@/types'
+import { formatMoney } from '@/utils'
 import { FormRender, Schema } from 'store-operations-ui'
 import { defineComponent, onMounted, ref, watch } from 'vue'
 
@@ -195,12 +196,15 @@ const OrderDetail = defineComponent({
         })) as any
         formRef.value.changeState({
           orderNo: res?.data?.orderNo,
-          originalPrice: res?.data?.originalPrice,
-          receivePrice: res?.data?.receivePrice,
-          replenishPrice: res?.data?.replenishPrice,
+          originalPrice: formatMoney(res?.data?.originalPrice),
+          receivePrice: formatMoney(res?.data?.receivePrice),
+          replenishPrice: formatMoney(res?.data?.replenishPrice),
           table: res?.data?.orderItemList?.map((item: any) => ({
             ...item,
-            money: (item?.originalPrice || 0) - (item?.discountPrice || 0),
+            money: formatMoney(
+              (item?.originalPrice || 0) - (item?.discountPrice || 0)
+            ),
+            unitPrice: formatMoney(item?.unitPrice),
             royaltyType: item.royaltyType === RoyaltyType.排钟 ? '排钟' : '点钟'
           })),
           status: res.data?.status === 'SUBMIT' ? '已结算' : '未结算'

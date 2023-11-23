@@ -84,7 +84,7 @@ export const schema: TableProps['schema'] = {
         {
           title: '创建日期',
           dataIndex: 'createTime',
-          format: 'date'
+          format: 'time'
         },
         {
           title: '入职日期',
