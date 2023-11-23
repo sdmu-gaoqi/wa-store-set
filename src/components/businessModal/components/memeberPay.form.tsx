@@ -195,7 +195,7 @@ export default defineComponent({
         formRef.value.changeState({
           ...props?.formState,
           beforeDepositBalance:
-            beforeDepositBalance > 0 ? beforeDepositBalance : 0,
+            Number(beforeDepositBalance) > 0 ? beforeDepositBalance : 0,
           payMethod: 1
         })
       }
