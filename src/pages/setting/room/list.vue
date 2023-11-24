@@ -15,21 +15,12 @@
         v-if="data?.column?.dataIndex === 'options'"
         class="flex justify-center items-center"
       >
-        <a
-          type="link"
-          class="table-btn"
-          @click="
-            () => {
-              open = true
-              formState = data.record
-            }
-          "
+        <a type="link" class="table-btn" @click="() => edit(data.record)"
           >编辑</a
         >
-        <a
-          type="link"
-          class="table-btn-danger last"
-          @click="
+        <a-popconfirm
+          title="是否确认删除"
+          :onConfirm="
             () => {
               room
                 .delete({
@@ -42,8 +33,9 @@
                 })
             }
           "
-          >删除</a
         >
+          <a type="link" class="table-btn-danger last">删除</a>
+        </a-popconfirm>
       </div>
       <template v-else>{{ data.customer }}</template>
     </template>
@@ -69,7 +61,12 @@ import { BusinessModalType } from '@/components/businessModal/businessModal.type
 import { sleep } from 'wa-utils'
 
 const open = ref(false)
-const formState = reactive<any>({})
+const formState = ref<any>({})
+
+const edit = (data: any) => {
+  open.value = true
+  formState.value = data
+}
 
 const tableRef = ref()
 

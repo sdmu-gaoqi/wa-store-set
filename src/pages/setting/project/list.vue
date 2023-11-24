@@ -21,10 +21,9 @@
           "
           >编辑</a
         >
-        <a
-          type="link"
-          class="table-btn-danger last"
-          @click="
+        <a-popconfirm
+          title="是否确认删除"
+          :onConfirm="
             () => {
               common
                 .deleteProject({
@@ -37,7 +36,9 @@
                 })
             }
           "
-          >删除</a
+          ><a type="link" class="table-btn-danger last" @click="() => {}"
+            >删除</a
+          ></a-popconfirm
         >
       </div>
       <a-switch

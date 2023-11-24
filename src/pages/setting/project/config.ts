@@ -160,7 +160,7 @@ export const editSchema = {
       title: '是否参与折扣优惠',
       widget: 'radio',
       type: 'string',
-      defaultValue: '0',
+      defaultValue: 1,
       props: {
         options: [
           { label: '是', value: 1 },
