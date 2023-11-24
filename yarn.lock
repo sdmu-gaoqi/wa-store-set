@@ -6178,10 +6178,10 @@ stop-iteration-iterator@^1.0.0:
   dependencies:
     internal-slot "^1.0.4"
 
-store-operations-ui@^0.3.4:
-  version "0.3.4"
-  resolved "https://registry.npmjs.org/store-operations-ui/-/store-operations-ui-0.3.4.tgz#e03f9737a1c50f1b341a2ff7806912e4dc2ecae6"
-  integrity sha512-+6hKtoDxRMdo5Ij8HjwHrZWMRp6mJRDbvu5QmpSTqahurKYmQFyFKO+GTexZg7gIFi+KVCfboXZx+k03AFLRhg==
+store-operations-ui@^0.3.6:
+  version "0.3.6"
+  resolved "https://registry.npmjs.org/store-operations-ui/-/store-operations-ui-0.3.6.tgz#d79b3b6f0151e0f3117a910c31d64c0bff5f5b7d"
+  integrity sha512-KR2P1M564cT+97cwETTO9SEpkD+rGPac+iEY1R/WTE6lPH+PnQ251ylY9V+iMEMua0XZV3DsTNaaqVMAMo+cvg==
   dependencies:
     "@vitejs/plugin-vue" "^4.2.3"
     "@vitejs/plugin-vue-jsx" "^3.0.1"
@@ -6207,6 +6207,19 @@ store-request@^0.0.6:
   version "0.0.6"
   resolved "https://registry.npmjs.org/store-request/-/store-request-0.0.6.tgz#be4136412638af745a52af9629d7b184aaf4e43f"
   integrity sha512-KBAPIG5IcqAmhJaY1r8cFsYfspmU6q6JdLxedK27VjJyijFXiRD5CygTWxjvG2TFo0FOhRSHy+6V81W7ReUmLQ==
+  dependencies:
+    "@types/lodash" "^4.14.198"
+    ant-design-vue "^4.0.0"
+    axios "^1.4.0"
+    copy-to-clipboard "^3.3.3"
+    dayjs "^1.11.9"
+    lodash "^4.17.21"
+    wa-utils "^0.2.1"
+
+store-request@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.npmjs.org/store-request/-/store-request-0.0.8.tgz#de858c1f396ea133065a3abdaf33accfd0a06070"
+  integrity sha512-v3z1oSN8t3+JC2Ubwn7IJMpF8or7vyYiSMMXW9BBJDKiSCq0jSJdkGTafiWVlnYeEHaiMDvuMtFPZBwDvPipSw==
   dependencies:
     "@types/lodash" "^4.14.198"
     ant-design-vue "^4.0.0"
