@@ -13,9 +13,12 @@ export const schema: TableProps['schema'] = {
         key: 'orderNo'
       },
       {
-        type: 'date',
+        type: 'range',
         label: '创建日期',
-        key: 'createTime'
+        placeholder: ['开始日期', '结束日期'],
+        key: 'createTime',
+        format: 'timestamp',
+        names: ['startCreateTime', 'endCreateTime']
       }
     ]
   },

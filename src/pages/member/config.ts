@@ -40,7 +40,7 @@ export const schema: TableProps['schema'] = {
         type: 'range',
         label: '开卡日期',
         placeholder: ['开始时间', '结束时间'],
-        key: 'openStartTime',
+        key: 'time',
         format: 'timestamp',
         names: ['openStartTime', 'openEndTime']
       },
@@ -186,15 +186,6 @@ export const editSchema: Schema = {
       title: '手机号',
       type: 'string',
       widget: 'input'
-    },
-    validateDate: {
-      title: '开卡日期',
-      type: 'string',
-      props: {
-        placeholder: '请选择日期'
-      },
-      widget: 'datePicker',
-      'ui:hidden': 'formState.value.memberId'
     },
     birthDate: {
       title: '生日',

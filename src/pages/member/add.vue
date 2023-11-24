@@ -1,5 +1,5 @@
 <template>
-  <FormCard title="新增会员">
+  <FormCard :title="id ? '编辑会员' : '新增会员'">
     <template #content>
       <FormRender
         :on-finish="onFinish"
@@ -86,7 +86,9 @@ const router = useRouter()
 
 const onFinish = async (value: Record<string, any>) => {
   const sendValue = {
-    birthDate: value?.birthDate,
+    birthDate: value?.birthDate
+      ? +new Date(value?.birthDate)
+      : value?.birthDate,
     ...(value.memberType == MemberType.折扣卡 && {
       memberDiscountInfo: {
         discountRate: value?.discountRate,
@@ -109,7 +111,7 @@ const onFinish = async (value: Record<string, any>) => {
     phone: value?.phone,
     remark: value?.remark,
     sex: value?.sex,
-    validateDate: 0,
+    validateDate: value.youxiao ? +new Date(value.youxiao) : null,
     wechatId: ''
   }
   if (!isEdit) {

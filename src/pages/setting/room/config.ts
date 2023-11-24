@@ -9,7 +9,7 @@ export const schema: TableProps['schema'] = {
     fields: [
       {
         type: 'search',
-        label: '房间名称',
+        label: '房间号',
         key: 'roomNo'
       },
       {
@@ -35,7 +35,7 @@ export const schema: TableProps['schema'] = {
           isIndex: true
         },
         {
-          title: '房间名称',
+          title: '房间号',
           dataIndex: 'roomNo'
         },
         {
