@@ -56,6 +56,7 @@ const schema: Schema = {
     memberId: {
       title: '查找会员',
       type: 'string',
+      placeholder: '请输入手机号查询会员',
       search: {
         key: 'searchPhone',
         label: 'memberName1',
@@ -174,7 +175,11 @@ const schema: Schema = {
       widget: 'input',
       props: {
         readonly: true,
-        bordered: false
+        bordered: false,
+        style: {
+          color: 'red',
+          fontWeight: 'bold'
+        }
       },
       'ui:hidden':
         '(formState.value.settleType == 1 && !formState.value?.memberId?.memberId)'

@@ -323,6 +323,12 @@ const CreateOrderModal = defineComponent({
         props.onOk()
         orderServiceItemList.value = []
       } catch (err) {
+        if (err?.code == 1028) {
+          const roomName = err?.msg
+            ?.replace('Exception, the roomNo:', '')
+            ?.replace(' has no enough amount', '')
+          message.error(`${roomName}房间客数已满,暂不能创建订单`)
+        }
         props.onCancel()
       }
     }, 300)

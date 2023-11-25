@@ -13,7 +13,7 @@
               (v.rechargeBalance || 0) +
               (v.giveBalance || 0)
             formRef.changeState({
-              availableBalance: newValue
+              availableBalance: formatMoney(newValue)
             })
           }
         "
@@ -31,6 +31,8 @@ import { Member } from 'store-request'
 import { onMounted, reactive, ref } from 'vue'
 import { MemberType } from '@/types'
 import { message } from 'ant-design-vue'
+import { formatMoney } from '@/utils'
+import dayjs from 'dayjs'
 
 const formRef = ref()
 
@@ -64,6 +66,18 @@ onMounted(() => {
             openCardTime: data?.openCardTime,
             phone: data?.phone,
             remark: data?.remark,
+            sex: data?.sex,
+            ...(data?.validateDate && {
+              expiration: '2',
+              youxiao: dayjs(data?.validateDate).format('YYYY-MM-DD')
+            }),
+            ...(data?.validateDate > +new Date('2600-10-01 10:00:00') && {
+              expiration: '1',
+              youxiao: undefined
+            }),
+            birthDate: data?.birthDate
+              ? dayjs(data?.birthDate).format('YYYY-MM-DD')
+              : undefined,
             status: data?.status,
             ...(data.memberType === MemberType.折扣卡 && {
               availableBalance: data.memberDiscountInfo.availableBalance,
@@ -85,10 +99,20 @@ onMounted(() => {
 const router = useRouter()
 
 const onFinish = async (value: Record<string, any>) => {
+  const youxiao = value.youxiao ? new Date(value.youxiao) : null
+  if (youxiao) {
+    youxiao.setHours(0)
+    youxiao.setMinutes(0)
+    youxiao.setSeconds(0)
+  }
+  const birthDate = value.birthDate ? new Date(value.birthDate) : null
+  if (birthDate) {
+    birthDate.setHours(0)
+    birthDate.setMinutes(0)
+    birthDate.setSeconds(0)
+  }
   const sendValue = {
-    birthDate: value?.birthDate
-      ? +new Date(value?.birthDate)
-      : value?.birthDate,
+    birthDate: birthDate ? +birthDate : value?.birthDate,
     ...(value.memberType == MemberType.折扣卡 && {
       memberDiscountInfo: {
         discountRate: value?.discountRate,
@@ -111,7 +135,10 @@ const onFinish = async (value: Record<string, any>) => {
     phone: value?.phone,
     remark: value?.remark,
     sex: value?.sex,
-    validateDate: value.youxiao ? +new Date(value.youxiao) : null,
+    validateDate:
+      youxiao && value?.expiration == '2'
+        ? +youxiao
+        : +new Date('3000-10-01 10:00:00'),
     wechatId: ''
   }
   if (!isEdit) {

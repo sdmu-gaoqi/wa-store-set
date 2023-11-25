@@ -190,17 +190,17 @@ export const editSchema: Schema = {
     sex: {
       title: '性别',
       type: 'string',
-      defaultValue: '1',
+      defaultValue: 1,
       span: 24,
       props: {
         options: [
           {
             label: '男',
-            value: '1'
+            value: 1
           },
           {
             label: '女',
-            value: '0'
+            value: 0
           }
         ]
       },
@@ -369,12 +369,16 @@ export const editSchema: Schema = {
     },
     占位5: {},
     availableBalance: {
-      title: '卡内总金额',
+      title: '会员卡总金额',
       type: 'string',
       widget: 'input',
       props: {
         readonly: true,
-        bordered: false
+        bordered: false,
+        style: {
+          color: 'red',
+          fontWeight: 'bold'
+        }
       },
       'ui:hidden': 'formState.value.memberId'
     }

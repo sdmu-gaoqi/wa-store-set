@@ -106,7 +106,7 @@ const OrderDetail = defineComponent({
           'ui:hidden': 'isEmpty(formState.value.discountPrice)'
         },
         receivePrice: {
-          title: '原价',
+          title: '实收金额',
           type: 'string',
           span: 12,
           widget: 'input',
@@ -199,6 +199,7 @@ const OrderDetail = defineComponent({
           originalPrice: formatMoney(res?.data?.originalPrice),
           receivePrice: formatMoney(res?.data?.receivePrice),
           replenishPrice: formatMoney(res?.data?.replenishPrice),
+          remark: res?.data?.remark,
           table: res?.data?.orderItemList?.map((item: any) => ({
             ...item,
             money: formatMoney(
