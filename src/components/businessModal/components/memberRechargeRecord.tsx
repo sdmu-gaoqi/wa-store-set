@@ -1,3 +1,6 @@
+/**
+ * @file 充值记录
+ * */
 import { memberTypes, payTypes } from '@/types'
 import { TableProps, TableRender } from 'store-operations-ui'
 import { Member } from 'store-request'
@@ -59,8 +62,9 @@ export default defineComponent({
             },
             {
               title: '充值金额',
-              dataIndex: 'rechargeBalance',
-              width: 100
+              dataIndex: 'depositBalance',
+              width: 100,
+              format: 'money'
             },
             {
               title: '赠送金额',

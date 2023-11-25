@@ -8,6 +8,6 @@ import './styles/global.scss'
 import './styles/tailwind.global.scss'
 import 'store-operations-ui/dist/style.css'
 
-document.title = '日新月异-门店管理系统'
+document.title = '益.梦想家门店管理系统'
 
 createApp(App).use(Antd).use(route).use(store).mount('#app')
