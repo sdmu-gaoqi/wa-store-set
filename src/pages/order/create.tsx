@@ -41,6 +41,7 @@ const CreateOrder = defineComponent({
       onSuccess: (res: any) => {
         data.value = res?.rows
         total.value = res?.total
+        checked.value = []
       }
     })
 
