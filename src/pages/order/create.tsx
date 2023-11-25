@@ -220,6 +220,10 @@ const CreateOrder = defineComponent({
             modalOpen.value = false
             run({})
           }}
+          onRefresh={() => {
+            modalOpen.value = false
+            run({})
+          }}
           orderInfo={orderInfo.value}
         />
         <BusinessModal

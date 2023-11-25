@@ -36,7 +36,7 @@ export const schema: TableProps['schema'] = {
         },
         {
           title: '订单金额/元',
-          dataIndex: 'money',
+          dataIndex: 'receivePrice',
           format: 'money'
         },
         {
@@ -90,7 +90,7 @@ export const schema: TableProps['schema'] = {
         },
         {
           title: '订单金额/元',
-          dataIndex: 'originalPrice',
+          dataIndex: 'receivePrice',
           format: 'money'
         },
         {

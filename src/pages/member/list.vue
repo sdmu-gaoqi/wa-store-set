@@ -105,7 +105,7 @@ import { TableRender } from 'store-operations-ui'
 import { schema } from './config'
 import { useRouter } from 'vue-router'
 import BusinessModal from '@/components/businessModal/businessModal'
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 import {
   BusinessModalType,
   BusinessModalTypes
@@ -115,7 +115,7 @@ import { MemberType } from '@/types'
 import { message } from 'ant-design-vue'
 import { nanoid } from 'nanoid'
 
-const formState = reactive({})
+const formState = ref({})
 const tableRef = ref()
 
 const member = new Member()

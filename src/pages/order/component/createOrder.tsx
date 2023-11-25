@@ -9,6 +9,7 @@ import {
   Input,
   InputNumber,
   Modal,
+  Popconfirm,
   Select,
   Table,
   message
@@ -33,6 +34,7 @@ interface Props {
   onCancel: () => void
   onOk?: () => void
   orderInfo: any
+  onRefresh: () => void
 }
 
 const CreateOrderModal = defineComponent({
@@ -40,7 +42,8 @@ const CreateOrderModal = defineComponent({
     open: Boolean,
     onCancel: Function,
     onOk: Function,
-    orderInfo: Object
+    orderInfo: Object,
+    onRefresh: Function
   },
   //   @ts-ignore
   setup(props: Props) {
@@ -327,12 +330,85 @@ const CreateOrderModal = defineComponent({
     const title = computed(() => {
       return props.orderInfo?.roomNo ? '修改订单' : '创建订单'
     })
+
+    watch(
+      () => props.orderInfo,
+      () => {
+        const isEdit = !!props.orderInfo?.roomNo
+        if (isEdit) {
+          slot.value = defalutSlot
+        } else {
+          slot.value = noDeleteFooter
+        }
+      }
+    )
+
     watch(
       () => props.open,
       () => {
         deleteItems.value = []
       }
     )
+
+    const noDeleteFooter = {
+      footer: (
+        <>
+          <Button
+            onClick={() => {
+              orderServiceItemList.value = []
+              if (props.onCancel) {
+                props.onCancel(true)
+              }
+            }}
+          >
+            返回
+          </Button>
+          <Button type="primary" onClick={onFinish}>
+            {title.value}
+          </Button>
+        </>
+      )
+    }
+
+    const defalutSlot = {
+      footer: (
+        <>
+          <Popconfirm
+            title="是否确认删除"
+            okText="删除"
+            cancelText="取消"
+            onConfirm={async () => {
+              await common.deleteOrder({
+                orderId: props.orderInfo?.orderId,
+                orderNo: props.orderInfo?.orderNo
+              })
+              message.success('删除成功')
+              if (props.onRefresh) {
+                props.onRefresh()
+              }
+            }}
+          >
+            <Button danger>删除订单</Button>
+          </Popconfirm>
+          <Button
+            onClick={() => {
+              orderServiceItemList.value = []
+              if (props.onCancel) {
+                props.onCancel(true)
+              }
+            }}
+          >
+            返回
+          </Button>
+          <Button type="primary" onClick={onFinish}>
+            {title.value}
+          </Button>
+        </>
+      )
+    }
+
+    const slot = ref(noDeleteFooter)
+
     return () => (
       <Modal
         width={1200}
@@ -347,6 +423,7 @@ const CreateOrderModal = defineComponent({
             props.onCancel()
           }
         }}
+        v-slots={slot.value}
         onOk={onFinish}
       >
         <div>
@@ -379,7 +456,6 @@ const CreateOrderModal = defineComponent({
                   class={`rounded-md bg-indigo-100 text-[#fff ] px-[20px] py-[10px] cursor-pointer select-none hover:shadow-md active:shadow-lg mr-[10px]`}
                   style={{ border: '1px solid #bbb' }}
                   onClick={() => {
-                    console.log(props.orderInfo?.roomNo)
                     orderServiceItemList.value = [
                       ...orderServiceItemList.value,
                       {

@@ -1,3 +1,6 @@
+/**
+ * @file 会员结算
+ * */
 import common from '@/servers/common'
 import { MemberType, payTypes } from '@/types'
 import { formatMoney } from '@/utils'
@@ -54,11 +57,17 @@ const schema: Schema = {
       title: '查找会员',
       type: 'string',
       search: {
-        key: 'memberName',
-        label: 'memberName',
+        key: 'searchPhone',
+        label: 'memberName1',
         value: 'memberId',
         request: member.list,
-        dataKey: 'rows'
+        dataKey: 'rows',
+        format: (v: any) => {
+          return v?.map((item: any) => ({
+            ...item,
+            memberName1: `${item?.memberName} (会员卡号:${item?.memberNo}-手机号${item?.phone})`
+          }))
+        }
       },
       widget: 'searchSelect',
       'ui:hidden': 'formState.value.settleType != 1'

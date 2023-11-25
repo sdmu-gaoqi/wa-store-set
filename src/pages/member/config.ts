@@ -17,25 +17,25 @@ export const schema: TableProps['schema'] = {
         type: 'search',
         label: '会员卡号',
         placeholder: '会员卡号',
-        key: 'memberNo'
+        key: 'searchMemberNo'
       },
       {
         type: 'search',
         label: '姓名',
         placeholder: '姓名',
-        key: 'memberName'
+        key: 'searchMemberName'
       },
       {
         type: 'search',
         label: '手机号',
         placeholder: '手机号',
-        key: 'phone'
+        key: 'searchPhone'
       },
-      {
-        type: 'select',
-        label: '会员类型',
-        key: 'memberType'
-      },
+      // {
+      //   type: 'select',
+      //   label: '会员类型',
+      //   key: 'memberType'
+      // },
       {
         type: 'range',
         label: '开卡日期',
@@ -82,10 +82,6 @@ export const schema: TableProps['schema'] = {
           dataIndex: 'discountRate'
         },
         {
-          title: '开卡门店',
-          dataIndex: 'storeName'
-        },
-        {
           title: '会员状态',
           dataIndex: 'status'
         },
@@ -98,10 +94,6 @@ export const schema: TableProps['schema'] = {
           title: '会员卡余额',
           dataIndex: 'availableBalance',
           format: 'money'
-        },
-        {
-          title: '积分',
-          dataIndex: 'jifen'
         },
         {
           title: '开卡日期',
