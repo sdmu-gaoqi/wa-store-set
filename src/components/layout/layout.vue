@@ -244,7 +244,7 @@ const menus = ref([
     key: 'setting',
     children: [
       { title: '房间管理', path: '/room/list', key: 'home-list' },
-      { title: '房间类型', path: '/room-type/list', key: 'room-type-list' },
+      // { title: '房间类型', path: '/room-type/list', key: 'room-type-list' },
       { title: '价目表信息', path: '/project/list', key: 'project-list' },
       { title: '支付方式设置', path: '/pay-type', key: 'pay-type' },
       { title: '营业额标准设置', path: '/turnover', key: 'turnover' }

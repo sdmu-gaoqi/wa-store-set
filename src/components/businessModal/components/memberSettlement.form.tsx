@@ -325,14 +325,47 @@ export default defineComponent({
             const formValue = formRef.value.formRef.getFieldsValue()
             const settleType = +formValue.settleType
             const originalPrice = formValue?.originalPrice
+            const orderId = props.formState?.orderId
+            const orderNo = props.formState?.orderNo
+            const user = formValue?.memberId
             if (key === 'settleType') {
-              const newDiscountedPrice = formValue?.memberId
-                ? ((100 - formValue?.memberId?.discountRate * 100) / 100) *
-                  originalPrice
-                : 0
-              formRef.value.changeState({
-                discountPrice: newDiscountedPrice
-              })
+              const tab = value?.target?.value
+              if (tab == '0') {
+                run({
+                  orderId,
+                  orderNo,
+                  settleType: '0'
+                  // memberId: selectUser?.value?.memberId,
+                  // phone: selectUser?.value?.phone,
+                  // discountPrice: newDiscountedPrice
+                })
+              } else {
+                if (user?.memberId) {
+                  const newDiscountedPrice =
+                    ((100 - user?.discountRate * 100) / 100) * originalPrice
+                  run({
+                    orderId,
+                    orderNo,
+                    settleType: '1',
+                    memberId: user?.memberId,
+                    phone: user?.phone,
+                    discountPrice: newDiscountedPrice
+                  })
+                }
+              }
+              // const newDiscountedPrice = formValue?.memberId
+              //   ? ((100 - formValue?.memberId?.discountRate * 100) / 100) *
+              //     originalPrice
+              //   : 0
+              // formRef.value.changeState({
+              //   discountPrice:
+              //     value?.target?.value == '0' ? 0 : newDiscountedPrice,
+              //   ...(value?.target?.value == '0' && {
+              //     receivePrice: formValue?.originalPrice
+              //   })
+              //   ...value?.target?.value == '1' && {
+              //   }
+              // })
             }
             if (key === 'memberId') {
               selectUser.value = value.option
@@ -359,7 +392,7 @@ export default defineComponent({
                   run({
                     orderId,
                     orderNo,
-                    settleType: 0,
+                    settleType: settleType,
                     memberId: selectUser?.value?.memberId,
                     phone: selectUser?.value?.phone,
                     discountPrice: newDiscountedPrice
