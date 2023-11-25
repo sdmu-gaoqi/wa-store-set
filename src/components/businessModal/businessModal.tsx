@@ -33,7 +33,7 @@ export default defineComponent({
       [BusinessModalType.会员充值记录]: '会员充值记录',
       [BusinessModalType.会员消费记录]: '会员消费记录',
       [BusinessModalType.会员退卡]: '会员退款',
-      [BusinessModalType.会员结算]: '会员结算',
+      [BusinessModalType.会员结算]: '订单结算',
       [BusinessModalType.编辑房间]: '编辑房间',
       [BusinessModalType.编辑价目表]: '编辑价目表',
       [BusinessModalType.订单详情]: '订单详情'
