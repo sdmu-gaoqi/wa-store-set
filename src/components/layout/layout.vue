@@ -167,12 +167,12 @@ watch(
   { immediate: true }
 )
 const menus = ref([
-  {
-    title: '工作台',
-    key: 'workbench',
-    path: '/workbench',
-    icon: 工作台
-  },
+  // {
+  //   title: '工作台',
+  //   key: 'workbench',
+  //   path: '/workbench',
+  //   icon: 工作台
+  // },
   {
     title: '订单管理',
     key: 'order',
@@ -187,8 +187,8 @@ const menus = ref([
     title: '会员管理',
     key: 'member',
     children: [
-      { title: '会员列表', path: '/member/list', key: 'member-list' },
-      { title: '会员模式', path: '/member/type/list', key: 'member-type-list' }
+      { title: '会员列表', path: '/member/list', key: 'member-list' }
+      // { title: '会员模式', path: '/member/type/list', key: 'member-type-list' }
     ],
     path: '/member',
     icon: 会员
@@ -197,12 +197,12 @@ const menus = ref([
     title: '员工管理',
     key: 'employee',
     children: [
-      { title: '员工列表', path: '/employee/list', key: 'employee-list' },
-      {
-        title: '员工请假列表',
-        path: '/employee/leave/list',
-        key: 'employee-leave-list'
-      }
+      { title: '员工列表', path: '/employee/list', key: 'employee-list' }
+      // {
+      //   title: '员工请假列表',
+      //   path: '/employee/leave/list',
+      //   key: 'employee-leave-list'
+      // }
     ],
     path: '/employee',
     icon: 员工

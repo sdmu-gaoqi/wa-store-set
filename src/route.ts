@@ -19,7 +19,7 @@ const routes: RouteRecordRaw[] = [
     component: Layout,
     name: '门店管理系统',
     redirect: () => {
-      return { path: '/workbench' }
+      return { path: '/order/list' }
     },
     children: [
       {
