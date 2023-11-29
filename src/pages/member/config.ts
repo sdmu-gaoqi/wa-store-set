@@ -301,20 +301,16 @@ export const editSchema: Schema = {
         // type: 'number'
         options: [
           {
-            label: '0.5',
-            value: 0.5
-          },
-          {
-            label: '0.6',
-            value: 0.6
-          },
-          {
             label: '0.7',
             value: 0.7
           },
           {
             label: '0.8',
             value: 0.8
+          },
+          {
+            label: '0.85',
+            value: 0.85
           },
           {
             label: '0.9',

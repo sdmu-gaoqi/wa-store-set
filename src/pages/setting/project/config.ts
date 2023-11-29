@@ -22,19 +22,23 @@ export const schema: TableProps['schema'] = {
         {
           fixed: true,
           title: '项目编号',
-          dataIndex: 'id'
+          dataIndex: 'id',
+          width: 100
         },
         {
           title: '服务项目',
-          dataIndex: 'serviceName'
+          dataIndex: 'serviceName',
+          width: 250
         },
         {
           title: '项目价格 /元',
-          dataIndex: 'price'
+          dataIndex: 'price',
+          format: 'money'
         },
         {
           title: '项目时长/分钟',
-          dataIndex: 'duration'
+          dataIndex: 'duration',
+          width: 150
         },
         {
           title: '启用状态',
@@ -46,11 +50,13 @@ export const schema: TableProps['schema'] = {
         },
         {
           title: '排钟提成/元',
-          dataIndex: 'pzRoyalty'
+          dataIndex: 'pzRoyalty',
+          format: 'money'
         },
         {
           title: '点钟提成/元',
-          dataIndex: 'dzRoyalty'
+          dataIndex: 'dzRoyalty',
+          format: 'money'
         },
         {
           title: '是否参与折扣优惠',

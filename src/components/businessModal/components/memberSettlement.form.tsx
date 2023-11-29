@@ -320,6 +320,9 @@ export default defineComponent({
               payMethod: v?.payMethod,
               originalPrice: formatMoney(v?.originalPrice)
             }
+            if (v?.settleType === '1' && !v?.memberId?.memberId) {
+              return message.error('请选择会员')
+            }
             if (props?.onFinish) {
               props.onFinish(value)
             }
@@ -353,8 +356,8 @@ export default defineComponent({
                     orderNo,
                     settleType: '1',
                     memberId: user?.memberId,
-                    phone: user?.phone,
-                    discountPrice: newDiscountedPrice
+                    phone: user?.phone
+                    // discountPrice: newDiscountedPrice
                   })
                 }
               }
@@ -388,8 +391,8 @@ export default defineComponent({
                       discountRate: `${value?.option?.discountRate * 10}折`,
                       availableBalance: `${value?.option?.availableBalance}元`
                     }
-                  ],
-                  discountPrice: newDiscountedPrice
+                  ]
+                  // discountPrice: newDiscountedPrice
                 })
                 const orderId = props.formState?.orderId
                 const orderNo = props.formState?.orderNo
@@ -399,8 +402,8 @@ export default defineComponent({
                     orderNo,
                     settleType: settleType,
                     memberId: selectUser?.value?.memberId,
-                    phone: selectUser?.value?.phone,
-                    discountPrice: newDiscountedPrice
+                    phone: selectUser?.value?.phone
+                    // discountPrice: newDiscountedPrice
                   })
                 }
               }

@@ -77,11 +77,17 @@ const CreateOrder = defineComponent({
                 key={item.name}
                 class={`${styles.item} shadow-md hover:shadow-lg cursor-pointer relative mr-[20px]`}
               >
-                <span class={`${styles.tag} bg-primary`}>
+                <span
+                  class={`${styles.tag} bg-primary ${
+                    item.status === 'BUSY' && '!bg-red-500'
+                  }`}
+                >
                   {statusMap?.[item?.status as OrderStatus]}
-                  {item?.availableAmount}/{item?.totalAmount}
+                  {item?.totalAmount - item?.availableAmount}/
+                  {item?.totalAmount}
                 </span>
                 {item?.orderItemInfo?.map((appItem: any) => {
+                  const time = appItem?.endTime - appItem?.currentTime
                   const realChecked = checked.value.map((item) =>
                     JSON.parse(item)
                   )
@@ -127,14 +133,27 @@ const CreateOrder = defineComponent({
                           }
                         }}
                       ></Checkbox>
-                      {appItem?.serviceProjectName || '-'}{' '}
-                      {/* {appItem?.operateUserName || '-'} 倒计时
-                      <Countdown
-                        num={appItem?.endTime - appItem?.currentTime}
-                        num2={1000}
-                      /> */}
+                      <div
+                        class="text-ellipsis overflow-hidden"
+                        style={{ 'white-space': 'nowrap' }}
+                      >
+                        {appItem?.serviceProjectName || '-'}{' '}
+                      </div>
+                      <div class="shrink-0 pl-[10px]">
+                        {appItem?.operateUserName || '-'}
+                      </div>
+                      <div class="shrink-0 px-[10px] text-primary">
+                        {time > 0 ? (
+                          <>
+                            倒计时：
+                            <Countdown num={time} num2={1000} />
+                          </>
+                        ) : (
+                          <span class="text-red-500">已完成</span>
+                        )}
+                      </div>
                       <a
-                        class="text-[12px] select-none ml-auto block"
+                        class="text-[12px] select-none ml-auto block shrink-0"
                         style={{ padding: 0 }}
                         onClick={() => {
                           const orderId = appItem?.orderId

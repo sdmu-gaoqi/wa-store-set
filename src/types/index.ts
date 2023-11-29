@@ -62,3 +62,40 @@ export const PostMap = [
     value: '店长'
   }
 ]
+
+export enum Point {
+  目录 = 'M',
+  菜单 = 'C',
+  按钮 = 'F'
+}
+
+export const PointMap = [
+  {
+    label: '目录',
+    value: Point.目录
+  },
+  {
+    label: '菜单',
+    value: Point.菜单
+  },
+  {
+    label: '按钮',
+    value: Point.按钮
+  }
+]
+
+export enum StatusGlobal {
+  启用 = '0',
+  停用 = '1'
+}
+
+export const StatusMap = [
+  {
+    label: '启用',
+    value: StatusGlobal.启用
+  },
+  {
+    label: '停用',
+    value: StatusGlobal.停用
+  }
+]

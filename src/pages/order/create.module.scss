@@ -1,7 +1,8 @@
 @import '../../styles//main.scss';
 
 .item {
-  width: 30%;
+  width: 31%;
+  min-width: 300px;
   min-height: 160px;
   background-color: #fff;
   text-align: center;

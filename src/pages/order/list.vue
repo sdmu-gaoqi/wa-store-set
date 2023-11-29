@@ -9,35 +9,42 @@
     }"
   >
     <template #bodyCell="{ data }">
-      <template v-if="data.column.dataIndex === 'options'"
-        ><a-button
-          v-if="data.record.status === 'CREATED'"
-          type="link"
-          style="padding: 0"
-          :ghost="true"
-          @click="
-            () => {
-              open = true
-              type = BusinessModalType.会员结算
-              orderData.orderId = data?.record?.orderId
-              orderData.orderNo = data?.record?.orderNo
-            }
-          "
-          >结算</a-button
-        ><a-button
-          type="link"
-          style="padding: 0; padding-left: 10px"
-          :ghost="true"
-          @click="
-            () => {
-              open = true
-              type = BusinessModalType.订单详情
-              orderData.orderId = data?.record?.orderId
-              orderData.orderNo = data?.record?.orderNo
-            }
-          "
-          >详情</a-button
-        ></template
+      <template v-if="data.column.dataIndex === 'options'">
+        <div class="flex justify-center items-center">
+          <div
+            v-if="data.record.status === 'CREATED'"
+            type="link"
+            style="padding: 0"
+            :ghost="true"
+            class="table-btn"
+            @click="
+              () => {
+                open = true
+                type = BusinessModalType.会员结算
+                orderData.orderId = data?.record?.orderId
+                orderData.orderNo = data?.record?.orderNo
+              }
+            "
+          >
+            结算
+          </div>
+          <div
+            type="link"
+            style="padding: 0; padding-left: 10px"
+            :ghost="true"
+            class="table-btn"
+            @click="
+              () => {
+                open = true
+                type = BusinessModalType.订单详情
+                orderData.orderId = data?.record?.orderId
+                orderData.orderNo = data?.record?.orderNo
+              }
+            "
+          >
+            详情
+          </div>
+        </div></template
       >
       <template v-else>{{ data?.customer || data.text }}</template>
     </template>

@@ -202,9 +202,7 @@ const OrderDetail = defineComponent({
           remark: res?.data?.remark,
           table: res?.data?.orderItemList?.map((item: any) => ({
             ...item,
-            money: formatMoney(
-              (item?.originalPrice || 0) - (item?.discountPrice || 0)
-            ),
+            money: formatMoney(item?.discountPrice || 0),
             unitPrice: formatMoney(item?.unitPrice),
             royaltyType: item.royaltyType === RoyaltyType.排钟 ? '排钟' : '点钟'
           })),

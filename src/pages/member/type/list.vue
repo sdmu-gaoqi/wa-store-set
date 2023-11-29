@@ -4,7 +4,7 @@
       >模式设置</a-button
     >
   </div>
-  <TableRender :schema="schema" :changeTab="changeTab" :list="mockData">
+  <TableRender :schema="schema" :changeTab="changeTab">
     <template #bodyCell="{ data }">
       <div
         v-if="data?.column?.dataIndex === 'options'"

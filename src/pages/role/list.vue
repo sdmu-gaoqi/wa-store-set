@@ -5,6 +5,9 @@
     :request="role.roleList"
     :formatParams="formatParams"
     ref="tableRef"
+    :table-props="{
+      scroll: { x: 1400 }
+    }"
   >
     <template #formButton>
       <a-button type="primary" class="ml-[10px]" :onClick="goAdd"
@@ -23,12 +26,16 @@
           >编辑</a
         >
         <a type="link" class="table-btn">权限配置</a>
-        <a
-          type="link"
-          class="table-btn-danger last"
-          @click="() => deleteRole(data?.record?.roleId)"
-          >删除</a
+        <a-popconfirm
+          title="是否确认删除"
+          :onConfirm="
+            () => {
+              deleteRole(data?.record?.roleId)
+            }
+          "
         >
+          <a type="link" class="table-btn-danger last">删除</a>
+        </a-popconfirm>
       </div>
       <a-switch
         v-else-if="data?.column?.dataIndex === 'status'"

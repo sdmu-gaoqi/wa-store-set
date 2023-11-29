@@ -1,5 +1,5 @@
 <template>
-  <TableRender :schema="schema" :list="mockData">
+  <TableRender :schema="schema">
     <template #bodyCell="{ data }">
       <div
         v-if="data?.column?.dataIndex === 'options'"

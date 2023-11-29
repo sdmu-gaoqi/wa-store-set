@@ -247,7 +247,12 @@ const menus = ref([
       // { title: '房间类型', path: '/room-type/list', key: 'room-type-list' },
       { title: '价目表信息', path: '/project/list', key: 'project-list' },
       { title: '支付方式设置', path: '/pay-type', key: 'pay-type' },
-      { title: '营业额标准设置', path: '/turnover', key: 'turnover' }
+      { title: '营业额标准设置', path: '/turnover', key: 'turnover' },
+      {
+        title: '权限列表',
+        key: 'perm-list',
+        path: '/perm/list'
+      }
     ],
     path: '/operation',
     icon: 设置

@@ -116,5 +116,7 @@ html {
 }
 
 .login-content .login-form:after {
-  content: '日欣月益 版权所有' !important;
+  content: '上海日欣月益网络科技有限公司 版权所有 【版本号v1.0】\D\A 沪ICP备2023027744号-1 ' !important;
+  white-space: pre;
+  bottom: -50px !important;
 }

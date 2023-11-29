@@ -1,9 +1,5 @@
 <template>
-  <TableRender
-    :schema="schema"
-    :list="mockData"
-    :table-props="{ scroll: { x: 1000 } }"
-  >
+  <TableRender :schema="schema" :table-props="{ scroll: { x: 1000 } }">
     <template #formButton
       ><a-button type="primary" :onClick="goAdd" class="ml-[10px]"
         >新增房间类型</a-button

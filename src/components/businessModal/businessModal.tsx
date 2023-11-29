@@ -10,12 +10,15 @@ import memberSettlementForm from './components/memberSettlement.form'
 import roomEditForm from './components/roomEdit.form'
 import projectForm from './components/project.form'
 import OrderDetail from './components/orderDetail'
+import EditRoleForm from './components/editRole.form'
+import editPointForm from './components/editPoint.form'
 
 interface BusinessModalProps {
   open: boolean
   onCancel: () => void
   type: BusinessModalTypes
   formState?: Record<string, any>
+  onFinish: () => void
 }
 
 export default defineComponent({
@@ -36,7 +39,9 @@ export default defineComponent({
       [BusinessModalType.会员结算]: '订单结算',
       [BusinessModalType.编辑房间]: '编辑房间',
       [BusinessModalType.编辑价目表]: '编辑价目表',
-      [BusinessModalType.订单详情]: '订单详情'
+      [BusinessModalType.订单详情]: '订单详情',
+      [BusinessModalType.编辑角色]: '编辑角色',
+      [BusinessModalType.编辑权限点]: '编辑权限点'
     }
     const elMap = {
       [BusinessModalType.会员充值]: memeberPayForm,
@@ -46,7 +51,9 @@ export default defineComponent({
       [BusinessModalType.会员结算]: memberSettlementForm,
       [BusinessModalType.编辑房间]: roomEditForm,
       [BusinessModalType.编辑价目表]: projectForm,
-      [BusinessModalType.订单详情]: OrderDetail
+      [BusinessModalType.订单详情]: OrderDetail,
+      [BusinessModalType.编辑角色]: EditRoleForm,
+      [BusinessModalType.编辑权限点]: editPointForm
     }
     const widthMap = {
       [BusinessModalType.会员充值]: 900,
@@ -56,7 +63,9 @@ export default defineComponent({
       [BusinessModalType.会员结算]: 900,
       [BusinessModalType.编辑房间]: 900,
       [BusinessModalType.编辑价目表]: 900,
-      [BusinessModalType.订单详情]: 900
+      [BusinessModalType.订单详情]: 900,
+      [BusinessModalType.编辑角色]: 900,
+      [BusinessModalType.编辑权限点]: 900
     }
     const footer = computed(
       () =>
@@ -68,7 +77,9 @@ export default defineComponent({
           BusinessModalType.会员结算,
           BusinessModalType.编辑房间,
           BusinessModalType.编辑价目表,
-          BusinessModalType.订单详情
+          BusinessModalType.订单详情,
+          BusinessModalType.编辑角色,
+          BusinessModalType.编辑权限点
         ].includes(props.type)
     )
     const isFormRender = computed(() =>
@@ -78,7 +89,9 @@ export default defineComponent({
         BusinessModalType.会员结算,
         BusinessModalType.编辑房间,
         BusinessModalType.编辑价目表,
-        BusinessModalType.订单详情
+        BusinessModalType.订单详情,
+        BusinessModalType.编辑角色,
+        BusinessModalType.编辑权限点
       ].includes(props.type)
     )
     const title = computed(() => titleMap[props.type])

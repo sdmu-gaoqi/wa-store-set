@@ -91,7 +91,8 @@ const CreateOrderModal = defineComponent({
     const columns = [
       {
         title: '项目名称',
-        dataIndex: 'serviceProjectName'
+        dataIndex: 'serviceProjectName',
+        width: 200
       },
       {
         title: '项目金额/元',
@@ -216,7 +217,7 @@ const CreateOrderModal = defineComponent({
               record.operateUserId = v
             }}
             fieldNames={{
-              label: 'userName',
+              label: 'nickName',
               value: 'userId'
             }}
             options={emList?.value?.rows}
@@ -323,12 +324,6 @@ const CreateOrderModal = defineComponent({
         props.onOk()
         orderServiceItemList.value = []
       } catch (err) {
-        if (err?.code == 1028) {
-          const roomName = err?.msg
-            ?.replace('Exception, the roomNo:', '')
-            ?.replace(' has no enough amount', '')
-          message.error(`${roomName}房间客数已满,暂不能创建订单`)
-        }
         props.onCancel()
       }
     }, 300)
@@ -453,13 +448,13 @@ const CreateOrderModal = defineComponent({
               查询
             </Button>
           </div>
-          <div class="apps flex mt-[20px]">
+          <div class="apps flex mt-[20px] flex-wrap">
             {projectList.value?.rows?.map((item: any) => {
               // @ts-ignore
               const has = apps.some((appItem) => appItem?.id === item?.id)
               return (
                 <div
-                  class={`rounded-md bg-indigo-100 text-[#fff ] px-[20px] py-[10px] cursor-pointer select-none hover:shadow-md active:shadow-lg mr-[10px]`}
+                  class={`rounded-md bg-indigo-100 mb-[10px] text-[#fff ] px-[20px] py-[10px] cursor-pointer select-none hover:shadow-md active:shadow-lg mr-[10px]`}
                   style={{ border: '1px solid #bbb' }}
                   onClick={() => {
                     orderServiceItemList.value = [

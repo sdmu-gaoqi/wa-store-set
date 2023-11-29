@@ -140,6 +140,20 @@ const routes: RouteRecordRaw[] = [
         ]
       },
       {
+        path: 'perm',
+        name: '权限',
+        redirect: () => {
+          return { path: 'list' }
+        },
+        children: [
+          {
+            path: 'list',
+            name: '权限列表',
+            component: () => import('./pages/perm/list')
+          }
+        ]
+      },
+      {
         path: '/stores',
         name: '门店管理',
         redirect: () => {

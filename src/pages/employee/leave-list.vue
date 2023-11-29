@@ -1,5 +1,5 @@
 <template>
-  <TableRender :schema="schema" :list="mockData">
+  <TableRender :schema="schema">
     <template #formButton>
       <a-button type="primary" class="ml-[10px]" :onClick="goAdd"
         >新增</a-button

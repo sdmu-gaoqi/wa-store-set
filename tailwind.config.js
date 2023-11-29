@@ -20,12 +20,13 @@ export default {
     plugin(function ({ addUtilities }) {
       const newUtilities = {
         '.table-btn': {
-          marginRight: '16px',
+          marginRight: '10px',
           display: 'block',
           userSelect: 'none',
           fontWeight: 'bold',
           fontSize: '12px',
-          color: '#585eaa',
+          color: '#6102fd',
+          cursor: 'pointer',
           '&:hover': {
             opacity: '0.6'
           }
@@ -37,6 +38,7 @@ export default {
           userSelect: 'none',
           fontWeight: 'bold',
           fontSize: '12px',
+          cursor: 'pointer',
           '&:hover': {
             color: 'red',
             opacity: '0.6'

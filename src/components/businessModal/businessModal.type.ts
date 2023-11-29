@@ -6,7 +6,9 @@ export enum BusinessModalType {
   会员结算 = 'memberSettlement',
   编辑房间 = 'editRoom',
   编辑价目表 = 'editProject',
-  订单详情 = 'orderDetail'
+  订单详情 = 'orderDetail',
+  编辑角色 = 'editRole',
+  编辑权限点 = 'editPoint'
 }
 
 export type BusinessModalTypes =
@@ -18,3 +20,5 @@ export type BusinessModalTypes =
   | BusinessModalType.编辑房间
   | BusinessModalType.编辑价目表
   | BusinessModalType.订单详情
+  | BusinessModalType.编辑角色
+  | BusinessModalType.编辑权限点
