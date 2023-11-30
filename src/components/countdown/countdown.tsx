@@ -4,15 +4,16 @@ import { defineComponent, onMounted, ref, watch } from 'vue'
 
 function convertTimestampToTime(timestamp: any) {
   var date = new Date(timestamp)
-  var hours = date.getUTCHours() * 60
-  var minutes = hours + date.getUTCMinutes()
+  var hours = date.getUTCHours()
+  var minutes = date.getUTCMinutes()
   var seconds = date.getUTCSeconds()
 
-  // 在分钟或秒小于10的情况下，前面添加0
+  // 在小时、分钟或秒小于10的情况下，前面添加0
+  hours = hours < 10 ? '0' + hours : hours
   minutes = minutes < 10 ? '0' + minutes : minutes
   seconds = seconds < 10 ? '0' + seconds : seconds
-
   return {
+    hours: hours,
     minutes: minutes,
     seconds: seconds
   }
@@ -50,7 +51,9 @@ const Countdown = defineComponent({
       }
     })
     return () => {
-      return <>{`${value.value.minutes}:${value.value.seconds}`}</>
+      return (
+        <>{`${value.value.hours}:${value.value.minutes}:${value.value.seconds}`}</>
+      )
     }
   }
 })

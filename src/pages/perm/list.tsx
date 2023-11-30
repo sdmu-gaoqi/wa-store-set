@@ -150,6 +150,7 @@ const Perm = defineComponent({
           <BusinessModal
             type={BusinessModalType.编辑权限点}
             open={open}
+            title={formState.value.menuId ? '编辑权限点' : '新增权限点'}
             onCancel={() => {
               open.value = false
               formState.value = {}

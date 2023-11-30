@@ -8,7 +8,8 @@ export enum BusinessModalType {
   编辑价目表 = 'editProject',
   订单详情 = 'orderDetail',
   编辑角色 = 'editRole',
-  编辑权限点 = 'editPoint'
+  编辑权限点 = 'editPoint',
+  权限配置 = 'roleSetPoint'
 }
 
 export type BusinessModalTypes =
@@ -22,3 +23,4 @@ export type BusinessModalTypes =
   | BusinessModalType.订单详情
   | BusinessModalType.编辑角色
   | BusinessModalType.编辑权限点
+  | BusinessModalType.权限配置

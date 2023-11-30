@@ -25,7 +25,17 @@
           @click="() => $router.push(`/role/edit/${data?.record?.roleId}`)"
           >编辑</a
         >
-        <a type="link" class="table-btn">权限配置</a>
+        <a
+          type="link"
+          class="table-btn"
+          @click="
+            () => {
+              editRole = data?.record?.roleId
+              open = true
+            }
+          "
+          >权限配置</a
+        >
         <a-popconfirm
           title="是否确认删除"
           :onConfirm="
@@ -54,6 +64,13 @@
       <template v-else>{{ data.text }}</template>
     </template>
   </TableRender>
+  <BusinessModal
+    :type="BusinessModalType.权限配置"
+    :open="open"
+    :onCancel="() => (open = false)"
+    :formState="{ roleId: editRole }"
+    :onFinish="() => (open = false)"
+  />
 </template>
 
 <script lang="ts" setup>
@@ -64,9 +81,13 @@ import role from '@/servers/role'
 import { onMounted, reactive, ref } from 'vue'
 import { cloneDeep, isEmpty } from 'wa-utils'
 import { message } from 'ant-design-vue'
+import BusinessModal from '@/components/businessModal/businessModal'
+import { BusinessModalType } from '@/components/businessModal/businessModal.type'
 
 const listSchema = reactive<any>({})
 const tableRef = ref()
+const open = ref(false)
+const editRole = ref(-1)
 
 const router = useRouter()
 

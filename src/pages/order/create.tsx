@@ -149,7 +149,7 @@ const CreateOrder = defineComponent({
                             <Countdown num={time} num2={1000} />
                           </>
                         ) : (
-                          <span class="text-red-500">已完成</span>
+                          <span class="text-red-500">00:00:00</span>
                         )}
                       </div>
                       <a
