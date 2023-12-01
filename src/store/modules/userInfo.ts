@@ -1,6 +1,6 @@
 import { SETLOGININFO, SETPERMS, SETUSERINFO } from '../actions'
 
-export interface State {
+export interface UserState {
   loginInfo: {
     account: string
     token: string
@@ -29,11 +29,12 @@ export interface State {
     | 'orderSettlement' // 订单结算
     | 'orderOption' // 订单操作
     | 'orderList' // 订单列表
+    | 'workbench' // 工作台
     | '*:*:*'
   >
 }
 
-const state: State = {
+const state: UserState = {
   loginInfo: {
     account: '',
     token: localStorage.getItem('token')!
@@ -43,7 +44,7 @@ const state: State = {
 }
 
 const getters = {
-  loginInfo(state: State, getters: any, rootState: any) {
+  loginInfo(state: UserState, getters: any, rootState: any) {
     return state.loginInfo
   }
 }
@@ -61,22 +62,25 @@ const actions = {
   ) {
     commit(SETUSERINFO, payload.data)
   },
-  setPerms({ commit }: any, payload: { type: string; data: State['perms'] }) {
+  setPerms(
+    { commit }: any,
+    payload: { type: string; data: UserState['perms'] }
+  ) {
     commit(SETPERMS, payload.data)
   }
 }
 
 const mutations = {
-  [SETLOGININFO](state: State, data: typeof state.loginInfo) {
+  [SETLOGININFO](state: UserState, data: typeof state.loginInfo) {
     state.loginInfo.account = data.account
     state.loginInfo.token = data.token
     localStorage.setItem('token', data.token)
   },
-  [SETUSERINFO](state: State, data: typeof state.userInfo) {
+  [SETUSERINFO](state: UserState, data: typeof state.userInfo) {
     console.log(data, 'data')
     state.userInfo = data
   },
-  [SETPERMS](state: State, data: State['perms']) {
+  [SETPERMS](state: UserState, data: UserState['perms']) {
     state.perms = data
   }
 }

@@ -1,5 +1,4 @@
 import { adminPerm } from '@/constant'
-import { toRaw } from 'vue'
 import { useStore } from 'vuex'
 
 const useAccess = () => {
@@ -32,7 +31,8 @@ const useAccess = () => {
     orderSettlement:
       perms.includes('orderSettlement') || perms.includes(adminPerm), // 订单结算
     orderOption: perms.includes('orderOption') || perms.includes(adminPerm), // 订单操作
-    orderList: perms.includes('orderList') || perms.includes(adminPerm) // 订单列表
+    orderList: perms.includes('orderList') || perms.includes(adminPerm), // 订单列表
+    workbench: perms.includes('workbench') || perms.includes(adminPerm) // 工作台
   }
 }
 

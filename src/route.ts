@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import type { RouteRecordRaw } from 'vue-router'
 import {
   createRouter,
@@ -5,10 +7,34 @@ import {
   createWebHistory
 } from 'vue-router'
 import Layout from './components/layout/layout.vue'
-import path from 'path'
 import { cookie } from 'wa-utils'
+import user from './servers/user'
 
-const routes: RouteRecordRaw[] = [
+const baseRoutes: any[] = [
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('./pages/login/login.vue')
+  },
+  {
+    path: '',
+    component: Layout,
+    name: '门店管理系统',
+    redirect: () => {
+      return { path: '/order/list' }
+    },
+    children: [
+      {
+        path: 'workbench',
+        name: '工作台',
+        component: () => import('./pages/workbench/workbench')
+      }
+    ]
+  }
+]
+
+// const routes: RouteRecordRaw[] = [
+const routes: any[] = [
   {
     path: '/login',
     name: 'login',
@@ -37,12 +63,18 @@ const routes: RouteRecordRaw[] = [
           {
             path: 'list',
             name: '订单列表页',
-            component: () => import('./pages/order/list.vue')
+            component: () => import('./pages/order/list.vue'),
+            meta: {
+              access: ['orderList']
+            }
           },
           {
             path: 'create',
             name: '订单创建',
-            component: () => import('./pages/order/create')
+            component: () => import('./pages/order/create'),
+            meta: {
+              access: ['orderOption']
+            }
           }
         ]
       },
@@ -56,7 +88,10 @@ const routes: RouteRecordRaw[] = [
           {
             path: 'list',
             name: '会员列表页',
-            component: () => import('./pages/member/list.vue')
+            component: () => import('./pages/member/list.vue'),
+            meta: {
+              access: ['memberList']
+            }
           },
           {
             path: 'add',
@@ -91,7 +126,10 @@ const routes: RouteRecordRaw[] = [
           {
             path: 'list',
             name: '员工列表页',
-            component: () => import('./pages/employee/list.vue')
+            component: () => import('./pages/employee/list.vue'),
+            meta: {
+              access: ['employeeList']
+            }
           },
           {
             path: 'add',
@@ -125,7 +163,10 @@ const routes: RouteRecordRaw[] = [
           {
             path: 'list',
             name: '角色列表',
-            component: () => import('./pages/role/list.vue')
+            component: () => import('./pages/role/list.vue'),
+            meta: {
+              access: ['roleList']
+            }
           },
           {
             path: 'add',
@@ -149,7 +190,10 @@ const routes: RouteRecordRaw[] = [
           {
             path: 'list',
             name: '权限列表',
-            component: () => import('./pages/perm/list')
+            component: () => import('./pages/perm/list'),
+            meta: {
+              access: ['permSet']
+            }
           }
         ]
       },
@@ -163,7 +207,10 @@ const routes: RouteRecordRaw[] = [
           {
             path: 'list',
             name: '门店列表',
-            component: () => import('./pages/stores/list.vue')
+            component: () => import('./pages/stores/list.vue'),
+            meta: {
+              access: ['storeList']
+            }
           }
         ]
       },
@@ -177,12 +224,18 @@ const routes: RouteRecordRaw[] = [
           {
             path: 'turnover/list',
             name: '营业额统计',
-            component: () => import('./pages/operation/list.vue')
+            component: () => import('./pages/operation/list.vue'),
+            meta: {
+              access: ['chartTurnover']
+            }
           },
           {
             path: 'outstanding/list',
             name: '员工业绩统计',
-            component: () => import('./pages/operation/outstanding/list.vue')
+            component: () => import('./pages/operation/outstanding/list.vue'),
+            meta: {
+              access: ['chartOutstanding']
+            }
           }
         ]
       },
@@ -205,7 +258,10 @@ const routes: RouteRecordRaw[] = [
               {
                 path: 'list',
                 name: '房间列表',
-                component: () => import('./pages/setting/room/list.vue')
+                component: () => import('./pages/setting/room/list.vue'),
+                meta: {
+                  access: ['roomList']
+                }
               }
             ]
           },
@@ -232,7 +288,10 @@ const routes: RouteRecordRaw[] = [
               {
                 path: 'list',
                 name: '项目列表',
-                component: () => import('./pages/setting/project/list.vue')
+                component: () => import('./pages/setting/project/list.vue'),
+                meta: {
+                  access: ['projectList']
+                }
               },
               {
                 path: 'add',
@@ -253,7 +312,11 @@ const routes: RouteRecordRaw[] = [
               {
                 path: '',
                 name: '支付方式设置',
-                component: () => import('./pages/setting/pay-type/pay-type.vue')
+                component: () =>
+                  import('./pages/setting/pay-type/pay-type.vue'),
+                meta: {
+                  access: ['payTypeManage']
+                }
               },
               {
                 path: 'add',
@@ -265,7 +328,10 @@ const routes: RouteRecordRaw[] = [
           {
             path: 'turnover',
             name: '营业额标准设置',
-            component: () => import('./pages/setting/turnover/turnover.vue')
+            component: () => import('./pages/setting/turnover/turnover.vue'),
+            meta: {
+              access: ['turnoverManage']
+            }
           }
         ]
       },
@@ -279,14 +345,29 @@ const routes: RouteRecordRaw[] = [
           {
             path: 'login',
             name: '系统登录日志',
-            component: () => import('./pages/log/login-log')
+            component: () => import('./pages/log/login-log'),
+            meta: {
+              access: ['loginLog']
+            }
           },
           {
             path: 'operate',
             name: '系统操作日志',
-            component: () => import('./pages/log/operate-log')
+            component: () => import('./pages/log/operate-log'),
+            meta: {
+              access: ['operateLog']
+            }
           }
         ]
+      },
+      {
+        path: '/404',
+        name: '404',
+        component: () => import('./pages/404/index.vue')
+      },
+      {
+        path: '*',
+        redirect: '/404'
       }
     ]
   }
@@ -297,13 +378,33 @@ const route = createRouter({
   history: createWebHashHistory()
 })
 
-route.beforeEach((to, from, next) => {
+route.beforeEach(async (to, from, next) => {
   const toPath = to.path
+  let perm = user?.userInfo?.permissions
+  const access = to?.meta?.access
+  if (!perm) {
+    perm = (await user.getUserInfo()).permissions
+  }
+
+  if (access) {
+    const hasPerm = access?.some((item) => perm?.includes(item))
+    if (!hasPerm) {
+      // next('/404')
+      console.log('没有权限', perm)
+    }
+  }
+
   if (!['/login', '/test'].includes(toPath) && !cookie.get('Admin-Token')) {
     next('/login')
     return
   }
+
   next()
 })
+
+// export const allRoute = createRouter({
+//   routes,
+//   history: createWebHashHistory()
+// })
 
 export default route

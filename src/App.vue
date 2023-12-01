@@ -39,6 +39,7 @@ import store from '@/store/store'
 import { useRouter } from 'vue-router'
 import router from './route'
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
+import { transformRoute } from './utils/menu'
 
 // @ts-ignore
 zhCN.DatePicker.lang = {
@@ -53,6 +54,8 @@ onMounted(() => {
     user.getUserInfo().then((res) => {
       dispatch('userInfo/changeUser', { data: res.user })
       dispatch('userInfo/setPerms', { data: res.permissions })
+      dispatch('common/changeMenus', { data: res.permissions })
+      transformRoute(res.permissions)
     })
   }
 })
