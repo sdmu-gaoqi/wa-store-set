@@ -176,7 +176,8 @@ export const editSchema = {
       props: {
         placeholder: '请输入'
       },
-      widget: 'input'
+      widget: 'input',
+      'ui:hidden': '!!formState.value.userId'
     },
     role: {
       title: '角色',
@@ -241,6 +242,11 @@ export const editSchema = {
         placeholder: '请输入'
       },
       widget: 'textArea'
+    },
+    userId: {
+      props: {
+        parentId: { colStyle: { height: 0, width: 0 } }
+      }
     }
   },
   displayType: 'row',

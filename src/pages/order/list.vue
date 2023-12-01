@@ -66,6 +66,9 @@ import BusinessModal from '@/components/businessModal/businessModal'
 import { BusinessModalType } from '@/components/businessModal/businessModal.type'
 import common from '@/servers/common'
 import { message } from 'ant-design-vue'
+import { useAccess } from '@/hooks'
+
+const access = useAccess()
 
 const orderData = ref({
   orderId: '',

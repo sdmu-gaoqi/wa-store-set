@@ -1,5 +1,5 @@
 <template>
-  <FormCard title="新增房间">
+  <FormCard title="新增员工">
     <template #content>
       <FormRender
         v-if="schema"
@@ -57,6 +57,7 @@ onMounted(async () => {
     cloneSchema.properties.password.defaultValue = detail?.data.password
     cloneSchema.properties.status.defaultValue = detail?.data.status == 0
     cloneSchema.properties.sex.defaultValue = detail?.data.sex
+    cloneSchema.properties.userId.defaultValue = detail?.data.userId
     // cloneSchema.properties.store.defaultValue = [
     //   { name: detail?.data.storeName, code: detail?.data.storeCode }
     // ]

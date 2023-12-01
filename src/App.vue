@@ -52,10 +52,7 @@ onMounted(() => {
   if (token) {
     user.getUserInfo().then((res) => {
       dispatch('userInfo/changeUser', { data: res.user })
-    })
-    console.log(common)
-    common.routers().then((res) => {
-      const realRouters = res.data.filter((item) => item.name !== 'System')
+      dispatch('userInfo/setPerms', { data: res.permissions })
     })
   }
 })
