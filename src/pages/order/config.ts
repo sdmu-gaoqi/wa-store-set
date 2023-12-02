@@ -19,6 +19,11 @@ export const schema: TableProps['schema'] = {
         key: 'createTime',
         format: 'timestamp',
         names: ['startCreateTime', 'endCreateTime']
+      },
+      {
+        type: 'select',
+        label: '结算状态',
+        key: 'status'
       }
     ]
   },
@@ -37,17 +42,20 @@ export const schema: TableProps['schema'] = {
         {
           title: '订单金额/元',
           dataIndex: 'originalPrice',
-          format: 'money'
+          format: 'money',
+          width: 140
         },
         {
           title: '优惠金额/元',
           dataIndex: 'discountPrice',
-          format: 'money'
+          format: 'money',
+          width: 140
         },
         {
           title: '实付金额/元',
           dataIndex: 'receivePrice',
-          format: 'money'
+          format: 'money',
+          width: 140
         },
         {
           title: '订单状态',
@@ -55,7 +63,8 @@ export const schema: TableProps['schema'] = {
           options: [
             { value: 'SUBMIT', label: '已结算' },
             { value: 'CREATED', label: '未结算' }
-          ]
+          ],
+          width: 140
         },
         {
           title: '会员姓名',
@@ -91,17 +100,20 @@ export const schema: TableProps['schema'] = {
         {
           title: '订单金额/元',
           dataIndex: 'originalPrice',
-          format: 'money'
+          format: 'money',
+          width: 140
         },
         {
           title: '优惠金额/元',
           dataIndex: 'discountPrice',
-          format: 'money'
+          format: 'money',
+          width: 140
         },
         {
           title: '实付金额/元',
           dataIndex: 'receivePrice',
-          format: 'money'
+          format: 'money',
+          width: 140
         },
         {
           title: '订单状态',
@@ -109,7 +121,8 @@ export const schema: TableProps['schema'] = {
           options: [
             { value: 'SUBMIT', label: '已结算' },
             { value: 'CREATED', label: '未结算' }
-          ]
+          ],
+          width: 140
         },
         {
           title: '创建日期',
@@ -133,6 +146,10 @@ export const schema: TableProps['schema'] = {
     level: [
       { label: '1级会员', value: 1 },
       { label: '2级会员', value: 2 }
+    ],
+    status: [
+      { value: 'SUBMIT', label: '已结算' },
+      { value: 'CREATED', label: '未结算' }
     ]
   }
 }

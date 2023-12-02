@@ -14,7 +14,7 @@ import {
 import { Member } from 'store-request'
 import { defineComponent, onMounted, ref, toRaw, watch } from 'vue'
 import { useRequest } from 'vue-hooks-plus'
-import { isEmpty, sleep } from 'wa-utils'
+import { cloneDeep, debounce, isEmpty, sleep } from 'wa-utils'
 
 const member = new Member()
 
@@ -156,12 +156,9 @@ const schema: Schema = {
     discountPrice: {
       defaultValue: '0',
       title: '优惠',
-      type: 'number',
+      type: 'string',
       span: 12,
       widget: 'input',
-      props: {
-        min: 0
-      },
       'ui:hidden':
         '(formState.value.settleType == 1 && !formState.value?.memberId?.memberId)'
     },
@@ -257,7 +254,7 @@ export default defineComponent({
           originalPrice: formatMoney(res?.data?.originalPrice),
           receivePrice: formatMoney(res?.data?.receivePrice),
           replenishPrice: formatMoney(res?.data?.replenishPrice || 0),
-          discountPrice: formatMoney(res?.data?.discountPrice),
+          discountPrice: res?.data?.discountPrice,
           oldDiscountPrice: formatMoney(res?.data?.receivePrice),
           table: res?.data?.preOrderItemList?.map((item: any) => ({
             ...item,
@@ -296,6 +293,37 @@ export default defineComponent({
         })
       }
     })
+
+    const changeNum = debounce(
+      (value: any, { originalPrice, settleType }: any) => {
+        const inputValue = value.target.value
+        if (isNaN(Number(inputValue))) {
+          value.target.value = 0
+          run({
+            ...params.value?.[0],
+            discountPrice: 0,
+            settleType
+          })
+          return message.error('请输入正确的数字')
+        }
+        if (+inputValue >= +originalPrice) {
+          message.error('优惠金额不能大于应收金额')
+          value.target.value = 0
+          run({
+            ...params.value?.[0],
+            discountPrice: 0,
+            settleType
+          })
+        } else {
+          run({
+            ...params.value?.[0],
+            discountPrice: value.target.value,
+            settleType
+          })
+        }
+      },
+      500
+    )
     return () => {
       return (
         <FormRender
@@ -409,20 +437,10 @@ export default defineComponent({
               }
             }
             if (key === 'discountPrice') {
-              if (+value >= +originalPrice) {
-                message.error('优惠金额不能大于应收金额')
-                run({
-                  ...params.value?.[0],
-                  discountPrice: 0,
-                  settleType
-                })
-              } else {
-                run({
-                  ...params.value?.[0],
-                  discountPrice: value,
-                  settleType
-                })
-              }
+              changeNum(value, {
+                originalPrice,
+                settleType
+              })
             }
           }}
           ref={formRef}

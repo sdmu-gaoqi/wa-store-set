@@ -43,42 +43,41 @@ const OrderDetail = defineComponent({
             readonly: true,
             bordered: false
           },
-          widget: 'input',
-          'ui:hidden': 'isEmpty(formState.value.settleType)'
+          widget: 'input'
         },
-        table1: {
-          widget: 'table',
-          props: {
-            columns: [
-              {
-                title: '会员卡号',
-                dataIndex: 'memberNo'
-              },
-              {
-                title: '姓名',
-                dataIndex: 'memberName'
-              },
-              {
-                title: '手机号',
-                dataIndex: 'phone'
-              },
-              {
-                title: '会员类型',
-                dataIndex: 'memberTypeName'
-              },
-              {
-                title: '优惠方式',
-                dataIndex: 'discountRate'
-              },
-              {
-                title: '会员卡余额',
-                dataIndex: 'availableBalance'
-              }
-            ],
-            pagination: false
-          },
-          'ui:hidden': 'isEmpty(formState.value.discountPrice)'
-        },
+        // table1: {
+        //   widget: 'table',
+        //   props: {
+        //     columns: [
+        //       {
+        //         title: '会员卡号',
+        //         dataIndex: 'memberNo'
+        //       },
+        //       {
+        //         title: '姓名',
+        //         dataIndex: 'memberName'
+        //       },
+        //       {
+        //         title: '手机号',
+        //         dataIndex: 'phone'
+        //       },
+        //       {
+        //         title: '会员类型',
+        //         dataIndex: 'memberTypeName'
+        //       },
+        //       {
+        //         title: '优惠方式',
+        //         dataIndex: 'discountRate'
+        //       },
+        //       {
+        //         title: '会员卡余额',
+        //         dataIndex: 'availableBalance'
+        //       }
+        //     ],
+        //     pagination: false
+        //   },
+        //   'ui:hidden': 'isEmpty(formState.value.discountPrice)'
+        // },
         originalPrice: {
           title: '应收金额',
           type: 'string',
@@ -91,30 +90,29 @@ const OrderDetail = defineComponent({
           'ui:hidden':
             '(formState.value.settleType == 1 && !formState.value?.memberId?.memberId)'
         },
-        占位: {
-          span: 12
-        },
-        discountPrice: {
-          title: '优惠',
-          type: 'string',
-          span: 12,
-          widget: 'input',
-          props: {
-            readonly: true,
-            bordered: false
-          },
-          'ui:hidden': 'isEmpty(formState.value.discountPrice)'
-        },
+        // 占位: {
+        //   span: 12
+        // },
         receivePrice: {
           title: '实收金额',
           type: 'string',
-          span: 12,
+          span: 24,
           widget: 'input',
           props: {
             readonly: true,
             bordered: false
           },
           'ui:hidden': 'isEmpty(formState.value.receivePrice)'
+        },
+        discountPrice: {
+          title: '优惠金额',
+          type: 'string',
+          span: 24,
+          widget: 'input',
+          props: {
+            readonly: true,
+            bordered: false
+          }
         },
         payMethod: {
           title: '支付方式',
@@ -160,6 +158,10 @@ const OrderDetail = defineComponent({
                 dataIndex: 'unitPrice'
               },
               {
+                title: '技师',
+                dataIndex: 'operateUserName'
+              },
+              {
                 title: '上钟类型',
                 dataIndex: 'royaltyType'
               },
@@ -170,10 +172,6 @@ const OrderDetail = defineComponent({
               {
                 title: '上钟数',
                 dataIndex: 'serviceNum'
-              },
-              {
-                title: '优惠',
-                dataIndex: 'money'
               }
             ],
             pagination: false
@@ -200,6 +198,8 @@ const OrderDetail = defineComponent({
           receivePrice: formatMoney(res?.data?.receivePrice),
           replenishPrice: formatMoney(res?.data?.replenishPrice),
           remark: res?.data?.remark,
+          discountPrice: res.data.discountPrice,
+          settleType: res.data.settleType == '0' ? '非会员' : '会员',
           table: res?.data?.orderItemList?.map((item: any) => ({
             ...item,
             money: formatMoney(item?.discountPrice || 0),

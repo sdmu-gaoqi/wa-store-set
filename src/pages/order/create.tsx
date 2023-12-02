@@ -235,9 +235,13 @@ const CreateOrder = defineComponent({
                     }
                   }}
                 >
-                  <div class="w-[100%]">{item.roomNo}</div>
+                  <div class="w-[100%] font-bold text-[14px]">
+                    {item.roomNo}
+                  </div>
                   {!isEmpty(item.orderItemInfo) && orderSettlement && (
-                    <div class="cursor-pointer w-[100%]">结算订单</div>
+                    <div class="cursor-pointer w-[100%] font-bold">
+                      结算订单
+                    </div>
                   )}
                 </div>
               </div>

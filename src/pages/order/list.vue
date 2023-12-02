@@ -46,6 +46,11 @@
           </div>
         </div></template
       >
+      <template v-else-if="data.column.dataIndex === 'status'">
+        <div :class="data.record?.status === 'SUBMIT' ? '' : 'text-red-500'">
+          {{ data?.customer || data.text }}
+        </div>
+      </template>
       <template v-else>{{ data?.customer || data.text }}</template>
     </template>
   </TableRender>

@@ -179,19 +179,43 @@ export const editSchema: Schema = {
       type: 'string',
       widget: 'input'
     },
-    birthDate: {
-      title: '生日',
+    discountRate: {
+      title: '折扣',
       type: 'string',
+      widget: 'input',
+      defaultValue: 0.9,
       props: {
-        placeholder: '请选择日期'
+        // type: 'number'
+        options: [
+          {
+            label: '0.7',
+            value: 0.7
+          },
+          {
+            label: '0.8',
+            value: 0.8
+          },
+          {
+            label: '0.85',
+            value: 0.85
+          },
+          {
+            label: '0.9',
+            value: 0.9
+          },
+          {
+            label: '0.95',
+            value: 0.95
+          }
+        ]
       },
-      widget: 'datePicker'
+      'ui:hidden': "formState.value.memberType == '2'"
     },
     sex: {
       title: '性别',
       type: 'string',
       defaultValue: 1,
-      span: 24,
+      span: 12,
       props: {
         options: [
           {
@@ -205,6 +229,14 @@ export const editSchema: Schema = {
         ]
       },
       widget: 'radio'
+    },
+    birthDate: {
+      title: '生日',
+      type: 'string',
+      props: {
+        placeholder: '请选择日期'
+      },
+      widget: 'datePicker'
     },
     expiration: {
       title: '有效期',
@@ -278,6 +310,7 @@ export const editSchema: Schema = {
       props: {
         type: 'number'
       },
+      span: 13,
       'ui:hidden':
         "formState.value.memberType == '2' || formState.value.memberId"
     },
@@ -291,40 +324,6 @@ export const editSchema: Schema = {
       'ui:hidden':
         "formState.value.memberType == '1' || formState.value.memberId"
     },
-    占位3: {},
-    discountRate: {
-      title: '折扣',
-      type: 'string',
-      widget: 'input',
-      defaultValue: 0.9,
-      props: {
-        // type: 'number'
-        options: [
-          {
-            label: '0.7',
-            value: 0.7
-          },
-          {
-            label: '0.8',
-            value: 0.8
-          },
-          {
-            label: '0.85',
-            value: 0.85
-          },
-          {
-            label: '0.9',
-            value: 0.9
-          },
-          {
-            label: '0.95',
-            value: 0.95
-          }
-        ]
-      },
-      'ui:hidden':
-        "formState.value.memberType == '2' || formState.value.memberId"
-    },
     giveTimes: {
       title: '赠送次数',
       type: 'number',
@@ -335,11 +334,11 @@ export const editSchema: Schema = {
       'ui:hidden':
         "formState.value.memberType == '1' || formState.value.memberId"
     },
-    占位4: {},
     payMethod: {
       title: '充值方式',
       type: 'string',
       defaultValue: '1',
+      span: 13,
       props: {
         options: [
           {
@@ -363,7 +362,6 @@ export const editSchema: Schema = {
       widget: 'radio',
       'ui:hidden': 'formState.value.memberId'
     },
-    占位5: {},
     availableBalance: {
       title: '会员卡总金额',
       type: 'string',
