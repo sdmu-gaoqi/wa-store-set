@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
   <a-config-provider
     :theme="{
@@ -31,7 +29,7 @@
 
 <script setup>
 import { message } from 'ant-design-vue'
-import { onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
 import { cookie } from 'wa-utils'
 import user from './servers/user'
 import common from './servers/common'
@@ -47,16 +45,4 @@ zhCN.DatePicker.lang = {
   monthFormat: 'M月',
   shortWeekDays: ['日', '一', '二', '三', '四', '五', '六']
 }
-const { dispatch } = store
-onMounted(() => {
-  const token = cookie.get('Admin-Token')
-  if (token) {
-    user.getUserInfo().then((res) => {
-      dispatch('userInfo/changeUser', { data: res.user })
-      dispatch('userInfo/setPerms', { data: res.permissions })
-      dispatch('common/changeMenus', { data: res.permissions })
-      transformRoute(res.permissions)
-    })
-  }
-})
 </script>

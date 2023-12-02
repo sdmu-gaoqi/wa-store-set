@@ -93,7 +93,7 @@
                   class="p-[10px] bg-white shadow-lg cursor-pointer hover:bg-primary hover:text-white relative top-[-10px] text-center"
                   @click="goPassword"
                 >
-                  忘记密码
+                  修改密码
                 </div>
                 <div
                   class="p-[10px] bg-white shadow-lg cursor-pointer hover:bg-primary hover:text-white relative top-[-10px] text-center"

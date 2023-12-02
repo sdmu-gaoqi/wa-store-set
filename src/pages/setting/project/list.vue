@@ -1,7 +1,11 @@
 <template>
   <TableRender :schema="schema" :request="common.projectList" ref="tableRef">
     <template #formButton
-      ><a-button type="primary" :onClick="goAdd" class="ml-[10px]"
+      ><a-button
+        type="primary"
+        :onClick="goAdd"
+        class="ml-[10px]"
+        v-if="editProject"
         >新增项目</a-button
       ></template
     >
@@ -13,6 +17,7 @@
         <a
           type="link"
           class="table-btn"
+          v-if="editProject"
           @click="
             () => {
               open = true
@@ -23,6 +28,7 @@
         >
         <a-popconfirm
           title="是否确认删除"
+          v-if="editProject"
           :onConfirm="
             () => {
               common
@@ -44,6 +50,7 @@
       <a-switch
         v-else-if="data?.column?.dataIndex === 'enabled'"
         :checked="data.text == 1"
+        :disabled="!editProject"
         @change="
           (v: any) => {
             const value = v ? 1 : 0
@@ -81,6 +88,9 @@ import { message } from 'ant-design-vue'
 import { ref } from 'vue'
 import BusinessModal from '@/components/businessModal/businessModal'
 import { BusinessModalType } from '@/components/businessModal/businessModal.type'
+import { useAccess } from '@/hooks'
+
+const { editProject } = useAccess()
 
 const open = ref(false)
 const detail = ref<any>({})

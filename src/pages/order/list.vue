@@ -12,7 +12,7 @@
       <template v-if="data.column.dataIndex === 'options'">
         <div class="flex justify-center items-center">
           <div
-            v-if="data.record.status === 'CREATED'"
+            v-if="data.record.status === 'CREATED' && orderSettlement"
             type="link"
             style="padding: 0"
             :ghost="true"
@@ -67,6 +67,7 @@ import { BusinessModalType } from '@/components/businessModal/businessModal.type
 import common from '@/servers/common'
 import { message } from 'ant-design-vue'
 import { useAccess } from '@/hooks'
+const { orderSettlement } = useAccess()
 
 const access = useAccess()
 

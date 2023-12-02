@@ -10,7 +10,11 @@
     }"
   >
     <template #formButton>
-      <a-button type="primary" class="ml-[10px]" :onClick="goAdd"
+      <a-button
+        type="primary"
+        class="ml-[10px]"
+        :onClick="goAdd"
+        v-if="editRolePerm"
         >新增角色</a-button
       >
     </template>
@@ -23,11 +27,13 @@
           type="link"
           class="table-btn"
           @click="() => $router.push(`/role/edit/${data?.record?.roleId}`)"
+          v-if="editRolePerm"
           >编辑</a
         >
         <a
           type="link"
           class="table-btn"
+          v-if="editRolePerm"
           @click="
             () => {
               editRole = data?.record?.roleId
@@ -38,6 +44,7 @@
         >
         <a-popconfirm
           title="是否确认删除"
+          v-if="editRolePerm"
           :onConfirm="
             () => {
               deleteRole(data?.record?.roleId)
@@ -50,6 +57,7 @@
       <a-switch
         v-else-if="data?.column?.dataIndex === 'status'"
         :checked="data?.record?.status == 0"
+        :disabled="!editRolePerm"
         @change="
           (v: boolean) => {
             const s = v ? 0 : (1 as any)
@@ -83,6 +91,9 @@ import { cloneDeep, isEmpty } from 'wa-utils'
 import { message } from 'ant-design-vue'
 import BusinessModal from '@/components/businessModal/businessModal'
 import { BusinessModalType } from '@/components/businessModal/businessModal.type'
+import { useAccess } from '@/hooks'
+
+const { editRole: editRolePerm } = useAccess()
 
 const listSchema = reactive<any>({})
 const tableRef = ref()

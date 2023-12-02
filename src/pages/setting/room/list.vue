@@ -5,8 +5,8 @@
     :table-props="{ scroll: { x: 900 } }"
     ref="tableRef"
   >
-    <template #formButton
-      ><Button type="primary" :onClick="goAdd" class="ml-[10px]"
+    <template #formButton>
+      <Button type="primary" :onClick="goAdd" class="ml-[10px]" v-if="editRoom"
         >新增房间</Button
       ></template
     >
@@ -15,11 +15,16 @@
         v-if="data?.column?.dataIndex === 'options'"
         class="flex justify-center items-center"
       >
-        <a type="link" class="table-btn" @click="() => edit(data.record)"
+        <a
+          type="link"
+          class="table-btn"
+          @click="() => edit(data.record)"
+          v-if="editRoom"
           >编辑</a
         >
         <a-popconfirm
           title="是否确认删除"
+          v-if="editRoom"
           :onConfirm="
             () => {
               room
@@ -59,6 +64,9 @@ import { reactive, ref, toRaw } from 'vue'
 import BusinessModal from '@/components/businessModal/businessModal'
 import { BusinessModalType } from '@/components/businessModal/businessModal.type'
 import { sleep } from 'wa-utils'
+import { useAccess } from '@/hooks'
+
+const { editRoom } = useAccess()
 
 const open = ref(false)
 const formState = ref<any>({})

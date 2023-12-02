@@ -7,6 +7,7 @@ import { Button, Popconfirm, message } from 'ant-design-vue'
 import BusinessModal from '@/components/businessModal/businessModal'
 import { BusinessModalType } from '@/components/businessModal/businessModal.type'
 import { Point, PointMap } from '@/types'
+import { useAccess } from '@/hooks'
 
 function buildTree(data: any, parentId: any) {
   let tree = []
@@ -43,6 +44,8 @@ const Perm = defineComponent({
     })
     const formState = ref<{ [key: string]: any }>({})
 
+    const { permSet } = useAccess()
+
     const handleSlot = {
       status: ({ index, record }: any) => {
         return (
@@ -57,6 +60,7 @@ const Perm = defineComponent({
             {record.menuType === Point.目录 && (
               <div
                 class="table-btn"
+                hidden={!permSet}
                 onClick={() => {
                   open.value = true
                   formState.value = {
@@ -69,6 +73,7 @@ const Perm = defineComponent({
             )}
             <div
               class="table-btn"
+              hidden={!permSet}
               onClick={() => {
                 open.value = true
                 formState.value = record
@@ -76,16 +81,18 @@ const Perm = defineComponent({
             >
               编辑
             </div>
-            <Popconfirm
-              title="是否确认删除"
-              onConfirm={async () => {
-                await common.deletePerm(record.menuId)
-                message.success('删除成功')
-                run({})
-              }}
-            >
-              <div class="table-btn-danger">删除</div>
-            </Popconfirm>
+            {permSet && (
+              <Popconfirm
+                title="是否确认删除"
+                onConfirm={async () => {
+                  await common.deletePerm(record.menuId)
+                  message.success('删除成功')
+                  run({})
+                }}
+              >
+                <div class="table-btn-danger">删除</div>
+              </Popconfirm>
+            )}
           </div>
         )
       },
@@ -99,9 +106,11 @@ const Perm = defineComponent({
       return (
         <div class="bg-white px-[10px]">
           <div class="flex justify-end items-center py-[10px]">
-            <Button type="primary" onClick={() => (open.value = true)}>
-              新增权限
-            </Button>
+            {permSet && (
+              <Button type="primary" onClick={() => (open.value = true)}>
+                新增权限
+              </Button>
+            )}
           </div>
           <a-table
             loading={loading.value}

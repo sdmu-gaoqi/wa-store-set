@@ -11,7 +11,11 @@
     ref="tableRef"
   >
     <template #formButton
-      ><a-button type="primary" class="ml-[10px]" :onClick="goAdd"
+      ><a-button
+        type="primary"
+        class="ml-[10px]"
+        :onClick="goAdd"
+        v-if="editMember"
         >新增会员</a-button
       ></template
     >
@@ -23,12 +27,14 @@
         <a
           type="link"
           class="table-btn"
+          v-if="editMember"
           @click="() => $router.push(`/member/edit/${data.record.memberId}`)"
           >编辑</a
         >
         <a
           type="link"
           class="table-btn"
+          v-if="memberRecharge"
           @click="
             () => {
               businessModalType = BusinessModalType.会员充值
@@ -114,6 +120,9 @@ import { Member } from 'store-request'
 import { MemberType } from '@/types'
 import { message } from 'ant-design-vue'
 import { nanoid } from 'nanoid'
+import { useAccess } from '@/hooks'
+
+const { editMember, memberRecharge } = useAccess()
 
 const formState = ref({})
 const tableRef = ref()

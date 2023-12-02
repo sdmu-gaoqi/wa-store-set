@@ -9,8 +9,10 @@ import common from '@/servers/common'
 import { useRequest } from 'vue-hooks-plus'
 import Countdown from '@/components/countdown/countdown'
 import { isEmpty } from 'wa-utils'
+import { useAccess } from '@/hooks'
 
 export type OrderStatus = 'FREE' | 'BUSY'
+const { orderSettlement, orderOption } = useAccess()
 
 const CreateOrder = defineComponent({
   setup: () => {
@@ -60,16 +62,18 @@ const CreateOrder = defineComponent({
       <>
         <div class="bg-[#fff] shadow-md">
           <div class="flex p-[20px]">
-            <Button
-              type="primary"
-              class="ml-auto"
-              onClick={() => {
-                modalOpen.value = true
-              }}
-            >
-              创建订单
-              {modalOpen.value}
-            </Button>
+            {orderOption && (
+              <Button
+                type="primary"
+                class="ml-auto"
+                onClick={() => {
+                  modalOpen.value = true
+                }}
+              >
+                创建订单
+                {modalOpen.value}
+              </Button>
+            )}
           </div>
           <div class="flex flex-wrap justify-start p-[20px] pt-0">
             {data.value?.map((item: any) => (
@@ -93,46 +97,48 @@ const CreateOrder = defineComponent({
                   )
                   return (
                     <div class="flex text-[12px] items-center px-[10px]">
-                      <Checkbox
-                        class="mr-[6px]"
-                        checked={realChecked.some(
-                          (i) => i.orderId === appItem?.orderId
-                        )}
-                        onChange={(v) => {
-                          const value = v.target.checked
-                          const orderItemId = appItem?.orderItemId
-                          const orderNo = appItem?.orderNo
-                          const orderId = appItem?.orderId
-                          const roomId = item?.roomId
-                          const targetValue = realChecked?.find(
-                            (i) => i.roomId === roomId
-                          )
-                          if (
-                            realChecked?.[0] &&
-                            realChecked?.[0]?.roomId !== roomId
-                          ) {
-                            return message.error('不同订单请分开结算')
-                          }
-                          if (targetValue && targetValue.orderId != orderId) {
-                            return message.error('不同订单请分开结算')
-                          }
-                          if (value) {
-                            checked.value = Array.from(
-                              new Set([
-                                ...checked.value,
-                                JSON.stringify({ orderId, orderNo, roomId })
-                              ])
+                      {orderSettlement && (
+                        <Checkbox
+                          class="mr-[6px]"
+                          checked={realChecked.some(
+                            (i) => i.orderId === appItem?.orderId
+                          )}
+                          onChange={(v) => {
+                            const value = v.target.checked
+                            const orderItemId = appItem?.orderItemId
+                            const orderNo = appItem?.orderNo
+                            const orderId = appItem?.orderId
+                            const roomId = item?.roomId
+                            const targetValue = realChecked?.find(
+                              (i) => i.roomId === roomId
                             )
-                          } else {
-                            const filterValue = realChecked?.filter(
-                              (i: any) => i.orderId != orderId
-                            )
-                            checked.value = filterValue.map((i) =>
-                              JSON.stringify(i)
-                            )
-                          }
-                        }}
-                      ></Checkbox>
+                            if (
+                              realChecked?.[0] &&
+                              realChecked?.[0]?.roomId !== roomId
+                            ) {
+                              return message.error('不同订单请分开结算')
+                            }
+                            if (targetValue && targetValue.orderId != orderId) {
+                              return message.error('不同订单请分开结算')
+                            }
+                            if (value) {
+                              checked.value = Array.from(
+                                new Set([
+                                  ...checked.value,
+                                  JSON.stringify({ orderId, orderNo, roomId })
+                                ])
+                              )
+                            } else {
+                              const filterValue = realChecked?.filter(
+                                (i: any) => i.orderId != orderId
+                              )
+                              checked.value = filterValue.map((i) =>
+                                JSON.stringify(i)
+                              )
+                            }
+                          }}
+                        ></Checkbox>
+                      )}
                       <div
                         class="text-ellipsis overflow-hidden"
                         style={{ 'white-space': 'nowrap' }}
@@ -152,38 +158,40 @@ const CreateOrder = defineComponent({
                           <span class="text-red-500">00:00:00</span>
                         )}
                       </div>
-                      <a
-                        class="text-[12px] select-none ml-auto block shrink-0"
-                        style={{ padding: 0 }}
-                        onClick={() => {
-                          const orderId = appItem?.orderId
-                          const orderNo = appItem?.orderNo
-                          const orderServiceItemList = item?.orderItemInfo
-                            ?.filter((i: any) => i?.orderId == orderId)
-                            ?.map((i: any) => {
-                              return {
-                                ...i,
-                                roomId: item.roomId,
-                                roomNo: item.roomNo,
-                                customNum: i?.customNum || '',
-                                operateUserId: i?.operateUserId || '',
-                                royaltyType: i?.royaltyType ?? '',
-                                serviceNum: i?.serviceNum || '',
-                                operate: 'update'
-                              }
-                            })
-                          modalOpen.value = true
-                          orderInfo.value = {
-                            orderNo: orderNo,
-                            orderId: orderId,
-                            roomNo: item.roomNo,
-                            roomId: item.roomId,
-                            orderServiceItemList: orderServiceItemList
-                          }
-                        }}
-                      >
-                        修改订单
-                      </a>
+                      {orderOption && (
+                        <a
+                          class="text-[12px] select-none ml-auto block shrink-0"
+                          style={{ padding: 0 }}
+                          onClick={() => {
+                            const orderId = appItem?.orderId
+                            const orderNo = appItem?.orderNo
+                            const orderServiceItemList = item?.orderItemInfo
+                              ?.filter((i: any) => i?.orderId == orderId)
+                              ?.map((i: any) => {
+                                return {
+                                  ...i,
+                                  roomId: item.roomId,
+                                  roomNo: item.roomNo,
+                                  customNum: i?.customNum || '',
+                                  operateUserId: i?.operateUserId || '',
+                                  royaltyType: i?.royaltyType ?? '',
+                                  serviceNum: i?.serviceNum || '',
+                                  operate: 'update'
+                                }
+                              })
+                            modalOpen.value = true
+                            orderInfo.value = {
+                              orderNo: orderNo,
+                              orderId: orderId,
+                              roomNo: item.roomNo,
+                              roomId: item.roomId,
+                              orderServiceItemList: orderServiceItemList
+                            }
+                          }}
+                        >
+                          修改订单
+                        </a>
+                      )}
                     </div>
                   )
                 })}
@@ -201,6 +209,9 @@ const CreateOrder = defineComponent({
                   active:bg-violet-700 
                   text-[#fff]"
                   onClick={() => {
+                    if (!orderSettlement) {
+                      return
+                    }
                     if (isEmpty(item.orderItemInfo)) {
                       return
                     }
@@ -225,7 +236,7 @@ const CreateOrder = defineComponent({
                   }}
                 >
                   <div class="w-[100%]">{item.roomNo}</div>
-                  {!isEmpty(item.orderItemInfo) && (
+                  {!isEmpty(item.orderItemInfo) && orderSettlement && (
                     <div class="cursor-pointer w-[100%]">结算订单</div>
                   )}
                 </div>

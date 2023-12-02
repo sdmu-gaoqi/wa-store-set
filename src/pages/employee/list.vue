@@ -6,7 +6,11 @@
     ref="tableRef"
   >
     <template #formButton>
-      <a-button type="primary" class="ml-[10px]" :onClick="goAdd"
+      <a-button
+        type="primary"
+        class="ml-[10px]"
+        :onClick="goAdd"
+        v-if="editEmployee"
         >新增员工</a-button
       >
     </template>
@@ -18,6 +22,7 @@
         <a
           type="link"
           class="table-btn"
+          v-if="editEmployee"
           @click="
             () => {
               router.push(`/employee/edit/${data.record.userId}`)
@@ -28,6 +33,7 @@
         <a
           type="link"
           class="table-btn-danger last"
+          v-if="editEmployee"
           @click="
             () =>
               employee.delete(data.record.userId).then((res) => {
@@ -41,6 +47,7 @@
       <a-switch
         v-else-if="data?.column?.dataIndex === 'status'"
         :checked="data.record?.status == 0 ? true : false"
+        :disabled="!editEmployee"
         @change="
           (v: any) => {
             employee
@@ -66,6 +73,9 @@ import { onMounted, ref } from 'vue'
 import role from '@/servers/role'
 import { cloneDeep } from 'wa-utils'
 import { message } from 'ant-design-vue'
+import { useAccess } from '@/hooks'
+
+const { editEmployee } = useAccess()
 
 const schemaValue = ref()
 const tableRef = ref()
