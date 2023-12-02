@@ -1,15 +1,31 @@
 <template>
-  <TableRender :schema="schema">
+  <TableRender :schema="schema" :list="[{}]">
     <template #bodyCell="{ data }">
       <div
         v-if="data?.column?.dataIndex === 'options'"
         class="flex justify-center items-center"
       >
-        <a type="link" class="table-btn last">编辑</a>
+        <a
+          type="link"
+          class="table-btn last"
+          @click="
+            () => {
+              open = true
+            }
+          "
+          >编辑</a
+        >
       </div>
       <template v-else>{{ data.text }}</template>
     </template>
   </TableRender>
+  <BusinessModal
+    :type="BusinessModalType.营业额详情"
+    :open="open"
+    :title="title"
+    :onCancel="() => (open = false)"
+    :formState="formState"
+  />
 </template>
 a
 
@@ -17,8 +33,15 @@ a
 import { TableRender } from 'store-operations-ui'
 import { schema } from './config'
 import { useRouter } from 'vue-router'
+import BusinessModal from '@/components/businessModal/businessModal'
+import { BusinessModalType } from '@/components/businessModal/businessModal.type'
+import { ref } from 'vue'
 
 const router = useRouter()
+
+const open = ref(false)
+const title = ref('营业额详情')
+const formState = ref({})
 
 const goAdd = () => {
   router.push('/operation/add')

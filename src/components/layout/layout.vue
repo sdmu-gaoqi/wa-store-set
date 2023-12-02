@@ -22,7 +22,7 @@
         id="sideMenu"
       >
         <a-menu-item
-          v-for="item in menus.filter((item) => !item.children)"
+          v-for="item in menus.filter((item: any) => !item.children)"
           :key="item.key"
         >
           <template #icon v-if="item.icon"
@@ -33,7 +33,7 @@
           </RouterLink>
         </a-menu-item>
         <a-sub-menu
-          v-for="item in menus.filter((item) => item.children)"
+          v-for="item in menus.filter((item: any) => item.children)"
           :key="item.key"
         >
           <template #icon v-if="item.icon"

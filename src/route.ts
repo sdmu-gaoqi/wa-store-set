@@ -421,6 +421,10 @@ route.beforeEach(async (to, from, next) => {
     next('/login')
     return
   }
+  if (['/login', '/404', '/'].includes(toPath) || !cookie.get('Admin-Token')) {
+    next()
+    return
+  }
   let { perms = [] } = await initUserInfo()
   const menuHasPerm = !isEmpty(to?.meta?.access)
   if (menuHasPerm) {
@@ -429,6 +433,7 @@ route.beforeEach(async (to, from, next) => {
       perms.some((item) => item === adminPerm)
     if (!hasPerm) {
       next('/404')
+      return
     }
   }
   next()

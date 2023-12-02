@@ -32,7 +32,7 @@ export const schema: TableProps['schema'] = {
       columns: [
         {
           fixed: true,
-          title: '月份',
+          title: '日期',
           dataIndex: 'month'
         },
         {
@@ -40,7 +40,11 @@ export const schema: TableProps['schema'] = {
           dataIndex: 'no'
         },
         {
-          title: '姓名',
+          title: '技师姓名',
+          dataIndex: 'name'
+        },
+        {
+          title: '工资/元',
           dataIndex: 'name'
         },
         {
@@ -74,20 +78,14 @@ export const schema: TableProps['schema'] = {
               dataIndex: 'number4'
             },
             {
-              title: '优惠后/元',
+              title: '实收金额/元',
               dataIndex: 'number5'
             }
           ]
         }
       ]
     }
-  ],
-  options: {
-    status: [
-      { label: '正常', value: 1 },
-      { label: '禁用', value: 2 }
-    ]
-  }
+  ]
 }
 
 export const editSchema = {

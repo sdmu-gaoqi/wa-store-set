@@ -48,7 +48,8 @@ export const schema: TableProps['schema'] = {
         {
           fixed: true,
           title: '员工工号',
-          dataIndex: 'userId'
+          dataIndex: 'userId',
+          width: 100
         },
         {
           title: '姓名',
@@ -134,8 +135,28 @@ export const editSchema = {
     isLogin: {
       title: '是否登录账号',
       defaultValue: true,
-      widget: 'switch'
+      widget: 'switch',
+      span: 4
     },
+    isTechnician: {
+      type: 'string',
+      props: {
+        placeholder: '请选择',
+        options: PostMap
+      },
+      defaultValue: true,
+      title: '是否技师',
+      widget: 'switch',
+      span: 4
+    },
+    status: {
+      title: '账号状态',
+      type: 'boolean',
+      widget: 'switch',
+      defaultValue: true,
+      span: 4
+    },
+    占位: {},
     userName: {
       title: '姓名',
       type: 'string',
@@ -159,16 +180,6 @@ export const editSchema = {
         placeholder: '请输入'
       },
       widget: 'input'
-    },
-    isTechnician: {
-      type: 'string',
-      props: {
-        placeholder: '请选择',
-        options: PostMap
-      },
-      defaultValue: true,
-      title: '是否技师',
-      widget: 'switch'
     },
     password: {
       title: '登陆密码',
@@ -210,12 +221,6 @@ export const editSchema = {
         placeholder: '请选择日期'
       },
       widget: 'datePicker'
-    },
-    status: {
-      title: '账号状态',
-      type: 'boolean',
-      widget: 'switch',
-      defaultValue: true
     },
     sex: {
       title: '性别',

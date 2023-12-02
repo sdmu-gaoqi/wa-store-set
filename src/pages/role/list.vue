@@ -104,12 +104,12 @@ const router = useRouter()
 
 const formatParams = (params: any) => {
   if (params.createTime) {
-    params.params = {
-      beginTime: params.createTime,
-      endTime: params.createTime
-    }
+    params.params = {}
+    params.params['beginTime'] = params.createTime
+    params.params['endTime'] = params.createTime
   }
   delete params.createTime
+  console.log(params, 'params')
   return params
 }
 

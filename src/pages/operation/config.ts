@@ -42,6 +42,10 @@ export const schema: TableProps['schema'] = {
               dataIndex: 'a1Wx'
             },
             {
+              title: '收钱吧',
+              dataIndex: 'a1Wx'
+            },
+            {
               title: '现金/元',
               dataIndex: 'a1Rmb'
             }
@@ -56,23 +60,35 @@ export const schema: TableProps['schema'] = {
               dataIndex: 'a2Number'
             },
             {
-              title: '支付宝/元',
+              title: '会员充值/元',
               dataIndex: 'a2Zfb'
             },
             {
-              title: '微信/元',
+              title: '会员卡消费/元',
               dataIndex: 'a2Wx'
             },
             {
-              title: '现金/元',
+              title: '新会员增长',
+              dataIndex: 'a2Rmb'
+            },
+            {
+              title: '不足扣款补充金额',
               dataIndex: 'a2Rmb'
             }
           ]
         },
         {
-          fixed: 'right',
+          title: '日总客数',
+          dataIndex: 'money'
+        },
+        {
           title: '日营业额/元',
           dataIndex: 'money'
+        },
+        {
+          fixed: 'right',
+          title: '操作',
+          dataIndex: 'options'
         }
       ]
     }

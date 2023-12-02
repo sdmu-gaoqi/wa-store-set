@@ -123,7 +123,7 @@ const defaultMenu = [
         key: 'turnover-list'
       },
       {
-        title: '员工业绩统计',
+        title: '技师业绩统计',
         path: '/chart/outstanding/list',
         access: ['chartOutstanding'],
         key: 'outstanding-list'

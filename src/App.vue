@@ -27,7 +27,7 @@
 }
 </style>
 
-<script setup>
+<script setup lang="ts">
 import { message } from 'ant-design-vue'
 import { computed, onMounted } from 'vue'
 import { cookie } from 'wa-utils'
