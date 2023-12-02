@@ -139,10 +139,6 @@ export const schema: TableProps['schema'] = {
     }
   ],
   options: {
-    status: [
-      { label: '正常', value: 1 },
-      { label: '不正常', value: 2 }
-    ],
     level: [
       { label: '1级会员', value: 1 },
       { label: '2级会员', value: 2 }
