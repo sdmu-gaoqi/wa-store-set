@@ -361,6 +361,11 @@ const routes: any[] = [
         ]
       },
       {
+        path: '/password',
+        name: '修改密码',
+        component: () => import('./pages/user/password')
+      },
+      {
         path: '/404',
         name: '404',
         component: () => import('./pages/404/index.vue')
@@ -380,25 +385,10 @@ const route = createRouter({
 
 route.beforeEach(async (to, from, next) => {
   const toPath = to.path
-  let perm = user?.userInfo?.permissions
-  const access = to?.meta?.access
-  if (!perm) {
-    perm = (await user.getUserInfo()).permissions
-  }
-
-  if (access) {
-    const hasPerm = access?.some((item) => perm?.includes(item))
-    if (!hasPerm) {
-      // next('/404')
-      console.log('没有权限', perm)
-    }
-  }
-
   if (!['/login', '/test'].includes(toPath) && !cookie.get('Admin-Token')) {
     next('/login')
     return
   }
-
   next()
 })
 

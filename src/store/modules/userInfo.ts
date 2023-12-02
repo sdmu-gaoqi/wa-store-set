@@ -77,7 +77,6 @@ const mutations = {
     localStorage.setItem('token', data.token)
   },
   [SETUSERINFO](state: UserState, data: typeof state.userInfo) {
-    console.log(data, 'data')
     state.userInfo = data
   },
   [SETPERMS](state: UserState, data: UserState['perms']) {

@@ -15,6 +15,7 @@ import { Login } from 'store-operations-ui'
 import { useRouter } from 'vue-router'
 import { onMounted, ref } from 'vue'
 import user from '../../servers/user'
+import { transformRoute } from '@/utils/menu'
 
 const { dispatch } = store
 const router = useRouter()
@@ -32,6 +33,9 @@ interface FormState {
 
 const onFinish = (res: any) => {
   dispatch('userInfo/changeUser', { data: res.user })
+  dispatch('userInfo/setPerms', { data: res.permissions })
+  dispatch('common/changeMenus', { data: res.permissions })
+  transformRoute(res.permissions)
   router.replace('/')
 }
 

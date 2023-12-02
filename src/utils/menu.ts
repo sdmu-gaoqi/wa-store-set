@@ -34,6 +34,7 @@ export const transformRoute = (perm: string[]) => {
     if (access) {
       const hasPerm = access.some((i: any) => perm.includes(i))
       if (!hasPerm) {
+        console.log(item, 'item')
         route.removeRoute(item?.name as RouteRecordName)
       }
     }

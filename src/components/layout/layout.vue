@@ -85,14 +85,22 @@
                 src="https://tse1-mm.cn.bing.net/th/id/OIP-C.aMo33QDFG8U9D5fPZqmB9wHaHa"
                 class="w-[30px] h-[30px] mr-[5px] rounded-full"
               />
-              {{ userInfo?.userInfo?.userName || '测试用户' }}
+              {{ userInfo?.userInfo?.userName || '未登录' }}
             </div>
-            <template #overlay
-              ><div
-                class="p-[10px] bg-white shadow-lg cursor-pointer hover:bg-primary hover:text-white relative top-[-10px] text-center"
-                @click="onLogout"
-              >
-                退出登录
+            <template #overlay>
+              <div>
+                <div
+                  class="p-[10px] bg-white shadow-lg cursor-pointer hover:bg-primary hover:text-white relative top-[-10px] text-center"
+                  @click="goPassword"
+                >
+                  忘记密码
+                </div>
+                <div
+                  class="p-[10px] bg-white shadow-lg cursor-pointer hover:bg-primary hover:text-white relative top-[-10px] text-center"
+                  @click="onLogout"
+                >
+                  退出登录
+                </div>
               </div></template
             >
           </a-dropdown>
@@ -134,7 +142,6 @@ import scrollBar from 'smooth-scrollbar'
 import { useRequest } from 'vue-hooks-plus'
 import { Store as S } from 'store-request'
 import common from '@/servers/common'
-import { Modal } from 'ant-design-vue'
 import { useStore } from 'vuex'
 
 const s = new S()
@@ -173,6 +180,10 @@ const onLogout = async () => {
   await user.logout()
   logout()
   router.push('/login')
+}
+
+const goPassword = () => {
+  router.push('/password')
 }
 
 const changeLoginSuccess = (code: any) => {
