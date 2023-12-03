@@ -32,7 +32,9 @@ const useAccess = () => {
       perms.includes('orderSettlement') || perms.includes(adminPerm), // 订单结算
     orderOption: perms.includes('orderOption') || perms.includes(adminPerm), // 订单操作
     orderList: perms.includes('orderList') || perms.includes(adminPerm), // 订单列表
-    workbench: perms.includes('workbench') || perms.includes(adminPerm) // 工作台
+    workbench: perms.includes('workbench') || perms.includes(adminPerm), // 工作台
+    returnMemberCard:
+      perms.includes('returnMemberCard') || perms.includes(adminPerm)
   }
 }
 

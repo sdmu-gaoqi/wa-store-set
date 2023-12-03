@@ -30,6 +30,7 @@ export interface UserState {
     | 'orderOption' // 订单操作
     | 'orderList' // 订单列表
     | 'workbench' // 工作台
+    | 'returnMemberCard' // 会员退卡
     | '*:*:*'
   >
 }

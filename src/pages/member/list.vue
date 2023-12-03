@@ -70,7 +70,7 @@
         <a
           type="link"
           class="table-btn-danger last"
-          v-if="data.record.status === 'ENABLED'"
+          v-if="data.record.status === 'ENABLED' && returnMemberCard"
           @click="
             () => {
               businessModalType = BusinessModalType.会员退卡
@@ -124,7 +124,7 @@ import { message } from 'ant-design-vue'
 import { nanoid } from 'nanoid'
 import { useAccess } from '@/hooks'
 
-const { editMember, memberRecharge } = useAccess()
+const { editMember, memberRecharge, returnMemberCard } = useAccess()
 
 const formState = ref({})
 const tableRef = ref()
