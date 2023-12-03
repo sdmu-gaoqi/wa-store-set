@@ -69,7 +69,7 @@
           }
         "
       ></a-switch>
-      <template v-else>{{ data.text }}</template>
+      <template v-else>{{ data?.customer || data.text }}</template>
     </template>
   </TableRender>
   <BusinessModal

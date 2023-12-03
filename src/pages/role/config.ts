@@ -35,7 +35,8 @@ export const schema: TableProps['schema'] = {
         {
           fixed: true,
           title: '序号',
-          dataIndex: 'roleId'
+          dataIndex: 'roleId',
+          isIndex: true
         },
         {
           title: '角色名称',
