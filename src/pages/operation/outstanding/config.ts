@@ -64,7 +64,7 @@ export const schema: TableProps['schema'] = {
               dataIndex: 'number3'
             },
             {
-              title: '客数',
+              title: '总客数',
               dataIndex: 'userNumber'
             }
           ]
@@ -74,12 +74,20 @@ export const schema: TableProps['schema'] = {
           dataIndex: 'status',
           children: [
             {
-              title: '项目原价/元',
+              title: '订单总数',
               dataIndex: 'number4'
             },
             {
-              title: '实收金额/元',
+              title: '订单总金额/元',
               dataIndex: 'number5'
+            },
+            {
+              title: '实收总金额/元',
+              dataIndex: 'number5'
+            },
+            {
+              title: '详情',
+              dataIndex: 'options'
             }
           ]
         }

@@ -16,10 +16,10 @@ export default defineComponent({
   setup: (
     props: FormRenderProps & { formState: Record<string, any>; onFinish?: any }
   ) => {
-    const formRef = ref()
     const treeData = ref<any[]>([])
     const checkedKeys = ref<any[]>([])
     const roleInfo = ref<any>({})
+    const expandKeys = ref<any>([])
     onMounted(async () => {
       const roleId = props.formState?.roleId
       if (roleId) {
@@ -28,6 +28,7 @@ export default defineComponent({
         const rolePermTree: any = await common.rolePermTree(roleId)
         treeData.value = rolePermTree.menus
         checkedKeys.value = rolePermTree.checkedKeys
+        expandKeys.value = rolePermTree.menus.map((item: any) => item.id)
       }
     })
 
@@ -57,9 +58,9 @@ export default defineComponent({
               key: 'id',
               children: 'children'
             }}
+            expandedKeys={expandKeys.value}
+            onExpand={(value) => (expandKeys.value = value)}
             checkable
-            defaultExpandAll={true}
-            autoExpandParent={true}
             onCheck={(v) => {
               checkedKeys.value = v as any[]
             }}

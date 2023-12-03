@@ -1,5 +1,5 @@
 <template>
-  <TableRender :schema="schema" :list="[{}]">
+  <TableRender :schema="schema">
     <template #bodyCell="{ data }">
       <div
         v-if="data?.column?.dataIndex === 'options'"
@@ -13,7 +13,7 @@
               open = true
             }
           "
-          >编辑</a
+          >详情</a
         >
       </div>
       <template v-else>{{ data.text }}</template>

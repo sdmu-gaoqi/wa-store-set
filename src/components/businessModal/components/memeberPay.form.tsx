@@ -20,15 +20,16 @@ const schema: Schema = {
       title: '会员类型',
       type: 'string',
       props: {
+        disabled: true,
         options: [
           {
             label: 'A.会员折扣卡',
             value: MemberType.折扣卡
+          },
+          {
+            label: 'B.会员次卡',
+            value: MemberType.次卡
           }
-          // {
-          //   label: 'B.会员次卡',
-          //   value: MemberType.次卡
-          // }
         ]
       },
       widget: 'radio'
@@ -117,7 +118,8 @@ const schema: Schema = {
       type: 'number',
       widget: 'input',
       props: {
-        type: 'number'
+        type: 'number',
+        precision: 0
       },
       'ui:hidden': 'formState.value.memberType === 1'
     },
@@ -126,7 +128,8 @@ const schema: Schema = {
       type: 'number',
       widget: 'input',
       props: {
-        type: 'number'
+        type: 'number',
+        precision: 0
       },
       'ui:hidden': 'formState.value.memberType === 1'
     },

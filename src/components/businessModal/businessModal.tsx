@@ -47,7 +47,8 @@ export default defineComponent({
       [BusinessModalType.编辑角色]: '编辑角色',
       [BusinessModalType.编辑权限点]: '编辑权限点',
       [BusinessModalType.权限配置]: '权限配置',
-      [BusinessModalType.营业额详情]: '营业额详情'
+      [BusinessModalType.营业额详情]: '营业额详情',
+      [BusinessModalType.贡献营业额详情]: '贡献营业额详情'
     }
     const elMap = {
       [BusinessModalType.会员充值]: memeberPayForm,
@@ -61,7 +62,8 @@ export default defineComponent({
       [BusinessModalType.编辑角色]: EditRoleForm,
       [BusinessModalType.编辑权限点]: editPointForm,
       [BusinessModalType.权限配置]: roleSetPerm,
-      [BusinessModalType.营业额详情]: TurnoverDetail
+      [BusinessModalType.营业额详情]: TurnoverDetail,
+      [BusinessModalType.贡献营业额详情]: TurnoverDetail
     }
     const widthMap = {
       [BusinessModalType.会员充值]: 900,
@@ -75,7 +77,8 @@ export default defineComponent({
       [BusinessModalType.编辑角色]: 900,
       [BusinessModalType.编辑权限点]: 900,
       [BusinessModalType.权限配置]: 900,
-      [BusinessModalType.营业额详情]: 900
+      [BusinessModalType.营业额详情]: 900,
+      [BusinessModalType.贡献营业额详情]: 900
     }
     const footer = computed(
       () =>
@@ -91,7 +94,8 @@ export default defineComponent({
           BusinessModalType.编辑角色,
           BusinessModalType.编辑权限点,
           BusinessModalType.权限配置,
-          BusinessModalType.营业额详情
+          BusinessModalType.营业额详情,
+          BusinessModalType.贡献营业额详情
         ].includes(props.type)
     )
     const isFormRender = computed(() =>
@@ -105,7 +109,8 @@ export default defineComponent({
         BusinessModalType.编辑角色,
         BusinessModalType.编辑权限点,
         BusinessModalType.权限配置,
-        BusinessModalType.营业额详情
+        BusinessModalType.营业额详情,
+        BusinessModalType.贡献营业额详情
       ].includes(props.type)
     )
     const title = computed(() => titleMap[props.type])

@@ -4,7 +4,7 @@
 import common from '@/servers/common'
 import { MemberType, payTypes } from '@/types'
 import { formatMoney } from '@/utils'
-import { message } from 'ant-design-vue'
+import { Input, message } from 'ant-design-vue'
 import {
   FormCard,
   FormRender,
@@ -15,6 +15,7 @@ import { Member } from 'store-request'
 import { defineComponent, onMounted, ref, toRaw, watch } from 'vue'
 import { useRequest } from 'vue-hooks-plus'
 import { cloneDeep, debounce, isEmpty, sleep } from 'wa-utils'
+import '../styles/memberSettlement.form.scss'
 
 const member = new Member()
 
@@ -104,7 +105,42 @@ const schema: Schema = {
         ],
         pagination: false
       },
-      'ui:hidden': 'formState.value.settleType != 1'
+      'ui:hidden':
+        'formState.value.settleType != 1 || formState.value.memberId?.memberType != 1'
+    },
+    table2: {
+      widget: 'table',
+      props: {
+        columns: [
+          {
+            title: '会员卡号',
+            dataIndex: 'memberNo'
+          },
+          {
+            title: '姓名',
+            dataIndex: 'memberName'
+          },
+          {
+            title: '手机号',
+            dataIndex: 'phone'
+          },
+          {
+            title: '会员类型',
+            dataIndex: 'memberTypeName'
+          },
+          {
+            title: '优惠方式',
+            dataIndex: 'discountRate'
+          },
+          {
+            title: '会员卡余额',
+            dataIndex: 'availableBalance'
+          }
+        ],
+        pagination: false
+      },
+      'ui:hidden':
+        'formState.value.settleType != 1 || formState.value.memberId?.memberType != 2'
     },
     table: {
       widget: 'table',
@@ -190,7 +226,65 @@ const schema: Schema = {
         readonly: true,
         bordered: false
       },
-      'ui:hidden': 'formState.value.settleType != 1'
+      'ui:hidden':
+        'formState.value.settleType != 1  || formState.value.memberId?.memberType != 1'
+    },
+    占位11: {
+      span: 12
+    },
+    store3: {
+      title: '支付方式',
+      type: 'string',
+      widget: 'input',
+      defaultValue: '按次卡',
+      colClass: 'cika',
+      props: {
+        readonly: true,
+        bordered: false
+      },
+      'ui:hidden':
+        'formState.value.settleType != 1  || formState.value.memberId?.memberType != 2'
+    },
+    z1: {
+      widget: 'input',
+      type: 'string',
+      defaultValue: '扣除',
+      span: 2,
+      colClass: 'z1',
+      props: {
+        readonly: true,
+        bordered: false
+      },
+      'ui:hidden':
+        'formState.value.settleType != 1  || formState.value.memberId?.memberType != 2'
+    },
+    useTimes: {
+      widget: 'input',
+      type: 'number',
+      span: 3,
+      colClass: 'useTimes',
+      props: {
+        suffix: '次',
+        min: 0,
+        precision: 0
+      },
+      label: '扣除',
+      'ui:hidden':
+        'formState.value.settleType != 1  || formState.value.memberId?.memberType != 2'
+    },
+    z2: {
+      widget: 'input',
+      type: 'string',
+      colStyle: {},
+      span: 6,
+      colClass: 'z2',
+      defaultValue: '还剩余 0 次',
+      props: {
+        readonly: true,
+        bordered: false
+      },
+      'ui:hidden':
+        'formState.value.settleType != 1  || formState.value.memberId?.memberType != 2'
     },
     replenishPrice: {
       title: '补充金额',
@@ -324,6 +418,7 @@ export default defineComponent({
       },
       500
     )
+
     return () => {
       return (
         <FormRender
@@ -383,6 +478,9 @@ export default defineComponent({
                     orderId,
                     orderNo,
                     settleType: '1',
+                    ...(user.memberType === MemberType.次卡 && {
+                      memberTimesId: user.memberTimesId
+                    }),
                     memberId: user?.memberId,
                     phone: user?.phone
                     // discountPrice: newDiscountedPrice
@@ -419,15 +517,29 @@ export default defineComponent({
                       discountRate: `${value?.option?.discountRate * 10}折`,
                       availableBalance: `${value?.option?.availableBalance}元`
                     }
+                  ],
+                  table2: [
+                    {
+                      memberNo: value?.option?.memberNo,
+                      memberName: value?.option?.memberName,
+                      phone: value?.option?.phone,
+                      memberTypeName: '次卡',
+                      discountRate: `${value?.option?.totalRewardTimes}次`,
+                      availableBalance: `${value?.option?.availableBalance}元`
+                    }
                   ]
                   // discountPrice: newDiscountedPrice
                 })
                 const orderId = props.formState?.orderId
                 const orderNo = props.formState?.orderNo
+
                 if (orderId) {
                   run({
                     orderId,
                     orderNo,
+                    ...(selectUser.value.memberType === MemberType.次卡 && {
+                      memberTimesId: selectUser.value.memberId
+                    }),
                     settleType: settleType,
                     memberId: selectUser?.value?.memberId,
                     phone: selectUser?.value?.phone

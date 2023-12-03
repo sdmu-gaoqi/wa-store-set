@@ -28,7 +28,7 @@ export const loginLogSchema: TableProps['schema'] = {
       {
         type: 'date',
         label: '系统登陆时间',
-        key: 'time'
+        key: 'loginTime'
       }
     ]
   },
@@ -44,8 +44,7 @@ export const loginLogSchema: TableProps['schema'] = {
         },
         {
           title: '姓名',
-          dataIndex: 'userName',
-          format: 'money'
+          dataIndex: 'userName'
         },
         {
           title: '手机号码',
@@ -57,15 +56,19 @@ export const loginLogSchema: TableProps['schema'] = {
         },
         {
           title: '系统登陆日期',
-          dataIndex: 'ctime'
+          dataIndex: 'loginTime'
         },
         {
           title: '登陆IP',
-          dataIndex: 'name'
+          dataIndex: 'ipaddr'
         },
         {
           title: '登陆状态',
-          dataIndex: 'status'
+          dataIndex: 'status',
+          options: [
+            { label: '成功', value: '0' },
+            { label: '失败', value: '1' }
+          ]
         }
       ]
     }
@@ -95,43 +98,49 @@ export const operateLogSchema = {
         {
           fixed: true,
           title: '日志编号',
-          dataIndex: 'orderId'
+          dataIndex: 'operId',
+          width: 100
         },
         {
           title: '系统模块',
-          dataIndex: 'money',
-          format: 'money'
+          dataIndex: 'title',
+          width: 150
         },
         {
           title: '操作类型',
-          dataIndex: 'currency',
-          format: 'money'
+          dataIndex: 'requestMethod',
+          width: 100
         },
         {
           title: '操作人员',
-          dataIndex: 'detail',
-          format: 'money'
+          dataIndex: 'operName',
+          width: 100
         },
         {
           title: '工号',
-          dataIndex: 'status'
+          dataIndex: '',
+          width: 100
         },
         {
           title: '操作IP',
-          dataIndex: 'name'
+          dataIndex: 'operIp',
+          width: 200
         },
         {
           title: '操作日期',
-          dataIndex: 'level'
+          dataIndex: 'operTime',
+          width: 200
         },
         {
           title: '操作状态',
-          dataIndex: 'level'
-        },
-        {
-          title: '操作',
-          dataIndex: 'level'
+          dataIndex: 'jsonResult',
+          width: 300,
+          fixed: 'right'
         }
+        // {
+        //   title: '操作',
+        //   dataIndex: 'level'
+        // }
       ]
     }
   ]

@@ -1,27 +1,36 @@
+import { moneyRule } from '@/utils'
 import { FormRender, FormRenderProps, Schema } from 'store-operations-ui'
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 
 const schema: Schema = {
   type: 'object',
   rules: {
-    payType: [{ required: true, message: '请选择充值方式' }]
+    refundBalance: [
+      { required: true, message: '请输入退款金额' },
+      {
+        validator: moneyRule({})
+      }
+    ],
+    remark: [{ required: true, message: '请输入退款说明' }]
   },
   properties: {
-    card: {
+    memberId: {
+      span: 0,
+      colStyle: { height: 0 }
+    },
+    memberNo: {
       title: '会员卡号',
       type: 'string',
       widget: 'input',
-      defaultValue: '1',
       props: {
         readonly: true,
         bordered: false
       }
     },
-    name: {
+    memberName: {
       title: '会员姓名',
       type: 'string',
       widget: 'input',
-      defaultValue: '王小明',
       props: {
         readonly: true,
         bordered: false
@@ -31,24 +40,26 @@ const schema: Schema = {
       title: '会员手机号',
       type: 'string',
       widget: 'input',
-      defaultValue: '13567676767',
       props: {
         readonly: true,
         bordered: false
       }
     },
-    money1: {
+    refundBalance: {
       title: '退款金额',
-      type: 'number',
+      type: 'string',
       widget: 'input',
       props: {
-        type: 'number'
+        placeholder: '请输入'
       }
     },
     remark: {
       title: '退款说明',
       type: 'string',
-      widget: 'textArea'
+      widget: 'textArea',
+      props: {
+        placeholder: '请输入'
+      }
     }
   },
   displayType: 'row',
@@ -63,16 +74,42 @@ const schema: Schema = {
 export default defineComponent({
   props: {
     onFinish: Function,
-    onCancel: Function
+    onCancel: Function,
+    formState: Object
   },
   // @ts-ignore
-  setup: (props: FormRenderProps) => {
+  setup: (
+    props: FormRenderProps & {
+      formState: Record<string, any>
+      onFinish: (data: any, type?: string) => void
+    }
+  ) => {
+    const formRef = ref()
+    onMounted(() => {
+      formRef.value.changeState({
+        ...props.formState,
+        remark: undefined
+      })
+    })
     return () => {
       return (
         <FormRender
           schema={schema}
-          onFinish={props.onFinish}
+          onFinish={(value) => {
+            if (props.onFinish) {
+              props.onFinish(
+                {
+                  memberId: value.memberId,
+                  memberNo: value.memberNo,
+                  refundBalance: value.refundBalance,
+                  remark: value.remark
+                },
+                'returnCard'
+              )
+            }
+          }}
           onCancel={props.onCancel}
+          ref={formRef}
         />
       )
     }

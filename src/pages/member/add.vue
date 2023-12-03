@@ -52,12 +52,14 @@ onMounted(() => {
         if (formRef.value.changeState) {
           detailData.value = res.data
           const data = res?.data || {}
+          console.log(data, 'aaaaaa')
           formRef.value.changeState({
             latestSpendTime: data?.latestSpendTime,
             totalSpendBalance: data?.totalSpendBalance,
             giveTimes: data?.giveTimes,
             rewardTimes: data?.rewardTimes,
-            discountRate: data?.discountRate,
+            discountRate: data?.memberDiscountInfo?.discountRate,
+            discountRate1: data?.memberDiscountInfo?.discountRate,
             memberId: data?.memberId,
             memberName: data?.memberName,
             memberNo: data?.memberNo,
@@ -85,9 +87,9 @@ onMounted(() => {
               totalSpendBalance: data.memberDiscountInfo.totalSpendBalance
             }),
             ...(data.memberType === MemberType.次卡 && {
-              giveTimes: data.memberTimesInfo.giveTimes,
-              rechargeBalance: data.memberTimesInfo.rechargeBalance,
-              rewardTimes: data.memberTimesInfo.rewardTimes
+              giveTimes: data.memberTimesInfo?.giveTimes,
+              rechargeBalance: data.memberTimesInfo?.rechargeBalance,
+              rewardTimes: data.memberTimesInfo?.rewardTimes
             })
           })
         }
@@ -115,7 +117,7 @@ const onFinish = async (value: Record<string, any>) => {
     birthDate: birthDate ? +birthDate : value?.birthDate,
     ...(value.memberType == MemberType.折扣卡 && {
       memberDiscountInfo: {
-        discountRate: value?.discountRate,
+        discountRate: value?.discountRate1 || value?.discountRate,
         giveBalance: value?.giveBalance,
         payMethod: value?.payMethod,
         rechargeBalance: value?.rechargeBalance

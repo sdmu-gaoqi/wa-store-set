@@ -67,17 +67,19 @@
           "
           >消费记录</a
         > -->
-        <!-- <a
+        <a
           type="link"
           class="table-btn-danger last"
+          v-if="data.record.status === 'ENABLED'"
           @click="
             () => {
               businessModalType = BusinessModalType.会员退卡
               payOpen = true
+              formState = data.record
             }
           "
           >退卡</a
-        > -->
+        >
       </div>
       <template v-else-if="data?.column?.dataIndex === 'status'">
         <div :class="data.record.status === 'ENABLED' ? '' : ' text-red-500'">
@@ -88,9 +90,9 @@
         {{
           !!data?.record?.discountRate
             ? Number(data?.record?.discountRate) * 10 + '折'
-            : data?.record?.totalRewardTimes +
+            : (data?.record?.totalRewardTimes || 0) +
               '/' +
-              data?.record?.availableRewardTimes
+              (data?.record?.availableRewardTimes || 0)
         }}
       </template>
       <template v-else-if="data.customer">{{ data.customer }}</template>
@@ -142,7 +144,14 @@ const changeTab = (tab: any) => {
   console.log(tab, 'tttttt')
 }
 
-const onFinish = async (v: any) => {
+const onFinish = async (v: any, type: string) => {
+  if (type === 'returnCard') {
+    await member.returnCatd(v)
+    message.success('退款成功')
+    tableRef.value.run(tableRef.value.params)
+    payOpen.value = false
+    return
+  }
   const sendValue = {
     memberId: v?.memberId,
     memberName: v?.memberName,

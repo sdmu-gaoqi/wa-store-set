@@ -5,17 +5,32 @@
         v-if="data?.column?.dataIndex === 'options'"
         class="flex justify-center items-center"
       >
-        <a type="link" class="table-btn last">编辑</a>
+        <a type="link" class="table-btn last">详情</a>
       </div>
       <template v-else>{{ data.text }}</template>
     </template>
   </TableRender>
+  <BusinessModal
+    :type="BusinessModalType.贡献营业额详情"
+    :open="open"
+    :formState="formState"
+    :onCancel="
+      () => {
+        open = false
+      }
+    "
+  />
 </template>
 
 <script lang="ts" setup>
 import { TableRender } from 'store-operations-ui'
 import { schema } from './config'
 import { useRouter } from 'vue-router'
+import BusinessModal from '@/components/businessModal/businessModal'
+import { BusinessModalType } from '@/components/businessModal/businessModal.type'
+import { ref } from 'vue'
+const open = ref(false)
+const formState = ref({})
 
 const router = useRouter()
 

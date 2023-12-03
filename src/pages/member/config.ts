@@ -31,11 +31,11 @@ export const schema: TableProps['schema'] = {
         placeholder: '手机号',
         key: 'searchPhone'
       },
-      // {
-      //   type: 'select',
-      //   label: '会员类型',
-      //   key: 'memberType'
-      // },
+      {
+        type: 'select',
+        label: '会员类型',
+        key: 'memberType'
+      },
       {
         type: 'range',
         label: '开卡日期',
@@ -179,7 +179,7 @@ export const editSchema: Schema = {
       type: 'string',
       widget: 'input'
     },
-    discountRate: {
+    discountRate1: {
       title: '折扣',
       type: 'string',
       widget: 'input',
@@ -209,7 +209,8 @@ export const editSchema: Schema = {
           }
         ]
       },
-      'ui:hidden': "formState.value.memberType == '2'"
+      'ui:hidden':
+        "formState.value.memberType == '2' || !formState.value.memberId"
     },
     sex: {
       title: '性别',
@@ -283,14 +284,48 @@ export const editSchema: Schema = {
           {
             label: 'A: 会员折扣卡',
             value: MemberType.折扣卡
+          },
+          {
+            label: 'B: 会员次卡',
+            value: MemberType.次卡
           }
-          // {
-          //   label: 'B: 会员次卡',
-          //   value: MemberType.次卡
-          // }
         ]
       },
       'ui:hidden': 'formState.value.memberId'
+    },
+    占位11: {},
+    discountRate: {
+      title: '折扣',
+      type: 'string',
+      widget: 'input',
+      defaultValue: 0.9,
+      props: {
+        // type: 'number'
+        options: [
+          {
+            label: '0.7',
+            value: 0.7
+          },
+          {
+            label: '0.8',
+            value: 0.8
+          },
+          {
+            label: '0.85',
+            value: 0.85
+          },
+          {
+            label: '0.9',
+            value: 0.9
+          },
+          {
+            label: '0.95',
+            value: 0.95
+          }
+        ]
+      },
+      'ui:hidden':
+        "formState.value.memberType == '2' || !!formState.value.memberId"
     },
     占位1: {},
     rechargeBalance: {
@@ -310,26 +345,36 @@ export const editSchema: Schema = {
       props: {
         type: 'number'
       },
-      span: 13,
       'ui:hidden':
         "formState.value.memberType == '2' || formState.value.memberId"
+    },
+    占位3: {
+      colStyle: { height: 0 },
+      span: 24
     },
     rewardTimes: {
       title: '优惠次数',
       type: 'number',
       widget: 'input',
+      span: 12,
       props: {
-        type: 'number'
+        type: 'number',
+        precision: 0
       },
       'ui:hidden':
         "formState.value.memberType == '1' || formState.value.memberId"
+    },
+    占位4: {
+      colStyle: { height: 0 },
+      span: 24
     },
     giveTimes: {
       title: '赠送次数',
       type: 'number',
       widget: 'input',
       props: {
-        type: 'number'
+        type: 'number',
+        precision: 0
       },
       'ui:hidden':
         "formState.value.memberType == '1' || formState.value.memberId"

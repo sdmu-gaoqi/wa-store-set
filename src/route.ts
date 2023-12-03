@@ -417,6 +417,10 @@ const initUserInfo = async () => {
 
 route.beforeEach(async (to, from, next) => {
   const toPath = to.path
+  if (cookie.get('Admin-Token') && ['/login'].includes(toPath)) {
+    next('/workbench')
+    return
+  }
   if (!['/login', '/test'].includes(toPath) && !cookie.get('Admin-Token')) {
     next('/login')
     return
@@ -438,10 +442,5 @@ route.beforeEach(async (to, from, next) => {
   }
   next()
 })
-
-// export const allRoute = createRouter({
-//   routes,
-//   history: createWebHashHistory()
-// })
 
 export default route

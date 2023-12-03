@@ -49,3 +49,27 @@ export function formatMoney(value: any) {
   // 返回格式化后的字符串
   return formattedValue
 }
+
+export const moneyRule = ({
+  min = 0,
+  precision = 2
+}: {
+  min?: number
+  precision?: number
+}) => {
+  return (rule: any, value: any, callback: any) => {
+    if (isEmpty(value)) {
+      return Promise.resolve()
+    } else if (isNaN(value)) {
+      return Promise.reject('请输入正确的数字')
+    } else if (Number(value) < min) {
+      return Promise.reject(`不能小于${min}`)
+    } else {
+      const n = String(value)?.split('.')[1]
+      if (n?.length > precision) {
+        return Promise.reject(`小数位不能超过${precision}位`)
+      }
+      return Promise.resolve()
+    }
+  }
+}

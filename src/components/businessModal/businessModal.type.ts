@@ -10,7 +10,8 @@ export enum BusinessModalType {
   编辑角色 = 'editRole',
   编辑权限点 = 'editPoint',
   权限配置 = 'roleSetPoint',
-  营业额详情 = 'turnoverDetail'
+  营业额详情 = 'turnoverDetail',
+  贡献营业额详情 = 'outstandingDetail'
 }
 
 export type BusinessModalTypes =
@@ -26,3 +27,4 @@ export type BusinessModalTypes =
   | BusinessModalType.编辑权限点
   | BusinessModalType.权限配置
   | BusinessModalType.营业额详情
+  | BusinessModalType.贡献营业额详情
