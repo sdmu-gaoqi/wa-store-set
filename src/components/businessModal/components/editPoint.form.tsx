@@ -34,17 +34,17 @@ const editSchema = {
       },
       'ui:hidden': '!formState.value.parentId'
     },
-    orderNum: {
-      title: '排序',
-      type: 'number',
-      defaultValue: '1',
-      props: {
-        options: PointMap,
-        precision: 0,
-        min: 1
-      },
-      widget: 'input'
-    },
+    // orderNum: {
+    //   title: '排序',
+    //   type: 'number',
+    //   defaultValue: '1',
+    //   props: {
+    //     options: PointMap,
+    //     precision: 0,
+    //     min: 1
+    //   },
+    //   widget: 'input'
+    // },
     menuType: {
       title: '权限类型',
       type: 'string',
@@ -109,13 +109,13 @@ export default defineComponent({
     })
 
     const addPoint = async (data: { [key: string]: any }) => {
-      await common.addPerm(data)
+      await common.addPerm({ ...data, orderNum: 1 })
       message.success('新增权限成功')
       props.onFinish()
     }
 
     const editPoint = async (data: { [key: string]: any }) => {
-      await common.updatePerm(data)
+      await common.updatePerm({ ...data, orderNum: 1 })
       message.success('编辑权限成功')
       props.onFinish()
     }
