@@ -60,7 +60,7 @@ const CreateOrder = defineComponent({
     })
     return () => (
       <>
-        <div class="bg-[#fff] shadow-md">
+        <div class="bg-[#fff] shadow-md min-h-[200px]">
           <div class="flex p-[20px]">
             {orderOption && (
               <Button

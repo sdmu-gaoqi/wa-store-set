@@ -15,6 +15,7 @@ const OrderDetail = defineComponent({
   // @ts-ignore
   setup(props: { formState: Record<string, any> }) {
     const formRef = ref()
+    const loading = ref(false)
     const schema: Schema = {
       type: 'object',
       properties: {
@@ -188,30 +189,39 @@ const OrderDetail = defineComponent({
     }
     onMounted(async () => {
       if (props?.formState?.orderId) {
-        const res = (await common.orderDetail({
-          orderId: props.formState.orderId,
-          orderNo: props.formState.orderNo
-        })) as any
-        formRef.value.changeState({
-          orderNo: res?.data?.orderNo,
-          originalPrice: formatMoney(res?.data?.originalPrice),
-          receivePrice: formatMoney(res?.data?.receivePrice),
-          replenishPrice: formatMoney(res?.data?.replenishPrice),
-          remark: res?.data?.remark,
-          discountPrice: res.data.discountPrice,
-          settleType: res.data.settleType == '0' ? '非会员' : '会员',
-          table: res?.data?.orderItemList?.map((item: any) => ({
-            ...item,
-            money: formatMoney(item?.discountPrice || 0),
-            unitPrice: formatMoney(item?.unitPrice),
-            royaltyType: item.royaltyType === RoyaltyType.排钟 ? '排钟' : '点钟'
-          })),
-          status: res.data?.status === 'SUBMIT' ? '已结算' : '未结算'
-        })
+        loading.value = true
+        try {
+          const res = (await common.orderDetail({
+            orderId: props.formState.orderId,
+            orderNo: props.formState.orderNo
+          })) as any
+          loading.value = false
+          formRef.value.changeState({
+            orderNo: res?.data?.orderNo,
+            originalPrice: formatMoney(res?.data?.originalPrice),
+            receivePrice: formatMoney(res?.data?.receivePrice),
+            replenishPrice: formatMoney(res?.data?.replenishPrice),
+            remark: res?.data?.remark,
+            discountPrice: res.data.discountPrice,
+            settleType: res.data.settleType == '0' ? '非会员' : '会员',
+            table: res?.data?.orderItemList?.map((item: any) => ({
+              ...item,
+              money: formatMoney(item?.discountPrice || 0),
+              unitPrice: formatMoney(item?.unitPrice),
+              royaltyType:
+                item.royaltyType === RoyaltyType.排钟 ? '排钟' : '点钟'
+            })),
+            status: res.data?.status === 'SUBMIT' ? '已结算' : '未结算'
+          })
+        } catch (err) {
+          loading.value = false
+        }
       }
     })
     return () => {
-      return <FormRender schema={schema} ref={formRef} />
+      return (
+        <FormRender schema={schema} ref={formRef} loading={loading.value} />
+      )
     }
   }
 })

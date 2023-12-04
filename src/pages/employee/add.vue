@@ -7,6 +7,7 @@
         :on-cancel="onCancel"
         :schema="schema"
         ref="formRef"
+        :loading="loading"
       ></FormRender>
     </template>
   </FormCard>
@@ -37,6 +38,7 @@ const {
 const isEdit = !!id
 const schema = ref<any>()
 const detailData = ref()
+const loading = ref(false)
 
 onMounted(async () => {
   const cloneSchema = cloneDeep(editSchema)
@@ -47,32 +49,38 @@ onMounted(async () => {
     // cloneSchema.properties.store.defaultValue = userInfo.userInfo?.storeName
     schema.value = cloneSchema
   } else {
-    const detail = await employee.info(id)
-    detailData.value = detail.data
-    cloneSchema.properties.isLogin.defaultValue = detail?.data?.isLogin == 1
-    cloneSchema.properties.userName.defaultValue = detail?.data.userName
-    cloneSchema.properties.code.defaultValue = detail?.data.code
-    cloneSchema.properties.phonenumber.defaultValue = detail?.data.phonenumber
-    cloneSchema.properties.sex.defaultValue = detail?.data.sex
-    cloneSchema.properties.password.defaultValue = detail?.data.password
-    cloneSchema.properties.status.defaultValue = detail?.data.status == 0
-    cloneSchema.properties.sex.defaultValue = detail?.data.sex
-    cloneSchema.properties.userId.defaultValue = detail?.data.userId
-    // cloneSchema.properties.store.defaultValue = [
-    //   { name: detail?.data.storeName, code: detail?.data.storeCode }
-    // ]
-    // cloneSchema.properties.store.props.options = [
-    //   {
-    //     name: detail?.data.storeName,
-    //     code: detail?.data.storeCode,
-    //     label: detail?.data.storeName,
-    //     value: detail?.data.storeCode
-    //   }
-    // ]
-    cloneSchema.properties.role.defaultValue = detail?.roleIds?.map(
-      (item) => item
-    )
-    schema.value = cloneSchema
+    loading.value = true
+    try {
+      const detail = await employee.info(id)
+      loading.value = false
+      detailData.value = detail.data
+      cloneSchema.properties.isLogin.defaultValue = detail?.data?.isLogin == 1
+      cloneSchema.properties.userName.defaultValue = detail?.data.userName
+      cloneSchema.properties.code.defaultValue = detail?.data.code
+      cloneSchema.properties.phonenumber.defaultValue = detail?.data.phonenumber
+      cloneSchema.properties.sex.defaultValue = detail?.data.sex
+      cloneSchema.properties.password.defaultValue = detail?.data.password
+      cloneSchema.properties.status.defaultValue = detail?.data.status == 0
+      cloneSchema.properties.sex.defaultValue = detail?.data.sex
+      cloneSchema.properties.userId.defaultValue = detail?.data.userId
+      // cloneSchema.properties.store.defaultValue = [
+      //   { name: detail?.data.storeName, code: detail?.data.storeCode }
+      // ]
+      // cloneSchema.properties.store.props.options = [
+      //   {
+      //     name: detail?.data.storeName,
+      //     code: detail?.data.storeCode,
+      //     label: detail?.data.storeName,
+      //     value: detail?.data.storeCode
+      //   }
+      // ]
+      cloneSchema.properties.role.defaultValue = detail?.roleIds?.map(
+        (item) => item
+      )
+      schema.value = cloneSchema
+    } catch (err) {
+      loading.value = false
+    }
   }
 })
 

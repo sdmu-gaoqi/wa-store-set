@@ -77,6 +77,12 @@
               }
             "
           ></a-select>
+          <img
+            :src="full ? notFullImg : fullImg"
+            class="w-[20px] ml-auto mr-[20px] cursor-pointer"
+            @click="changeFull"
+            v-if="canFull"
+          />
           <a-dropdown
             class="h-[50px] text-[#bbb] flex justify-center items-center"
           >
@@ -143,6 +149,21 @@ import { useRequest } from 'vue-hooks-plus'
 import { Store as S } from 'store-request'
 import common from '@/servers/common'
 import { useStore } from 'vuex'
+import fullImg from '@/assets/全屏.svg'
+import notFullImg from '@/assets/退出全屏.svg'
+import screenfull from 'screenfull'
+const canFull = document.fullscreenEnabled
+
+const full = ref(false)
+
+const changeFull = () => {
+  full.value = !full.value
+  if (full.value) {
+    screenfull.request()
+  } else {
+    screenfull.exit()
+  }
+}
 
 const s = new S()
 const store = useStore()

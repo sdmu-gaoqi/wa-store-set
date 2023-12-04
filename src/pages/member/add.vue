@@ -5,6 +5,7 @@
         :on-finish="onFinish"
         :on-cancel="onCancel"
         :schema="editSchema"
+        :loading="loading"
         ref="formRef"
         :onFieldsChanged="
           (v) => {
@@ -43,9 +44,11 @@ const {
   params: { id }
 } = useRoute()
 const isEdit = !!id
+const loading = ref(false)
 
 onMounted(() => {
   if (id) {
+    loading.value = true
     member
       .memberDetail(id)
       .then((res: any) => {
@@ -94,7 +97,9 @@ onMounted(() => {
           })
         }
       })
-      .finally(() => {})
+      .finally(() => {
+        loading.value = false
+      })
   }
 })
 
