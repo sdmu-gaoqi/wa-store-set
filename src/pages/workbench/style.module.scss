@@ -3,28 +3,53 @@
   justify-content: space-between;
   height: 100%;
   min-width: 1200px;
+  min-height: calc(100vh - 75px);
   .left {
-    width: 55%;
+    min-width: 765px !important;
+    width: 60%;
     height: 100%;
+    flex-shrink: 0;
     .baseGroup {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
     }
-    .engineerGroup {
+  }
+  .right {
+    height: 100%;
+    flex-shrink: 1;
+    margin-left: 17px;
+    min-width: calc(40% - 34px);
+
+    .menuItem {
+      width: calc(50% - 8px);
+      height: 105px;
+      margin-bottom: 16px;
+      padding: 23px 30px;
       display: flex;
+      justify-content: center;
       align-items: center;
-      flex-wrap: wrap;
-      :global {
-        .ant-space-horizontal {
-          margin-bottom: 0 !important;
-        }
+      border-radius: 15px;
+      img {
+        padding-right: 23px;
+        width: 80px;
       }
     }
   }
-  .right {
-    width: calc(45% - 10px);
-    height: 100%;
-    flex-shrink: 0;
+
+  .engineerGroup {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-left: 0;
   }
+}
+
+.chartCard,
+.enCard {
+  height: 467px;
+}
+
+.enCard {
+  overflow: hidden auto;
 }

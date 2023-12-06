@@ -17,99 +17,103 @@ import RelTimeCard from './components/relTimeCard/relTimeCard'
 import StatisticsCard from './components/statisticsCard/statisticsCard'
 import employee from '@/servers/employee'
 import { useRequest } from 'vue-hooks-plus'
+import work1 from '@/assets/work1.png'
+import work2 from '@/assets/work2.png'
+import work3 from '@/assets/work3.png'
+import work4 from '@/assets/work4.png'
+import right1 from '@/assets/right1.png'
+import right2 from '@/assets/right2.png'
+import right3 from '@/assets/right3.png'
+import right4 from '@/assets/right4.png'
+
+const turnoverMap = [
+  {
+    bg: 'linear-gradient(137deg, #F0ECFF 0%, #F9F3FF 100%)',
+    icon: work1,
+    title: '日营业额（元）',
+    key: 'work1'
+  },
+  {
+    bg: 'linear-gradient(137deg, #D9E2FF 0%, #F9F3FF 100%)',
+    icon: work2,
+    title: '扫码支付',
+    key: 'work2'
+  },
+  {
+    bg: 'linear-gradient(137deg, #ECFFF7 0%, #F9F3FF 100%)',
+    icon: work3,
+    title: '现金消费',
+    key: 'work3'
+  },
+  {
+    bg: 'linear-gradient(137deg, #FFF4EC 0%, #F9F3FF 100%)',
+    icon: work4,
+    title: '订单销量',
+    key: 'work4'
+  }
+]
+
+const menuMap = [
+  {
+    icon: right1,
+    title: '创建会员',
+    path: '/member/add',
+    bg: '#FCECE9'
+  },
+  {
+    icon: right2,
+    title: '会员充值',
+    path: '/member/list',
+    bg: '#FDF6DA'
+  },
+  {
+    icon: right3,
+    title: '创建订单',
+    path: '/order/create',
+    bg: '#E1EEFD'
+  },
+  {
+    icon: right4,
+    title: '管理员工',
+    path: '/order/list',
+    bg: '#EAF6ED'
+  }
+]
 
 const Workbench = defineComponent({
   // engineerList
   setup() {
     const { data: engineerList } = useRequest(employee.engineerList)
     const router = useRouter()
-    const menus = [
-      {
-        label: '创建订单',
-        icon: 订单,
-        path: '/order/create',
-        background: '#ca96fe'
-      },
-      {
-        label: '创建会员',
-        icon: 会员,
-        path: '/member/add',
-        background: '#b4c69a'
-      },
-      {
-        label: '会员充值',
-        icon: 角色,
-        path: null,
-        background: '#96c9cc'
-      },
-      {
-        label: '管理员工',
-        icon: 员工,
-        path: '/employee/list',
-        background: '#96c9cc'
-      },
-      {
-        label: '管理项目',
-        icon: 设置,
-        path: '/project/list',
-        background: '#c7b4a0'
-      }
-    ]
     return () => {
       return (
-        <div class="overflow-x-auto">
+        <div class="overflow-y-hidden">
           <div class={styles.body}>
             <div class={styles.left}>
               <Card title="日营业额" contentClass={styles.baseGroup} showDate>
-                <BaseCard
-                  id="card1"
-                  title="日营业额"
-                  allMoney="15500"
-                  data={[2000, 1500, 1600, 9000, 8000, 9000, 8000, 9000]}
-                />
-                <BaseCard
-                  id="card1"
-                  title="扫码支付"
-                  allMoney="12500"
-                  data={[1000, 1000, 1000, 8000, 5000, 4000, 5000, 4000]}
-                />
-                <BaseCard
-                  id="card1"
-                  allMoney="3000"
-                  title="现金消费"
-                  data={[1000, 500, 500, 1000, 3000, 5000, 3000, 5000]}
-                />
-                <BaseCard
-                  id="card1"
-                  allMoney="100"
-                  title="订单数量"
-                  data={[100, 150, 150, 200]}
-                />
+                {turnoverMap.map((item) => (
+                  <BaseCard
+                    id={item.key}
+                    key={item.key}
+                    title={item.title}
+                    allMoney="15500"
+                    icon={item.icon}
+                    bg={item.bg}
+                  />
+                ))}
               </Card>
-              <Card title="技师栏目" contentClass={styles.engineerGroup}>
-                <Space size={[20, 20]} wrap>
-                  {(engineerList as any).value?.rows?.map((item: any) => (
-                    <EngineerCard
-                      nickName={item.nickName}
-                      remark={item.remark}
-                    />
-                  ))}
-                </Space>
-              </Card>
-              <Card title="营业额统计" showDate>
-                <TurnoverCard />
+              <Card title="数据统计" showDate class={styles.chartCard}>
+                <StatisticsCard />
               </Card>
             </div>
             <div class={styles.right}>
-              <Cumulative />
-              <div class="flex justify-between items-center">
-                {menus.map((item) => (
+              <div class="flex justify-between items-center flex-wrap">
+                {menuMap.map((item) => (
                   <div
-                    class="cursor-pointer hover:shadow-lg"
+                    class={`cursor-pointer hover:shadow-lg ${styles.menuItem}`}
                     style={{
                       color: '#fff',
-                      background: item.background,
-                      width: 'calc(20% - 10px)',
+                      background: item.bg,
                       padding: '10px',
                       textAlign: 'center'
                     }}
@@ -122,15 +126,18 @@ const Workbench = defineComponent({
                     }}
                   >
                     <img src={item.icon} class="w-[50px]" />
-                    <div>{item.label}</div>
+                    <div class="text-[#414141]">{item.title}</div>
                   </div>
                 ))}
               </div>
-              <Card title="实时营业额情况" showDate>
-                <RelTimeCard />
-              </Card>
-              <Card title="各项目统计" showDate>
-                <StatisticsCard />
+              <Card
+                title="技师栏目"
+                contentClass={styles.engineerGroup}
+                class={styles.enCard}
+              >
+                {(engineerList as any).value?.rows?.map((item: any) => (
+                  <EngineerCard nickName={item.nickName} remark={item.remark} />
+                ))}
               </Card>
             </div>
           </div>

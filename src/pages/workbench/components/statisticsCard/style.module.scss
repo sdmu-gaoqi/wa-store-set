@@ -1,0 +1,44 @@
+.body {
+  .card:nth-child(2) {
+    margin-top: 14px;
+  }
+  .card:nth-child(3) {
+    margin-top: 14px;
+  }
+  .card {
+    padding: 15px;
+    border-radius: 15px;
+    height: 179px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .title {
+      font-size: 23px;
+      font-family:
+        PingFangSC,
+        PingFang SC;
+      font-weight: 600;
+      color: #7f64f3;
+      line-height: 31px;
+    }
+    .count {
+      font-size: 31px;
+      font-family:
+        PingFangSC,
+        PingFang SC;
+      font-weight: 600;
+      color: #7f64f3;
+      line-height: 44px;
+      text-align: center;
+    }
+    .desc {
+      font-size: 14px;
+      font-family:
+        PingFangSC,
+        PingFang SC;
+      font-weight: 600;
+      color: #7f64f3;
+      text-align: center;
+    }
+  }
+}

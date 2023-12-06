@@ -5,7 +5,9 @@
         v-if="data?.column?.dataIndex === 'options'"
         class="flex justify-center items-center"
       >
-        <a type="link" class="table-btn last">详情</a>
+        <a type="link" class="table-btn last" @click="() => (open = true)"
+          >详情</a
+        >
       </div>
       <template v-else>{{ data.text }}</template>
     </template>

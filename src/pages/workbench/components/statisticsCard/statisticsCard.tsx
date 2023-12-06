@@ -1,6 +1,7 @@
 import { defineComponent, onMounted, ref } from 'vue'
 import * as echarts from 'echarts'
 import { Button } from 'ant-design-vue'
+import styles from './style.module.scss'
 
 export default defineComponent({
   name: 'Echarts',
@@ -57,7 +58,36 @@ export default defineComponent({
     })
 
     return () => {
-      return <div class="w-[100%] h-[200px]" ref={chartRef} />
+      return (
+        <div class="flex">
+          <div class={`w-[240px] text-[#080808] text-[16px] ${styles.body}`}>
+            <div>客人数量</div>
+            <div
+              class={styles.card}
+              style={{
+                background:
+                  'linear-gradient(135deg, #F0ECFF 0%, #B5A4F9 100%, #7F64F3 100%)'
+              }}
+            >
+              <div class={styles.title}>会员</div>
+              <div class={styles.count}>1,080</div>
+              <div class={styles.desc}>消费金额:80,000.00</div>
+            </div>
+            <div
+              class={styles.card}
+              style={{
+                background:
+                  'linear-gradient(136deg, #FEF8EF 0%, #E7D6BE 100%, #E2CFB5 100%)'
+              }}
+            >
+              <div class={styles.title}>非会员</div>
+              <div class={styles.count}>1,0800</div>
+              <div class={styles.desc}>消费金额:80,000.00</div>
+            </div>
+          </div>
+          <div class="w-[100%] h-[420px]" ref={chartRef} />
+        </div>
+      )
     }
   }
 })

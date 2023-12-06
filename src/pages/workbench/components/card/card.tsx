@@ -47,12 +47,13 @@ const Card = defineComponent({
               </span>
             ))}
             <DatePicker.RangePicker
+              size="small"
               placeholder={['开始日期', '结束日期']}
               class="w-[220px]"
             ></DatePicker.RangePicker>
           </div>
         </div>
-        <div class={`${props.contentClass} p-[20px]`}>{slots.default?.()}</div>
+        <div class={`${props.contentClass} p-[15px]`}>{slots.default?.()}</div>
       </div>
     )
   }

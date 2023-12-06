@@ -1,10 +1,11 @@
 <template>
   <a-layout>
     <a-layout-sider
-      width="200"
+      width="160"
       style="background: #6102fd"
       class="shadow-lg sider"
       collapsible
+      collapsedWidth="100"
     >
       <div class="flex justify-center items-center flex-wrap pt-[20px]">
         <img
@@ -114,8 +115,8 @@
       </a-layout-header>
       <a-layout-content
         :style="{
-          padding: '20px',
-          background: '#f9f9f9',
+          padding: '17px 17px 0 17px',
+          background: '#F3F4FF',
           minHeight: 'unset'
         }"
         class="shadow-lg"

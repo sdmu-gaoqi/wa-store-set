@@ -6,16 +6,10 @@ const TurnoverDetail = defineComponent({
     const schema: TableProps['schema'] = {
       title: '',
       form: {
-        search: true,
+        search: false,
         export: false,
         reset: false,
-        fields: [
-          {
-            type: 'search',
-            label: '订单编号',
-            key: 'orderNo'
-          }
-        ]
+        fields: []
       },
       tabs: [
         {
@@ -28,36 +22,36 @@ const TurnoverDetail = defineComponent({
               dataIndex: 'time'
             },
             {
-              title: '非会员客数',
+              title: '工号',
+              dataIndex: 'time'
+            },
+            {
+              title: '技师姓名',
               dataIndex: 'a1'
             },
             {
-              title: '会员客数',
+              title: '项目',
+              dataIndex: 'a2'
+            },
+            {
+              title: '排钟',
+              dataIndex: 'a2'
+            },
+            {
+              title: '点钟',
+              dataIndex: 'a2'
+            },
+            {
+              title: '客数',
               dataIndex: 'a2'
             },
             {
               title: '订单金额',
-              dataIndex: 'a2'
+              dataIndex: 'money'
             },
             {
               title: '实收金额',
-              dataIndex: 'a2'
-            },
-            {
-              title: '支付方式',
-              dataIndex: 'a2'
-            },
-            {
-              title: '会员卡消费',
               dataIndex: 'money'
-            },
-            {
-              title: '补充金额',
-              dataIndex: 'money'
-            },
-            {
-              title: '补充金额支付方式',
-              dataIndex: 'options'
             }
           ]
         }

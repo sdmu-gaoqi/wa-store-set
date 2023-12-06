@@ -17,13 +17,12 @@ interface State {
 }
 
 const defaultMenu = [
-  // {
-  //   title: '工作台',
-  //   key: 'workbench',
-  //   path: '/workbench',
-  //   icon: 工作台
-  //   access: ['workbench']
-  // },
+  {
+    title: '工作台',
+    key: 'workbench',
+    path: '/workbench',
+    icon: 工作台
+  },
   {
     title: '订单管理',
     access: ['orderList', 'orderOption'],

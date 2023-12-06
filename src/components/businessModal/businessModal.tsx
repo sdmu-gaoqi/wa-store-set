@@ -48,7 +48,7 @@ export default defineComponent({
       [BusinessModalType.编辑权限点]: '编辑权限点',
       [BusinessModalType.权限配置]: '权限配置',
       [BusinessModalType.营业额详情]: '营业额详情',
-      [BusinessModalType.贡献营业额详情]: '贡献营业额详情'
+      [BusinessModalType.贡献营业额详情]: '技师业绩详情'
     }
     const elMap = {
       [BusinessModalType.会员充值]: memeberPayForm,
@@ -77,8 +77,8 @@ export default defineComponent({
       [BusinessModalType.编辑角色]: 900,
       [BusinessModalType.编辑权限点]: 900,
       [BusinessModalType.权限配置]: 900,
-      [BusinessModalType.营业额详情]: 900,
-      [BusinessModalType.贡献营业额详情]: 900
+      [BusinessModalType.营业额详情]: 1200,
+      [BusinessModalType.贡献营业额详情]: 1200
     }
     const footer = computed(
       () =>

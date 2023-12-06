@@ -1,6 +1,24 @@
 html {
   font-size: 16px;
 
+  // @media screen and (max-width: 420px) {
+  //   html {
+  //     font-size: calc(100vw / 23.4375);
+  //   }
+  // }
+
+  // @media screen and (min-width: 420px) {
+  //   html {
+  //     font-size: calc(18px + 4 * (100vw - 420px) / 586);
+  //   }
+  // }
+
+  // @media screen and (min-width: 1000px) {
+  //   html {
+  //     font-size: calc(100vw / 60);
+  //   }
+  // }
+
   a {
     user-select: none;
     -webkit-user-drag: none;
@@ -61,7 +79,16 @@ html {
 .ant-menu-submenu-selected {
   .ant-menu-submenu-title {
     background: #f9f8fd !important;
+    width: 100%;
+    border-radius: 0 !important;
+    margin: 0 !important;
   }
+}
+
+.ant-menu-submenu-title {
+  border-radius: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
 }
 
 .ant-layout-sider-trigger {
@@ -73,15 +100,10 @@ html {
   }
 }
 
-.ant-menu.ant-menu-root {
-  padding-left: 20px;
-}
-
 .ant-menu-submenu-title:hover {
   background: #fff !important;
   color: #6102fd !important;
 }
-
 .ant-layout-sider-collapsed {
   .ant-menu-submenu-title {
     border-radius: 30px 0 0 30px;
@@ -92,6 +114,10 @@ html {
 .ant-menu-inline {
   .ant-menu-submenu {
     .ant-menu-item {
+      width: calc(100% - 10px);
+      border-radius: 0;
+      margin-left: 5px;
+      border-radius: 10px;
       &:hover {
         a {
           color: #fff;
@@ -99,6 +125,8 @@ html {
       }
     }
     .ant-menu-item.ant-menu-item-selected {
+      background: #fff;
+      opacity: 0.9;
       &:hover {
         a {
           color: #6102fd !important;
@@ -125,4 +153,8 @@ html {
   .ant-modal-footer {
     text-align: center;
   }
+}
+
+.ant-layout-content {
+  overflow: auto;
 }
