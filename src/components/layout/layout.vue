@@ -5,9 +5,11 @@
       style="background: #6102fd"
       class="shadow-lg sider"
       collapsible
-      collapsedWidth="100"
+      collapsedWidth="50"
     >
-      <div class="flex justify-center items-center flex-wrap pt-[20px]">
+      <div
+        class="flex justify-center items-center flex-wrap pt-[20px] menu-avatar"
+      >
         <img
           src="https://tse1-mm.cn.bing.net/th/id/OIP-C.aMo33QDFG8U9D5fPZqmB9wHaHa"
           class="rounded-full w-[66px] h-[66px]"
@@ -265,6 +267,24 @@ const changeLoginErr = (err: any, code: any) => {
     i {
       display: none !important;
     }
+  }
+}
+
+.menu-avatar {
+  transition: all 0.6s;
+}
+
+.ant-layout-sider-collapsed {
+  .menu-avatar {
+    transform: scale(0.5);
+  }
+  .ant-menu-item,
+  .ant-menu-submenu,
+  .ant-menu-submenu-title {
+    display: flex;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
   }
 }
 </style>
