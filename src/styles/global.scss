@@ -155,6 +155,10 @@ html {
   }
 }
 
-.ant-layout-content {
-  overflow: auto;
+// .ant-layout-content {
+//   overflow: auto;
+// }
+
+.op-ui-form-card {
+  height: calc(100% - 20px) !important;
 }
