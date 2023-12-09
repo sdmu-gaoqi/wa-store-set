@@ -2,7 +2,12 @@
   <TableRender
     v-if="schemaValue"
     :schema="schemaValue"
-    :request="employee.list"
+    :request="
+      () =>
+        employee.list({
+          // currentStoreCode: store.state.userInfo?.userInfo?.currentStoreCode
+        })
+    "
     ref="tableRef"
   >
     <template #formButton>
@@ -30,19 +35,21 @@
           "
           >编辑</a
         >
-        <a
-          type="link"
-          class="table-btn-danger last"
-          v-if="editEmployee"
-          @click="
-            () =>
+        <a-popconfirm
+          title="是否确认删除"
+          :onConfirm="
+            () => {
               employee.delete(data.record.userId).then((res) => {
                 message.success('删除成功')
                 tableRef.run(tableRef.params)
               })
+            }
           "
-          >删除</a
         >
+          <a type="link" class="table-btn-danger last" v-if="editEmployee"
+            >删除</a
+          >
+        </a-popconfirm>
       </div>
       <a-switch
         v-else-if="data?.column?.dataIndex === 'status'"
@@ -74,8 +81,10 @@ import role from '@/servers/role'
 import { cloneDeep } from 'wa-utils'
 import { message } from 'ant-design-vue'
 import { useAccess } from '@/hooks'
+import { useStore } from 'vuex'
 
 const { editEmployee } = useAccess()
+const store = useStore()
 
 const schemaValue = ref()
 const tableRef = ref()

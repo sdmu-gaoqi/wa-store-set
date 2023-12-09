@@ -129,7 +129,7 @@ export const editSchema = {
     password: [{ required: true, message: '请输入登陆密码' }],
     role: [{ required: true, message: '请选择角色' }],
     time: [{ required: true, message: '请选择入职日期' }],
-    store: [{ required: true, message: '请选择所属门店' }]
+    storeCode: [{ required: true, message: '请选择所属门店' }]
   },
   properties: {
     isLogin: {
@@ -199,22 +199,23 @@ export const editSchema = {
         placeholder: '请选择'
       }
     },
-    // store: {
-    //   title: '所属门店',
-    //   type: 'select',
-    //   search: {
-    //     request: storeRequest.list,
-    //     key: 'string', // 搜索的key
-    //     label: 'name', // label字段,
-    //     value: 'code', // value字段
-    //     dataKey: 'data' // 渲染的data
-    //   },
-    //   props: {
-    //     placeholder: '请输入'
-    //   },
-    //   widget: 'searchSelect'
-    // },
-    time: {
+    storeCode: {
+      title: '所属门店',
+      type: 'select',
+      search: {
+        request: storeRequest.list,
+        key: 'string', // 搜索的key
+        label: 'name', // label字段,
+        value: 'code', // value字段
+        dataKey: 'data' // 渲染的data
+      },
+      props: {
+        placeholder: '请选择',
+        mode: 'multiple'
+      },
+      widget: 'searchSelect'
+    },
+    entryDate: {
       title: '入职日期',
       type: 'string',
       props: {

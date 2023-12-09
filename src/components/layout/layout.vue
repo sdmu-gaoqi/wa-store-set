@@ -144,7 +144,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
-import { useRouter, RouterLink } from 'vue-router'
+import { useRouter, RouterLink, useRoute } from 'vue-router'
 import { isLogin, logout } from '@/utils'
 import user from '@/servers/user'
 import scrollBar from 'smooth-scrollbar'
@@ -156,6 +156,7 @@ import fullImg from '@/assets/全屏.svg'
 import notFullImg from '@/assets/退出全屏.svg'
 import screenfull from 'screenfull'
 const canFull = document.fullscreenEnabled
+const routeData = useRoute()
 
 const full = ref(false)
 
@@ -179,6 +180,8 @@ const routerData = ref<Record<string, any>>({})
 const router = useRouter()
 const { data } = useRequest(() => s.list({ pageSize: 50 })) as any
 
+const path = useRoute()
+
 watch(
   () => router.currentRoute.value,
   (newValue: any) => {
@@ -199,6 +202,13 @@ onMounted(() => {
     location.hash = '#/login'
   }
 })
+
+watch(
+  () => routeData.path,
+  () => {
+    activeKey.value = [routeData?.meta?.key as string]
+  }
+)
 
 const onLogout = async () => {
   await user.logout()

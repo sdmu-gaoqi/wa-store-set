@@ -87,6 +87,7 @@ onMounted(async () => {
 const router = useRouter()
 
 const onFinish = async (value: Record<string, any>) => {
+  console.log(value, 'vvvvvv')
   const sendValue: any = {
     ...value,
     nickName: value.userName,
@@ -101,9 +102,12 @@ const onFinish = async (value: Record<string, any>) => {
     roleIds: value.role.map((item: any) => item),
     isLogin: Number(value?.isLogin || 0),
     isTechnician: Number(value?.isTechnician || 0),
-    storeCode: 'S01'
+    storeCode: value?.storeCode?.map((item) => item.code)?.join(','),
+    storeName: value?.storeCode?.map((item) => item.name)?.join(','),
+    currentStoreCode: store.state.userInfo?.userInfo?.currentStoreCode
   }
   delete sendValue.role
+  delete sendValue['storeCode-search']
   if (!isEdit) {
     await employee.add(sendValue)
   } else {

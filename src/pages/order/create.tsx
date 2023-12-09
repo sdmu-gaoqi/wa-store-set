@@ -1,4 +1,12 @@
-import { defineComponent, reactive, ref, toRaw, watch } from 'vue'
+import {
+  defineComponent,
+  onMounted,
+  onUnmounted,
+  reactive,
+  ref,
+  toRaw,
+  watch
+} from 'vue'
 import { FormCard } from 'store-operations-ui'
 import styles from './create.module.scss'
 import { Button, Checkbox, message } from 'ant-design-vue'
@@ -10,6 +18,7 @@ import { useRequest } from 'vue-hooks-plus'
 import Countdown from '@/components/countdown/countdown'
 import { isEmpty } from 'wa-utils'
 import { useAccess } from '@/hooks'
+import { useRoute } from 'vue-router'
 
 export type OrderStatus = 'FREE' | 'BUSY'
 const { orderSettlement, orderOption } = useAccess()
@@ -58,6 +67,15 @@ const CreateOrder = defineComponent({
         }
       }
     })
+    const r = useRoute()
+    onMounted(() => {
+      const create = (window as any)?.routerState?.create
+      if (create) {
+        ;(window as any).routerState = {}
+        modalOpen.value = true
+      }
+    })
+
     return () => (
       <>
         <div class="bg-[#fff] shadow-md min-h-[200px]">

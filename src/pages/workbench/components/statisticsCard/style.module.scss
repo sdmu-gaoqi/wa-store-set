@@ -1,6 +1,6 @@
 .body {
   .card:nth-child(2) {
-    margin-top: 14px;
+    margin-top: 0;
   }
   .card:nth-child(3) {
     margin-top: 14px;
@@ -41,4 +41,16 @@
       text-align: center;
     }
   }
+}
+
+.chartTitle {
+  height: 23px;
+  font-size: 17px;
+  font-family:
+    PingFangSC,
+    PingFang SC;
+  font-weight: 600;
+  color: #080808;
+  line-height: 23px;
+  margin-bottom: 14px;
 }

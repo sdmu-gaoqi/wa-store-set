@@ -18,7 +18,10 @@ const baseRouter: any[] = [
   {
     path: 'workbench',
     name: '工作台',
-    component: () => import('./pages/workbench/workbench')
+    component: () => import('./pages/workbench/workbench'),
+    meta: {
+      key: 'workbench'
+    }
   },
   {
     path: '/password',
@@ -46,7 +49,8 @@ const asyncRouter: any[] = [
         name: '订单列表页',
         component: () => import('./pages/order/list.vue'),
         meta: {
-          access: ['orderList']
+          access: ['orderList'],
+          key: 'order-list'
         }
       },
       {
@@ -54,7 +58,8 @@ const asyncRouter: any[] = [
         name: '订单创建',
         component: () => import('./pages/order/create'),
         meta: {
-          access: ['orderOption']
+          access: ['orderOption'],
+          key: 'order-create'
         }
       }
     ]
@@ -71,14 +76,16 @@ const asyncRouter: any[] = [
         name: '会员列表页',
         component: () => import('./pages/member/list.vue'),
         meta: {
-          access: ['memberList']
+          access: ['memberList'],
+          key: 'member-list'
         }
       },
       {
         path: 'add',
         name: '新增会员',
         meta: {
-          access: ['editMember']
+          access: ['editMember'],
+          key: 'member-list'
         },
         component: () => import('./pages/member/add.vue')
       },
@@ -86,7 +93,8 @@ const asyncRouter: any[] = [
         path: 'edit/:id',
         name: '编辑会员',
         meta: {
-          access: ['editMember']
+          access: ['editMember'],
+          key: 'member-list'
         },
         component: () => import('./pages/member/add.vue')
       },
@@ -115,7 +123,8 @@ const asyncRouter: any[] = [
         name: '员工列表页',
         component: () => import('./pages/employee/list.vue'),
         meta: {
-          access: ['employeeList']
+          access: ['employeeList'],
+          key: 'employee-list'
         }
       },
       {
@@ -123,7 +132,8 @@ const asyncRouter: any[] = [
         name: '新增员工',
         component: () => import('./pages/employee/add.vue'),
         meta: {
-          access: ['editEmployee']
+          access: ['editEmployee'],
+          key: 'employee-list'
         }
       },
       {
@@ -131,7 +141,8 @@ const asyncRouter: any[] = [
         name: '编辑员工',
         component: () => import('./pages/employee/add.vue'),
         meta: {
-          access: ['editEmployee']
+          access: ['editEmployee'],
+          key: 'employee-list'
         }
       },
       {
@@ -158,7 +169,8 @@ const asyncRouter: any[] = [
         name: '角色列表',
         component: () => import('./pages/role/list.vue'),
         meta: {
-          access: ['roleList']
+          access: ['roleList'],
+          key: 'role-list'
         }
       },
       {
@@ -166,7 +178,8 @@ const asyncRouter: any[] = [
         name: '新增角色',
         component: () => import('./pages/role/add.vue'),
         meta: {
-          access: ['editRole']
+          access: ['editRole'],
+          key: 'role-list'
         }
       },
       {
@@ -174,7 +187,8 @@ const asyncRouter: any[] = [
         name: '编辑角色',
         component: () => import('./pages/role/add.vue'),
         meta: {
-          access: ['editRole']
+          access: ['editRole'],
+          key: 'role-list'
         }
       }
     ]
@@ -191,7 +205,8 @@ const asyncRouter: any[] = [
         name: '权限列表',
         component: () => import('./pages/perm/list'),
         meta: {
-          access: ['permSet']
+          access: ['permSet'],
+          key: 'perm-list'
         }
       }
     ]
@@ -208,7 +223,8 @@ const asyncRouter: any[] = [
         name: '门店列表',
         component: () => import('./pages/stores/list.vue'),
         meta: {
-          access: ['storeList']
+          access: ['storeList'],
+          key: 'stores-list'
         }
       }
     ]
@@ -225,7 +241,8 @@ const asyncRouter: any[] = [
         name: '营业额统计',
         component: () => import('./pages/operation/list.vue'),
         meta: {
-          access: ['chartTurnover']
+          access: ['chartTurnover'],
+          key: 'turnover-list'
         }
       },
       {
@@ -233,7 +250,8 @@ const asyncRouter: any[] = [
         name: '员工业绩统计',
         component: () => import('./pages/operation/outstanding/list.vue'),
         meta: {
-          access: ['chartOutstanding']
+          access: ['chartOutstanding'],
+          key: 'outstanding-list'
         }
       }
     ]
@@ -254,7 +272,8 @@ const asyncRouter: any[] = [
             name: '新增房间',
             component: () => import('./pages/setting/room/add.vue'),
             meta: {
-              access: ['editRoom']
+              access: ['editRoom'],
+              key: 'home-list'
             }
           },
           {
@@ -262,7 +281,8 @@ const asyncRouter: any[] = [
             name: '房间列表',
             component: () => import('./pages/setting/room/list.vue'),
             meta: {
-              access: ['roomList']
+              access: ['roomList'],
+              key: 'home-list'
             }
           }
         ]
@@ -292,7 +312,8 @@ const asyncRouter: any[] = [
             name: '项目列表',
             component: () => import('./pages/setting/project/list.vue'),
             meta: {
-              access: ['projectList']
+              access: ['projectList'],
+              key: 'project-list'
             }
           },
           {
@@ -300,7 +321,8 @@ const asyncRouter: any[] = [
             name: '新增项目',
             component: () => import('./pages/setting/project/add.vue'),
             meta: {
-              access: ['editProject']
+              access: ['editProject'],
+              key: 'project-list'
             }
           },
           {
@@ -308,7 +330,8 @@ const asyncRouter: any[] = [
             name: '编辑项目',
             component: () => import('./pages/setting/project/add.vue'),
             meta: {
-              access: ['editProject']
+              access: ['editProject'],
+              key: 'project-list'
             }
           }
         ]
@@ -322,13 +345,18 @@ const asyncRouter: any[] = [
             name: '支付方式设置',
             component: () => import('./pages/setting/pay-type/pay-type.vue'),
             meta: {
-              access: ['payTypeManage']
+              access: ['payTypeManage'],
+              key: 'pay-type'
             }
           },
           {
             path: 'add',
             name: '新增支付方式',
-            component: () => import('./pages/setting/pay-type/edit.vue')
+            component: () => import('./pages/setting/pay-type/edit.vue'),
+            meta: {
+              access: ['payTypeManage'],
+              key: 'pay-type'
+            }
           }
         ]
       },
@@ -337,7 +365,8 @@ const asyncRouter: any[] = [
         name: '营业额标准设置',
         component: () => import('./pages/setting/turnover/turnover.vue'),
         meta: {
-          access: ['turnoverManage']
+          access: ['turnoverManage'],
+          key: 'turnover'
         }
       }
     ]
@@ -354,7 +383,8 @@ const asyncRouter: any[] = [
         name: '系统登录日志',
         component: () => import('./pages/log/login-log'),
         meta: {
-          access: ['loginLog']
+          access: ['loginLog'],
+          key: 'login-log'
         }
       },
       {
@@ -362,7 +392,8 @@ const asyncRouter: any[] = [
         name: '系统操作日志',
         component: () => import('./pages/log/operate-log'),
         meta: {
-          access: ['operateLog']
+          access: ['operateLog'],
+          key: 'operate-log'
         }
       }
     ]

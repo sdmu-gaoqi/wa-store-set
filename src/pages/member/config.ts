@@ -62,7 +62,8 @@ export const schema: TableProps['schema'] = {
         {
           fixed: true,
           title: '会员卡号',
-          dataIndex: 'memberNo'
+          dataIndex: 'memberNo',
+          ellipsis: true
         },
         {
           title: '姓名',
@@ -278,6 +279,7 @@ export const editSchema: Schema = {
       title: '会员类型',
       type: 'string',
       widget: 'radio',
+      span: 24,
       defaultValue: MemberType.折扣卡,
       props: {
         options: [
@@ -293,11 +295,11 @@ export const editSchema: Schema = {
       },
       'ui:hidden': 'formState.value.memberId'
     },
-    占位11: {},
     discountRate: {
       title: '折扣',
       type: 'string',
       widget: 'input',
+      span: 13,
       defaultValue: 0.9,
       props: {
         // type: 'number'
@@ -327,20 +329,20 @@ export const editSchema: Schema = {
       'ui:hidden':
         "formState.value.memberType == '2' || !!formState.value.memberId"
     },
-    占位1: {},
     rechargeBalance: {
       title: '充值金额',
       type: 'number',
+      span: 13,
       widget: 'input',
       props: {
         type: 'number'
       },
       'ui:hidden': 'formState.value.memberId'
     },
-    占位2: {},
     giveBalance: {
       title: '赠送金额',
       type: 'number',
+      span: 13,
       widget: 'input',
       props: {
         type: 'number'
@@ -348,15 +350,11 @@ export const editSchema: Schema = {
       'ui:hidden':
         "formState.value.memberType == '2' || formState.value.memberId"
     },
-    占位3: {
-      colStyle: { height: 0 },
-      span: 24
-    },
     rewardTimes: {
       title: '优惠次数',
       type: 'number',
+      span: 13,
       widget: 'input',
-      span: 12,
       props: {
         type: 'number',
         precision: 0
@@ -364,13 +362,10 @@ export const editSchema: Schema = {
       'ui:hidden':
         "formState.value.memberType == '1' || formState.value.memberId"
     },
-    占位4: {
-      colStyle: { height: 0 },
-      span: 24
-    },
     giveTimes: {
       title: '赠送次数',
       type: 'number',
+      span: 13,
       widget: 'input',
       props: {
         type: 'number',
@@ -411,6 +406,7 @@ export const editSchema: Schema = {
       title: '会员卡总金额',
       type: 'string',
       widget: 'input',
+      span: 13,
       props: {
         readonly: true,
         bordered: false,

@@ -70,12 +70,15 @@ const menuMap = [
     icon: right3,
     title: '创建订单',
     path: '/order/create',
-    bg: '#E1EEFD'
+    bg: '#E1EEFD',
+    state: {
+      create: true
+    }
   },
   {
     icon: right4,
     title: '管理员工',
-    path: '/order/list',
+    path: '/employee/list',
     bg: '#EAF6ED'
   }
 ]
@@ -122,7 +125,12 @@ const Workbench = defineComponent({
                         router.push('/member/list')
                         return
                       }
-                      router.push(item.path)
+                      router.push({
+                        path: item.path
+                      })
+                      if (item.state) {
+                        ;(window as any).routerState = item.state
+                      }
                     }}
                   >
                     <img src={item.icon} class="w-[50px]" />

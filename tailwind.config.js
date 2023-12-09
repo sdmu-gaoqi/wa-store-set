@@ -47,6 +47,12 @@ export default {
         '.last': {
           marginRight: 0,
           paddingRight: 0
+        },
+        '.ell': {
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+          wordBreak: 'keep-all'
         }
       }
 

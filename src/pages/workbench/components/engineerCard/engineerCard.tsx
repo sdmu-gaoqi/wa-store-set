@@ -10,7 +10,7 @@ const EngineerCard = defineComponent({
   setup(props) {
     return () => (
       <div
-        class={`w-[105px] flex-shrink-0 relative select-none ml-[15px]  pb-[10px] ${styles.enItem}`}
+        class={`w-[105px] flex-shrink-0 relative select-none ml-[15px]  pb-[10px] ${styles.enItem} hover:shadow-lg`}
         style={{ borderWidth: '1px' }}
       >
         <img class="w-[100%]" src={En} />
