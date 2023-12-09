@@ -3,5 +3,10 @@ module.exports = {
     tailwindcss: {},
     autoprefixer: {}
   },
-  unit: 'wx'
+  unit: 'wx',
+  rootValue: 32,
+  unitPrecision: 5,
+  replace: true,
+  minPixelValue: 0,
+  exclude: /node_modules/i
 }

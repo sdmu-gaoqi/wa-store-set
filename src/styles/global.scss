@@ -1,24 +1,20 @@
+// html {
+//   font-size: 16px;
+//   -webkit-overflow-scrolling: touch;
+//   min-width: 320px;
+//   height: 100%;
+// }
+
+// html {
+//   font-size: calc(100vw / 23.4375);
+// }
+
+// html.pc-app {
+//   font-size: calc(100vw / 120);
+// }
+
 html {
   font-size: 16px;
-
-  // @media screen and (max-width: 420px) {
-  //   html {
-  //     font-size: calc(100vw / 23.4375);
-  //   }
-  // }
-
-  // @media screen and (min-width: 420px) {
-  //   html {
-  //     font-size: calc(18px + 4 * (100vw - 420px) / 586);
-  //   }
-  // }
-
-  // @media screen and (min-width: 1000px) {
-  //   html {
-  //     font-size: calc(100vw / 60);
-  //   }
-  // }
-
   a {
     user-select: none;
     -webkit-user-drag: none;
