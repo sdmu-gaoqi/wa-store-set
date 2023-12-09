@@ -56,24 +56,16 @@ onMounted(async () => {
       detailData.value = detail.data
       cloneSchema.properties.isLogin.defaultValue = detail?.data?.isLogin == 1
       cloneSchema.properties.userName.defaultValue = detail?.data.userName
-      cloneSchema.properties.code.defaultValue = detail?.data.code
       cloneSchema.properties.phonenumber.defaultValue = detail?.data.phonenumber
       cloneSchema.properties.sex.defaultValue = detail?.data.sex
       cloneSchema.properties.password.defaultValue = detail?.data.password
       cloneSchema.properties.status.defaultValue = detail?.data.status == 0
       cloneSchema.properties.sex.defaultValue = detail?.data.sex
       cloneSchema.properties.userId.defaultValue = detail?.data.userId
-      // cloneSchema.properties.store.defaultValue = [
-      //   { name: detail?.data.storeName, code: detail?.data.storeCode }
-      // ]
-      // cloneSchema.properties.store.props.options = [
-      //   {
-      //     name: detail?.data.storeName,
-      //     code: detail?.data.storeCode,
-      //     label: detail?.data.storeName,
-      //     value: detail?.data.storeCode
-      //   }
-      // ]
+      cloneSchema.properties.employeeCode.defaultValue =
+        detail?.data.employeeCode
+      cloneSchema.properties['storeCode-search'].defaultValue =
+        detail?.data.storeCode?.split(',')
       cloneSchema.properties.role.defaultValue = detail?.roleIds?.map(
         (item) => item
       )

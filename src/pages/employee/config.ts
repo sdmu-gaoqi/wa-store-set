@@ -48,7 +48,7 @@ export const schema: TableProps['schema'] = {
         {
           fixed: true,
           title: '员工工号',
-          dataIndex: 'userId',
+          dataIndex: 'employeeCode',
           width: 100
         },
         {
@@ -112,7 +112,7 @@ export const editSchema = {
   type: 'object',
   rules: {
     userName: [{ required: true, message: '请输入员工姓名' }],
-    code: [{ required: true, message: '请输入工号' }],
+    employeeCode: [{ required: true, message: '请输入工号' }],
     phonenumber: [
       { required: true },
       {
@@ -165,7 +165,7 @@ export const editSchema = {
       },
       widget: 'input'
     },
-    code: {
+    employeeCode: {
       title: '工号',
       type: 'string',
       props: {
@@ -199,12 +199,13 @@ export const editSchema = {
         placeholder: '请选择'
       }
     },
+    'storeCode-search': { span: 0, colStyle: { height: 0, width: 0 } },
     storeCode: {
       title: '所属门店',
       type: 'select',
       search: {
         request: storeRequest.list,
-        key: 'string', // 搜索的key
+        key: 'name', // 搜索的key
         label: 'name', // label字段,
         value: 'code', // value字段
         dataKey: 'data' // 渲染的data

@@ -378,7 +378,7 @@ export const editSchema: Schema = {
       title: '充值方式',
       type: 'string',
       defaultValue: '1',
-      span: 13,
+      span: 24,
       props: {
         options: [
           {
