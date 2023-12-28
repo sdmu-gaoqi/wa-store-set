@@ -55,7 +55,6 @@ onMounted(() => {
         if (formRef.value.changeState) {
           detailData.value = res.data
           const data = res?.data || {}
-          console.log(data, 'aaaaaa')
           formRef.value.changeState({
             latestSpendTime: data?.latestSpendTime,
             totalSpendBalance: data?.totalSpendBalance,
@@ -138,6 +137,12 @@ const onFinish = async (value: Record<string, any>) => {
         rewardTimes: value?.rewardTimes
       }
     }),
+    ...(id &&
+      value.discountRate1 && {
+        updateDiscountInfo: {
+          discountRate: value.discountRate1
+        }
+      }),
     memberType: value?.memberType,
     phone: value?.phone,
     remark: value?.remark,

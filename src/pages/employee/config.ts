@@ -19,7 +19,7 @@ export const schema: TableProps['schema'] = {
         type: 'search',
         label: '工号',
         placeholder: '工号',
-        key: 'userId'
+        key: 'employeeCode'
       },
       {
         type: 'search',
@@ -182,7 +182,7 @@ export const editSchema = {
       widget: 'input'
     },
     password: {
-      title: '登陆密码',
+      title: '登录密码',
       type: 'string',
       props: {
         placeholder: '请输入'

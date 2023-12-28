@@ -2,12 +2,7 @@
   <TableRender
     v-if="schemaValue"
     :schema="schemaValue"
-    :request="
-      () =>
-        employee.list({
-          // currentStoreCode: store.state.userInfo?.userInfo?.currentStoreCode
-        })
-    "
+    :request="employee.list"
     ref="tableRef"
   >
     <template #formButton>

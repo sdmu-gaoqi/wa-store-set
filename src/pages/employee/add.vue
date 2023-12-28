@@ -25,6 +25,7 @@ import employee from '@/servers/employee'
 import { message } from 'ant-design-vue'
 import store from '@/store/store'
 import { getParameterByName } from '@/utils'
+import * as dayjs from 'dayjs'
 
 const {
   state: { userInfo }
@@ -52,6 +53,8 @@ onMounted(async () => {
     loading.value = true
     try {
       const detail = await employee.info(id)
+      const storeCodes = detail?.data?.storeCode?.split(',')
+      const storeNames = detail?.data?.storeName?.split(',')
       loading.value = false
       detailData.value = detail.data
       cloneSchema.properties.isLogin.defaultValue = detail?.data?.isLogin == 1
@@ -66,6 +69,12 @@ onMounted(async () => {
         detail?.data.employeeCode
       cloneSchema.properties['storeCode-search'].defaultValue =
         detail?.data.storeCode?.split(',')
+      cloneSchema.properties['storeCode'].defaultValue = storeCodes?.map(
+        (item, index) => ({
+          code: item,
+          name: storeNames[index]
+        })
+      )
       cloneSchema.properties.role.defaultValue = detail?.roleIds?.map(
         (item) => item
       )
@@ -79,7 +88,6 @@ onMounted(async () => {
 const router = useRouter()
 
 const onFinish = async (value: Record<string, any>) => {
-  console.log(value, 'vvvvvv')
   const sendValue: any = {
     ...value,
     nickName: value.userName,
@@ -96,7 +104,10 @@ const onFinish = async (value: Record<string, any>) => {
     isTechnician: Number(value?.isTechnician || 0),
     storeCode: value?.storeCode?.map((item) => item.code)?.join(','),
     storeName: value?.storeCode?.map((item) => item.name)?.join(','),
-    currentStoreCode: store.state.userInfo?.userInfo?.currentStoreCode
+    currentStoreCode: store.state.userInfo?.userInfo?.currentStoreCode,
+    ...(value.entryDate && {
+      entryDate: dayjs(value.entryDate).format('YYYY-MM-DD HH:mm:ss')
+    })
   }
   delete sendValue.role
   delete sendValue['storeCode-search']

@@ -202,7 +202,7 @@ const OrderDetail = defineComponent({
             receivePrice: formatMoney(res?.data?.receivePrice),
             replenishPrice: formatMoney(res?.data?.replenishPrice),
             remark: res?.data?.remark,
-            discountPrice: res.data.discountPrice,
+            discountPrice: formatMoney(res.data.discountPrice),
             settleType: res.data.settleType == '0' ? '非会员' : '会员',
             table: res?.data?.orderItemList?.map((item: any) => ({
               ...item,

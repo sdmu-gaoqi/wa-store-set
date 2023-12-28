@@ -19,12 +19,12 @@ const EngineerCard = defineComponent({
         >
           空闲
         </span>
-        <div class="px-[10px]">{props.nickName}</div>
-        <div class="px-[10px] text-gray-400 text-[12px] mt-[8px] relative">
-          {props.remark}
-          <span class="text-primary scale-[90%] block absolute top-0 right-[2px]">
+        <div class="px-[5px]">{props.nickName}</div>
+        <div class="pr-[5px] text-gray-400 text-[12px] mt-[8px] relative scale-90">
+          <div>{props.remark}</div>
+          <div class="text-primary scale-[90%] block absolute top-0 right-[2px] scale-60">
             上钟10次
-          </span>
+          </div>
         </div>
       </div>
     )
