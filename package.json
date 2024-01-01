@@ -45,6 +45,7 @@
     "add": "^2.0.6",
     "ant-design-vue": "^4.0.0",
     "babel-eslint": "^10.1.0",
+    "dayjs": "^1.11.10",
     "echarts": "^5.4.3",
     "eslint-plugin-import": "^2.25.2",
     "nanoid": "^5.0.3",

@@ -38,7 +38,11 @@
                 })
                 .then(() => {
                   message.success('删除成功')
-                  tableRef.run(tableRef.params)
+                  const params = {
+                    ...(toRaw(tableRef.params?.[0]) || {}),
+                    pageNum: 1
+                  }
+                  tableRef.run(params)
                 })
             }
           "
@@ -85,7 +89,7 @@ import { schema } from './config'
 import { useRouter } from 'vue-router'
 import { CommonService } from 'store-request'
 import { message } from 'ant-design-vue'
-import { ref } from 'vue'
+import { ref, toRaw } from 'vue'
 import BusinessModal from '@/components/businessModal/businessModal'
 import { BusinessModalType } from '@/components/businessModal/businessModal.type'
 import { useAccess } from '@/hooks'

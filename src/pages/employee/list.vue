@@ -36,7 +36,11 @@
             () => {
               employee.delete(data.record.userId).then((res) => {
                 message.success('删除成功')
-                tableRef.run(tableRef.params)
+                const params = {
+                  ...(toRaw(tableRef.params?.[0]) || {}),
+                  pageNum: 1
+                }
+                tableRef.run(params)
               })
             }
           "
@@ -60,6 +64,12 @@
           }
         "
       ></a-switch>
+      <template v-else-if="data.column?.dataIndex === 'roles'">{{
+        data.record?.roles
+          ?.map((item: any) => item?.roleName)
+          ?.filter((item: any) => item)
+          .join('、')
+      }}</template>
       <template v-else-if="data.customer">{{ data.customer }}</template>
       <template v-else>{{ data.text }}</template>
     </template>
@@ -71,7 +81,7 @@ import { TableRender } from 'store-operations-ui'
 import { schema } from './config'
 import { useRouter } from 'vue-router'
 import employee from '@/servers/employee'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, toRaw } from 'vue'
 import role from '@/servers/role'
 import { cloneDeep } from 'wa-utils'
 import { message } from 'ant-design-vue'

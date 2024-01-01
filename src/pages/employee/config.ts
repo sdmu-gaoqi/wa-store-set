@@ -61,7 +61,7 @@ export const schema: TableProps['schema'] = {
         },
         {
           title: '角色',
-          dataIndex: 'roleId'
+          dataIndex: 'roles'
         },
         {
           title: '性别',
@@ -75,7 +75,7 @@ export const schema: TableProps['schema'] = {
           ]
         },
         {
-          title: '帐号状态',
+          title: '账号状态',
           dataIndex: 'status'
         },
         {
@@ -89,12 +89,13 @@ export const schema: TableProps['schema'] = {
         },
         {
           title: '入职日期',
-          dataIndex: 'ruzhiAt'
+          dataIndex: 'entryDate',
+          format: 'date'
         },
-        {
-          title: '离职日期',
-          dataIndex: 'lizhiAt'
-        },
+        // {
+        //   title: '离职日期',
+        //   dataIndex: 'lizhiAt'
+        // },
         {
           title: '操作',
           dataIndex: 'options',
@@ -184,6 +185,7 @@ export const editSchema = {
     password: {
       title: '登录密码',
       type: 'string',
+      defaultValue: '123456',
       props: {
         placeholder: '请输入'
       },

@@ -25,7 +25,7 @@ import employee from '@/servers/employee'
 import { message } from 'ant-design-vue'
 import store from '@/store/store'
 import { getParameterByName } from '@/utils'
-import * as dayjs from 'dayjs'
+import dayjs from 'dayjs'
 
 const {
   state: { userInfo }
@@ -78,6 +78,8 @@ onMounted(async () => {
       cloneSchema.properties.role.defaultValue = detail?.roleIds?.map(
         (item) => item
       )
+      cloneSchema.properties.entryDate.defaultValue = detail?.data?.entryDate
+      cloneSchema.properties.remark.defaultValue = detail?.data?.remark
       schema.value = cloneSchema
     } catch (err) {
       loading.value = false
@@ -88,39 +90,43 @@ onMounted(async () => {
 const router = useRouter()
 
 const onFinish = async (value: Record<string, any>) => {
-  const sendValue: any = {
-    ...value,
-    nickName: value.userName,
-    status: value.status ? 0 : 1,
-    isLogin: value?.isLogin ? 1 : 0,
-    roles: value.role.map((item: any) => {
-      return {
-        roleId: item,
-        storeHeadquartersCode: getParameterByName('storeHeadquartersCode')
-      }
-    }),
-    roleIds: value.role.map((item: any) => item),
-    isLogin: Number(value?.isLogin || 0),
-    isTechnician: Number(value?.isTechnician || 0),
-    storeCode: value?.storeCode?.map((item) => item.code)?.join(','),
-    storeName: value?.storeCode?.map((item) => item.name)?.join(','),
-    currentStoreCode: store.state.userInfo?.userInfo?.currentStoreCode,
-    ...(value.entryDate && {
-      entryDate: dayjs(value.entryDate).format('YYYY-MM-DD HH:mm:ss')
-    })
+  try {
+    const sendValue: any = {
+      ...value,
+      nickName: value.userName,
+      status: value.status ? 0 : 1,
+      isLogin: value?.isLogin ? 1 : 0,
+      roles: value.role.map((item: any) => {
+        return {
+          roleId: item,
+          storeHeadquartersCode: getParameterByName('storeHeadquartersCode')
+        }
+      }),
+      roleIds: value.role.map((item: any) => item),
+      isLogin: Number(value?.isLogin || 0),
+      isTechnician: Number(value?.isTechnician || 0),
+      storeCode: value?.storeCode?.map((item) => item.code)?.join(','),
+      storeName: value?.storeCode?.map((item) => item.name)?.join(','),
+      currentStoreCode: store.state.userInfo?.userInfo?.currentStoreCode,
+      ...(value.entryDate && {
+        entryDate: dayjs(value.entryDate).format('YYYY-MM-DD HH:mm:ss')
+      })
+    }
+    delete sendValue.role
+    delete sendValue['storeCode-search']
+    if (!isEdit) {
+      await employee.add(sendValue)
+    } else {
+      await employee.update({
+        ...sendValue,
+        userId: detailData.value.userId
+      })
+    }
+    message.success('保存成功')
+    router.back()
+  } catch (err) {
+    console.log(err, 'err')
   }
-  delete sendValue.role
-  delete sendValue['storeCode-search']
-  if (!isEdit) {
-    await employee.add(sendValue)
-  } else {
-    await employee.update({
-      ...sendValue,
-      userId: detailData.value.userId
-    })
-  }
-  message.success('保存成功')
-  router.back()
 }
 const onCancel = debounce(() => {
   router.back()

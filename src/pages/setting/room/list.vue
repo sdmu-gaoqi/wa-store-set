@@ -34,7 +34,11 @@
                 })
                 .then(() => {
                   message.success('删除成功')
-                  tableRef.run(tableRef.params)
+                  const params = {
+                    ...(toRaw(tableRef.params?.[0]) || {}),
+                    pageNum: 1
+                  }
+                  tableRef.run(params)
                 })
             }
           "

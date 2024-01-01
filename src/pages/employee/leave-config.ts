@@ -66,7 +66,7 @@ export const schema: TableProps['schema'] = {
           dataIndex: 'gender'
         },
         {
-          title: '帐号状态',
+          title: '账号状态',
           dataIndex: 'status'
         },
         {
