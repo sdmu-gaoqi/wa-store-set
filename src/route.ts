@@ -397,6 +397,16 @@ const asyncRouter: any[] = [
         }
       }
     ]
+  },
+  {
+    path: 'version/list',
+    name: '版本日志',
+    component: () => import('./pages/version/list.tsx')
+  },
+  {
+    path: 'richText',
+    name: '富文本编辑器',
+    component: () => import('./pages/richText/index.tsx')
   }
 ]
 
@@ -447,7 +457,7 @@ const initUserInfo = async () => {
 }
 
 route.beforeEach(async (to, from, next) => {
-  const toPath = to.path
+  const toPath = to?.path
   if (cookie.get('Admin-Token') && ['/login'].includes(toPath)) {
     next('/workbench')
     return

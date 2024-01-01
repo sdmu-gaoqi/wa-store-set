@@ -80,12 +80,23 @@
               }
             "
           ></a-select>
-          <img
-            :src="full ? notFullImg : fullImg"
-            class="w-[20px] ml-auto mr-[20px] cursor-pointer"
-            @click="changeFull"
-            v-if="canFull"
-          />
+          <div class="ml-auto flex justify-center items-center">
+            <!-- version -->
+            <a-tooltip>
+              <template #title
+                ><div class="cursor-pointer" @click="goVersion">
+                  查看版本日志
+                </div></template
+              >
+              <div @click="goVersion">V1.0</div>
+            </a-tooltip>
+            <img
+              :src="full ? notFullImg : fullImg"
+              class="w-[20px] ml-[20px] mr-[20px] cursor-pointer"
+              @click="changeFull"
+              v-if="canFull"
+            />
+          </div>
           <a-dropdown
             class="h-[50px] text-[#bbb] flex justify-center items-center"
           >
@@ -232,6 +243,10 @@ const changeLoginErr = (err: any, code: any) => {
       location.pathname
     }?${params.toString()}#/login`
   }
+}
+
+const goVersion = () => {
+  router.push('/version/list')
 }
 </script>
 
