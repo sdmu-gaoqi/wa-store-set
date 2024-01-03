@@ -56,17 +56,18 @@
           "
           >充值记录</a
         >
-        <!-- <a
+        <a
           type="link"
           class="table-btn"
           @click="
             () => {
               businessModalType = BusinessModalType.会员消费记录
               payOpen = true
+              formState = data.record
             }
           "
           >消费记录</a
-        > -->
+        >
         <a
           type="link"
           class="table-btn-danger last"

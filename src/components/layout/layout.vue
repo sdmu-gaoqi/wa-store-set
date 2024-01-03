@@ -211,6 +211,7 @@ onMounted(() => {
   }
   if (!isLogin()) {
     location.hash = '#/login'
+    return
   }
 })
 

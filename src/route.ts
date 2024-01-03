@@ -9,6 +9,7 @@ import {
 import Layout from './components/layout/layout.vue'
 import { cookie, isEmpty } from 'wa-utils'
 import user from './servers/user'
+import { Store as S } from 'store-request'
 import { useStore } from 'vuex'
 import { toRaw } from 'vue'
 import { transformRoute } from './utils/menu'
@@ -440,13 +441,24 @@ const route = createRouter({
 })
 
 const initUserInfo = async () => {
+  const s = new S()
   const store = useStore()
   const { dispatch, state } = store
   if (!isEmpty(state.userInfo.perms)) {
     return toRaw(state.userInfo)
   }
   const res = await user.getUserInfo()
-  dispatch('userInfo/changeUser', { data: res.user })
+  const storeList = await s.loginList({})
+  const currentStoreCode = res?.user?.currentStoreCode
+  const currentStoreName = storeList?.rows?.find(
+    (item) => item.code == currentStoreCode
+  )?.name
+  dispatch('userInfo/changeUser', {
+    data: {
+      ...res.user,
+      currentStoreName
+    }
+  })
   dispatch('userInfo/setPerms', { data: res.permissions })
   dispatch('common/changeMenus', { data: res.permissions })
   transformRoute(res.permissions)

@@ -1,8 +1,15 @@
+import { memberTypes, payTypes } from '@/types'
 import { TableProps, TableRender } from 'store-operations-ui'
+import { Member } from 'store-request'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  setup() {
+  props: {
+    formState: Object
+  },
+  // @ts-ignore
+  setup(props: { formState: Record<string, any> }) {
+    const member = new Member()
     const schema: TableProps['schema'] = {
       title: '',
       form: {
@@ -26,48 +33,45 @@ export default defineComponent({
               fixed: true,
               title: '序号',
               dataIndex: 'card',
-              format: 'money'
+              isIndex: true,
+              width: 90
             },
             {
               title: '消费日期',
-              dataIndex: 'phone',
-              format: 'money'
+              dataIndex: 'createTime',
+              format: 'time'
             },
             {
               title: '消费金额',
-              dataIndex: 'phone',
+              dataIndex: 'giveBalance',
               format: 'money'
             },
             {
               title: '会员卡号',
-              dataIndex: 'name',
-              format: 'money'
+              dataIndex: 'memberNo'
             },
             {
               title: '姓名',
-              dataIndex: 'phone',
-              format: 'money'
+              dataIndex: 'memberName'
             },
             {
               title: '手机号',
-              dataIndex: 'level'
+              dataIndex: 'phone'
             },
             {
               title: '会员类型',
-              dataIndex: 'store'
+              dataIndex: 'memberType',
+              options: memberTypes
             },
             {
               title: '剩余金额',
-              dataIndex: 'status'
+              dataIndex: 'depositBalance',
+              format: 'money'
             },
             {
               title: '扣款方式',
-              dataIndex: 'money'
-            },
-            {
-              title: '操作',
-              dataIndex: 'yue',
-              fixed: 'right'
+              dataIndex: 'payMethod',
+              options: payTypes
             }
           ]
         }
@@ -83,6 +87,17 @@ export default defineComponent({
         ]
       }
     }
-    return () => <TableRender schema={schema} />
+    return () => (
+      <TableRender
+        schema={schema}
+        request={(data: any) =>
+          member.payLogs({
+            ...data,
+            memberId: props.formState.memberId,
+            directionType: 1
+          })
+        }
+      />
+    )
   }
 })

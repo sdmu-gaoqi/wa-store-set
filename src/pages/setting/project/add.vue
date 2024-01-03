@@ -17,11 +17,17 @@ import { useRoute, useRouter } from 'vue-router'
 import { debounce, sleep } from 'wa-utils'
 import common from '@/servers/common'
 import { message } from 'ant-design-vue'
-import { onMounted } from 'vue'
+import { useStore } from 'vuex'
 const {
   params: { id }
 } = useRoute()
 const isEdit = !!id
+const store = useStore()
+
+const schema = editSchema
+// @ts-ignore
+schema.properties.store.defaultValue =
+  store?.state?.userInfo?.userInfo?.currentStoreName
 
 const router = useRouter()
 
