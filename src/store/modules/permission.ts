@@ -1,11 +1,13 @@
-import { GETROUTERS } from '../actions'
+import { GETROUTERS, SETPERMS } from '../actions'
 
 interface State {
   routers: Record<string, any>[]
+  perms: string[]
 }
 
 const state: State = {
-  routers: []
+  routers: [],
+  perms: []
 }
 
 const getters = {
@@ -20,12 +22,21 @@ const actions = {
     payload: { type: string; data: typeof state.loginInfo }
   ) {
     commit(GETROUTERS, payload.data)
+  },
+  setPerms(
+    { commit }: any,
+    payload: { type: string; data: string[] }
+  ) {
+    commit(SETPERMS, payload.data)
   }
 }
 
 const mutations = {
   [GETROUTERS](state: State, data: typeof state.routers) {
     state.routers = data
+  },
+  [SETPERMS](state: State, data: State['perms']) {
+    state.perms = data
   }
 }
 
