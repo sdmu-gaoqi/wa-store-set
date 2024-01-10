@@ -42,7 +42,6 @@
     }
   },
   "dependencies": {
-    "@ant-design-vue/pro-layout": "^3.2.5",
     "@types/vue": "^2.0.0",
     "add": "^2.0.6",
     "ant-design-vue": "^4.0.0",

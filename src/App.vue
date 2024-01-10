@@ -28,16 +28,7 @@
 </style>
 
 <script setup lang="ts">
-import { message } from 'ant-design-vue'
-import { computed, onMounted } from 'vue'
-import { cookie } from 'wa-utils'
-import user from './servers/user'
-import common from './servers/common'
-import store from '@/store/store'
-import { useRouter } from 'vue-router'
-import router from './route'
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
-import { transformRoute } from './utils/menu'
 
 // @ts-ignore
 zhCN.DatePicker.lang = {

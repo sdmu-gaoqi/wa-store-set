@@ -1,17 +1,17 @@
 import { GETROUTERS, SETPERMS } from '../actions'
 
-interface State {
+export interface PermState {
   routers: Record<string, any>[]
   perms: string[]
 }
 
-const state: State = {
+const state: PermState = {
   routers: [],
   perms: []
 }
 
 const getters = {
-  routers(state: State) {
+  routers(state: PermState) {
     return state.routers
   }
 }
@@ -23,19 +23,16 @@ const actions = {
   ) {
     commit(GETROUTERS, payload.data)
   },
-  setPerms(
-    { commit }: any,
-    payload: { type: string; data: string[] }
-  ) {
+  setPerms({ commit }: any, payload: { type: string; data: string[] }) {
     commit(SETPERMS, payload.data)
   }
 }
 
 const mutations = {
-  [GETROUTERS](state: State, data: typeof state.routers) {
+  [GETROUTERS](state: PermState, data: typeof state.routers) {
     state.routers = data
   },
-  [SETPERMS](state: State, data: State['perms']) {
+  [SETPERMS](state: PermState, data: PermState['perms']) {
     state.perms = data
   }
 }

@@ -11,8 +11,8 @@ export const transformMenuByPerms = (
   } else {
     const filterMenus = menus.filter(
       (item) =>
-        !item.access ||
-        item.access.some((accessItem: any) => perm.includes(accessItem))
+        !item.permission ||
+        item.permission.some((accessItem: any) => perm.includes(accessItem))
     )
     const returnData = filterMenus.map((item: any) => ({
       ...item,
@@ -26,16 +26,17 @@ export const transformMenuByPerms = (
 
 export const transformRoute = (perm: string[]) => {
   if (perm.includes(adminPerm)) {
-    return
+    return route.getRoutes()
   }
   const allRoutes = route.getRoutes()
   allRoutes.forEach((item) => {
-    const access = item?.meta?.access as any[]
-    if (access) {
-      const hasPerm = access.some((i: any) => perm.includes(i))
+    const permission = item?.meta?.permission as any[]
+    if (permission) {
+      const hasPerm = permission.some((i: any) => perm.includes(i))
       if (!hasPerm) {
         route.removeRoute(item?.name as RouteRecordName)
       }
     }
   })
+  return route.getRoutes()
 }

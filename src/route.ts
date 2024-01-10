@@ -1,22 +1,23 @@
 // @ts-nocheck
 
-import {
-  RouteRecordRaw,
-  createRouter,
-  createWebHashHistory,
-} from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import Layout from './components/layout/layout.vue'
-import { cookie, isEmpty } from 'wa-utils'
-import { transformRoute } from './utils/menu'
+import { isEmpty } from 'wa-utils'
+import { transformMenuByPerms, transformRoute } from './utils/menu'
 import { adminPerm } from './constant'
+import { isLogin } from './utils'
+import { getPerms } from './services/common'
+import { WARoute } from './types'
+import { menu } from './menu'
+import { useStore } from './store/store'
 
 /**
  * @description 这里是基础的route 即所有有权限没权限的都可以访问
  * */
-const baseRouter: RouteRecordRaw[] = [
+const baseRouter: WARoute[] = [
   {
     path: 'workbench',
-    name: '工作台',
+    name: 'menu.workbench',
     component: () => import('./pages/workbench'),
     meta: {
       key: 'workbench'
@@ -31,36 +32,48 @@ const baseRouter: RouteRecordRaw[] = [
 
 /**
  * @description 这里是依赖异步获取权限后才可以访问的路由
- * */ 
-const authRouter: any[] = [
+ * */
+const authRouter: WARoute[] = [
   {
     path: '/perm',
-    name: '权限页面',
+    name: 'menu.perm',
     redirect: () => {
       return { path: '1' }
     },
     children: [
       {
         path: '1',
-        name: '权限-1',
+        name: 'menu.perm1',
         component: () => import('./pages/perm/index-1'),
         meta: {
-          access: ['perm-1'],
+          permission: ['perm-1'],
           key: 'perm-1'
         }
       },
       {
+        path: '1/edit',
+        name: 'menu.perm1.edit',
+        component: () => import('./pages/perm/index-1'),
+        meta: {
+          permission: ['perm-1'],
+          key: 'perm-1',
+          hideInMenu: true
+        }
+      },
+      {
         path: '2',
-        name: '权限-2',
+        name: 'menu.perm2',
         component: () => import('./pages/perm/index-2'),
         meta: {
-          access: ['perm-2'],
+          permission: ['perm-2'],
           key: 'perm-2'
         }
       }
     ]
-  },
+  }
 ]
+
+const layoutRoutes = [...baseRouter, ...authRouter]
 
 const route = createRouter({
   routes: [
@@ -72,11 +85,11 @@ const route = createRouter({
     {
       path: '',
       component: Layout,
-      name: '门店管理系统',
+      name: '',
       redirect: () => {
-        return { path: '/workbench'}
+        return { path: '/workbench' }
       },
-      children: [...baseRouter, ...authRouter]
+      children: layoutRoutes
     },
     {
       path: '/404',
@@ -91,37 +104,40 @@ const route = createRouter({
   history: createWebHashHistory()
 })
 
-// 
+// 这里初始化系统获取用户权限
 const initPerms = async () => {
+  const store = useStore()
   const { dispatch, state } = store
   const perms = await getPerms()
-  dispatch('userInfo/setPerms', { data: perms }) // 存在全局状态
-  dispatch('common/changeMenus', { data: perms }) // 修改全局菜单
+  const menus = transformMenuByPerms(menu, perms)
+  dispatch('permission/setPerms', { data: perms }) // 存在全局状态
+  dispatch('common/changeMenus', { data: menus }) // 修改全局菜单
   transformRoute(perms) // vue-route 根据权限操作route
   return {
-    perms,
+    perms
   }
 }
 
 route.beforeEach(async (to, from, next) => {
   const toPath = to?.path
-  if (cookie.get('Admin-Token') && ['/login'].includes(toPath)) {
+  const loged = isLogin()
+  if (loged && ['/login'].includes(toPath)) {
     next('/workbench')
     return
   }
-  if (!['/login', '/test'].includes(toPath) && !cookie.get('Admin-Token')) {
+  if (!['/login', '/test'].includes(toPath) && !loged) {
     next('/login')
     return
   }
-  if (['/login', '/404', '/'].includes(toPath) || !cookie.get('Admin-Token')) {
+  if (['/login', '/404', '/'].includes(toPath) || !loged) {
     next()
     return
   }
   let { perms = [] } = await initPerms()
-  const menuHasPerm = !isEmpty(to?.meta?.access)
+  const menuHasPerm = !isEmpty(to?.meta?.permission)
   if (menuHasPerm) {
     const hasPerm =
-      to?.meta?.access?.some((item) => perms?.includes(item)) ||
+      to?.meta?.permission?.some((item) => perms?.includes(item)) ||
       perms.some((item) => item === adminPerm)
     if (!hasPerm) {
       next('/404')

@@ -1,12 +1,12 @@
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 
 const Workbench = defineComponent({
-    setup() {
-        return () => {
-            return (
-                <div>workbench</div>)
-        }
+  name: 'Workbench',
+  setup() {
+    return () => {
+      return <div>workbench</div>
     }
+  }
 })
 
 export default Workbench

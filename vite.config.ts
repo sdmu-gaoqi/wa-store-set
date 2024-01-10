@@ -43,9 +43,9 @@ export default defineConfig({
       scss: {
         additionalData: '@import "./src/styles/main.scss";'
       }
-    },
+    }
   },
   define: {
     // project: '测试应用'
-  },
+  }
 })
