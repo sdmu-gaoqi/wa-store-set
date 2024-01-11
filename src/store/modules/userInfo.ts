@@ -2,14 +2,15 @@ import { SETLOGININFO, SETPERMS, SETUSERINFO } from '../actions'
 
 export interface UserState {
   userInfo: Record<string, any>
+  perms: string[]
 }
 
 const state: UserState = {
   userInfo: {},
+  perms: []
 }
 
-const getters = {
-}
+const getters = {}
 
 const actions = {
   changeUser(
@@ -18,12 +19,18 @@ const actions = {
   ) {
     commit(SETUSERINFO, payload.data)
   },
+  setPerms({ commit }: any, payload: { type: string; data: string[] }) {
+    commit(SETPERMS, payload.data)
+  }
 }
 
 const mutations = {
   [SETUSERINFO](state: UserState, data: typeof state.userInfo) {
     state.userInfo = data
   },
+  [SETPERMS](state: UserState, data: UserState['perms']) {
+    state.perms = data
+  }
 }
 
 export default {

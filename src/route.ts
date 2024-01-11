@@ -110,7 +110,7 @@ const initPerms = async () => {
   const { dispatch, state } = store
   const perms = await getPerms()
   const menus = transformMenuByPerms(menu, perms)
-  dispatch('permission/setPerms', { data: perms }) // 存在全局状态
+  dispatch('userInfo/setPerms', { data: perms }) // 存在全局状态
   dispatch('common/changeMenus', { data: menus }) // 修改全局菜单
   transformRoute(perms) // vue-route 根据权限操作route
   return {

@@ -8,10 +8,10 @@
   background-color: #242424;
 
   font-synthesis: none;
+  /* stylelint-disable-next-line value-keyword-case */
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
 }
 
 a {
@@ -60,9 +60,8 @@ button {
 #app {
   width: 100%;
   overflow: hidden;
-  width: 100%;
   height: 100%;
-  background: #F3F4FF;
+  background: #f3f4ff;
 }
 
 section {
@@ -73,7 +72,7 @@ section {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff;
+    background-color: #fff;
   }
 
   a:hover {

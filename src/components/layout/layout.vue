@@ -2,16 +2,22 @@
   <a-layout>
     <a-layout-header class="header">
       <div class="logo" />
+      <!-- App区域 -->
       <a-menu
         theme="dark"
         mode="horizontal"
         :items="appList"
         :selectedKeys="[store.state.common.activeGroup]"
         @click="(v: any) => handleChangeApp(v?.key)"
+        v-if="appList.length > 0"
       ></a-menu>
+      <div class="ml-auto">
+        <Avatar class="avatar"></Avatar>
+      </div>
     </a-layout-header>
     <a-layout>
       <a-layout-sider width="200" style="background: #fff" collapsible>
+        <!-- 菜单栏区域 -->
         <a-menu mode="inline" :style="{ height: '100%', borderRight: 0 }">
           <template v-for="item in currentMenus" :key="item.key">
             <a-sub-menu v-if="item.children && item.children?.length > 0">
@@ -63,7 +69,7 @@
             minHeight: '280px'
           }"
         >
-          Content
+          {{ RouterView }}
         </a-layout-content>
       </a-layout>
     </a-layout>
@@ -72,6 +78,8 @@
 <script lang="ts" setup>
 import { useStore } from '@/store/store'
 import { computed } from 'vue'
+import { RouterView } from 'vue-router'
+import { Avatar } from 'ant-design-vue'
 
 const store = useStore()
 
@@ -110,5 +118,11 @@ const handleChangeApp = (key: string) => {
 
 .site-layout-background {
   background: #fff;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
 }
 </style>

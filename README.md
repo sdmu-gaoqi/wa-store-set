@@ -1,6 +1,36 @@
-# 关于路由
+# 目录结构
+
+```
+├── src
+│   ├── assets
+│   │    └── react.svg
+│   ├── store
+│   │     └── modules // 模块数据
+│   ├── services
+│   ├── pages
+│   ├── components
+│   ├── constant // 常量
+│   ├── hooks
+│   ├── types // 类型
+│   ├── App.vue
+│   ├── style.css
+│   ├── main.js
+│   ├── menu.ts // 菜单配置
+│   ├── route.ts // route配置
+│   ├── utils // 工具函数集合
+│   └── logo.svg
+├── index.html
+├── package.json
+└── vite.config.js
+```
+
+# 约定行为
+
+## 关于路由
 
 src/route.ts
+路由全部写在这个文件里
+路由 layout下路由(权限路由 + 无权限路由) + 基础路由(Login/Register 等无layout路由)组成
 
 ```typescript
 export type WARoute = RouteRecordRaw & {
@@ -10,13 +40,16 @@ export type WARoute = RouteRecordRaw & {
     key: string // 唯一标识
   }
 
-// 这里初始化系统获取用户权限
+/**
+ * @description 这里初始化系统获取用户权限 可替换成实际的权限接口 注意权限返回的是约定好的 字符集合 比如['cs:xxxxxx'] 超管可约定一个超管字符集['*\/*']表示拥有所有权限
+ * @description 这里也可以加入获取用户信息的步骤
+*/
 const initPerms = async () => {
   const store = useStore()
   const { dispatch, state } = store
   const perms = await getPerms()
   const menus = transformMenuByPerms(menu, perms)
-  dispatch('permission/setPerms', { data: perms }) // 存在全局状态
+  dispatch('userInfo/setPerms', { data: perms }) // 存在全局状态
   dispatch('common/changeMenus', { data: menus }) // 修改全局菜单
   transformRoute(perms) // vue-route 根据权限操作route
   return {
@@ -35,11 +68,14 @@ const initPerms = async () => {
 
 ---
 
-# 关于菜单
+## 关于菜单
 
 src/menu.ts
 
 ```typescript
+/**
+ * @description app为空或只有一个时不会头部展示app列表
+ * */
 export const apps: { name: string; key: string }[] = [
   { name: 'app1', key: 'app1' },
   { name: 'app2', key: 'app2' }

@@ -1,6 +1,5 @@
 export const SETLOGININFO = 'setLoginInfo'
 export const SETUSERINFO = 'setUserInfo'
 export const SETPERMS = 'setPerms'
-export const GETROUTERS = 'getRouters'
 export const CHANGEMENUDATA = 'changeMenuData'
 export const CHANGEAPP = 'changeApp'

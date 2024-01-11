@@ -1,6 +1,6 @@
 <template>
   <div class="w-[100%] h-[100%] flex">
-    <div class="m-auto w-max flex">
+    <div class="flex m-auto w-max">
       <img :src="notImg" class="block" />
       <div class="pl-[60px]">
         <h2 class="font-bold">404错误</h2>
@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-import notImg from '@/assets/404.svg'
+import notImg from '@/assets/svg/404.svg'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
