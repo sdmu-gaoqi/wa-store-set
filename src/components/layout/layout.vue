@@ -18,7 +18,12 @@
     <a-layout>
       <a-layout-sider width="200" style="background: #fff" collapsible>
         <!-- 菜单栏区域 -->
-        <a-menu mode="inline" :style="{ height: '100%', borderRight: 0 }">
+        <a-menu
+          mode="inline"
+          :style="{ height: '100%', borderRight: 0 }"
+          @click="handleClickMenu"
+          :selectedKeys="[tab]"
+        >
           <template v-for="item in currentMenus" :key="item.key">
             <a-sub-menu v-if="item.children && item.children?.length > 0">
               <template #title>
@@ -41,6 +46,7 @@
             </a-sub-menu>
             <a-menu-item
               v-else-if="!item.children || item.children?.length === 0"
+              :key="item.key"
             >
               <img
                 :src="item.icon"
@@ -77,10 +83,15 @@
 </template>
 <script lang="ts" setup>
 import { useStore } from '@/store/store'
-import { computed } from 'vue'
-import { RouterView } from 'vue-router'
+import { computed, ref } from 'vue'
+import { RouterView, useRoute, useRouter } from 'vue-router'
 import { Avatar } from 'ant-design-vue'
 const store = useStore()
+const router = useRouter()
+const routeData = useRoute()
+
+const path = routeData.path
+const tab = ref(path)
 
 const appList = computed(() => {
   return store.state.common.apps?.map((item) => ({
@@ -96,6 +107,11 @@ const currentMenus = computed(() => {
   )
   return filterMenus
 })
+
+const handleClickMenu = ({ key }: { key: string }) => {
+  tab.value = key
+  router.push(key)
+}
 
 const handleChangeApp = (key: string) => {
   store.dispatch('common/changeApp', { data: key })
