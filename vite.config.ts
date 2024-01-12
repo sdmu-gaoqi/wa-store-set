@@ -45,7 +45,5 @@ export default defineConfig({
       }
     }
   },
-  define: {
-    // project: '测试应用'
-  }
+  envDir: 'env'
 })

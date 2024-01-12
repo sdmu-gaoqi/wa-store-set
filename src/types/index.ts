@@ -17,3 +17,5 @@ export type WAMenu = (ItemType & {
   icon?: string // icon地址
   children?: WAMenu
 })[]
+
+export type Env = 'development' | 'test' | 'staging' | 'production'

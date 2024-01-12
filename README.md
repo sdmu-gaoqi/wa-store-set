@@ -9,6 +9,7 @@
 │   ├── services
 │   ├── pages
 │   ├── components
+│   ├── env
 │   ├── constant // 常量
 │   ├── hooks
 │   ├── types // 类型
@@ -99,3 +100,9 @@ export type WAMenu = (ItemType & {
 2. 需要选中的应用才展示的菜单使用 group 与apps里的key匹配
 
 ---
+
+## 关于环境
+
+不同环境配置再 env目录下
+注意 暴露给页面使用的需要加VITE前缀
+package里有不同环境的打包方式

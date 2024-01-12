@@ -1,13 +1,11 @@
 import { Store, createStore, useStore as baseUseStore } from 'vuex'
 import userInfo, { UserState } from './modules/userInfo'
-import permission, { PermState } from './modules/permission'
 import common, { CommonState } from './modules/common'
 import { InjectionKey } from 'vue'
 
 export const key: InjectionKey<
   Store<{
     userInfo: UserState
-    permission: PermState
     common: CommonState
   }>
 > = Symbol()
@@ -16,7 +14,6 @@ export const key: InjectionKey<
 export const store = createStore({
   modules: {
     userInfo,
-    permission,
     common
   }
 })
@@ -27,7 +24,6 @@ export const store = createStore({
  */
 export function useStore(): Store<{
   userInfo: UserState
-  permission: PermState
   common: CommonState
 }> {
   return baseUseStore(key)

@@ -5,6 +5,9 @@
   "type": "module",
   "scripts": {
     "build": "vue-tsc && vite build",
+    "build:test": "vue-tsc && vite build --mode test",
+    "build:pre": "vue-tsc && vite build --mode staging",
+    "build:dev": "vue-tsc && vite build --mode development",
     "dev": "vite",
     "preview": "vite preview",
     "prepare": "husky install",
