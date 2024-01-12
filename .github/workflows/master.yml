@@ -14,4 +14,4 @@ jobs:
           always-auth: true
           node-version: 16
           cache: 'yarn'
-      - run: sh scripts/build.sh
+      - run: sh scripts/build.sh dev
