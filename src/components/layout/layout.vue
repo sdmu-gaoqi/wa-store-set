@@ -16,7 +16,12 @@
       </div>
     </a-layout-header>
     <a-layout>
-      <a-layout-sider width="200" style="background: #fff" collapsible>
+      <a-layout-sider
+        width="200"
+        style="background: #fff"
+        collapsible
+        collapsedWidth="40"
+      >
         <!-- 菜单栏区域 -->
         <a-menu
           mode="inline"
