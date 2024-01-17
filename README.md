@@ -39,6 +39,7 @@ export type WARoute = RouteRecordRaw & {
   meta: {
     permission?: string[] // 权限标识
     key: string // 唯一标识
+    notNeedLogin?: boolean // 是否需要登录(route跳转不需要判断是否登录参数)
   }
 
 /**
@@ -62,7 +63,7 @@ const initPerms = async () => {
 
 路由的定义遵从的规则
 
-1. 需要关联权限的需要吧权限点写在permission中
+1. 需要关联权限的需要把权限点写在permission中
 2. 如果菜单与路由需要根据接口过滤权限 逻辑写在 initPerms
    (其中 authRouter表示需要有权限点的菜单)
 3. 路由与菜单的配置是两份 没有做一份呼转的逻辑

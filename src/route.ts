@@ -80,7 +80,7 @@ const route = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: () => import('./pages/login/login.vue')
+      component: () => import('./pages/login')
     },
     {
       path: '',
@@ -119,6 +119,7 @@ const initPerms = async () => {
 }
 
 route.beforeEach(async (to, from, next) => {
+  const notLogin = to.meta?.notNeedLogin
   const toPath = to?.path
   const loged = isLogin()
   if (loged && ['/login'].includes(toPath)) {
@@ -129,7 +130,7 @@ route.beforeEach(async (to, from, next) => {
     next('/login')
     return
   }
-  if (['/login', '/404', '/'].includes(toPath) || !loged) {
+  if (notLogin || !loged) {
     next()
     return
   }

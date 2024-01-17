@@ -12,6 +12,13 @@
         v-if="appList.length > 1"
       ></a-menu>
       <div class="ml-auto w-[50px]">
+        <a-dropdown>
+          <template #overlay>
+            <a-menu @click="systemLogout">
+              <a-menu-item key="1"> 退出登录 </a-menu-item>
+            </a-menu>
+          </template></a-dropdown
+        >
         <Avatar class="avatar"></Avatar>
       </div>
     </a-layout-header>
@@ -85,6 +92,7 @@ import { useStore } from '@/store/store'
 import { computed } from 'vue'
 import { RouterView } from 'vue-router'
 import { Avatar } from 'ant-design-vue'
+import { systemLogout } from '@/utils'
 const store = useStore()
 
 const appList = computed(() => {
