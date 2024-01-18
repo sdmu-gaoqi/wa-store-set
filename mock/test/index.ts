@@ -18,7 +18,7 @@ const testMock: MockMethod = [
   },
   {
     url: '/api/perm',
-    method: 'post',
+    method: 'get',
     timeout: 1000,
     response: ({ data }: any) => {
       console.log('登录请求数据 =>', data)

@@ -46,7 +46,7 @@ class Request {
   request = async <T>(data: AxiosRequestConfig<any>) => {
     try {
       const res = await _request.request(data)
-      return res as T
+      return res.data as T
     } catch (err: any) {
       message.error(err?.msg || err.message || '网络错误, 请稍后再试~')
       return Promise.reject(err)

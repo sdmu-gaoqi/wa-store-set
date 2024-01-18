@@ -16,7 +16,7 @@ export default defineConfig(
   // @ts-ignore
   ({ command, mode }: ConfigEnv): UserConfigExport => {
     const envData = loadEnv(mode, path.resolve(process.cwd(), 'env'))
-    console.log(envData, 'envData')
+    console.log('envData环境变量', envData)
     return {
       plugins: [
         vue(),
