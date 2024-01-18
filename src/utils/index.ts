@@ -8,12 +8,16 @@ export const logout = () => {
   local.remove('token')
 }
 
-export const systemLogin = () => {
-  local.baseSet('token', +new Date())
+export const systemLogin = (token: string) => {
+  local.baseSet('token', token)
   location.reload()
 }
 
 export const systemLogout = () => {
   local.remove('token')
   location.reload()
+}
+
+export const nodeConsole = (data: string) => {
+  process.stdout.write(data)
 }

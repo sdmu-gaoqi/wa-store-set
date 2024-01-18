@@ -17,9 +17,9 @@
             <a-menu @click="systemLogout">
               <a-menu-item key="1"> 退出登录 </a-menu-item>
             </a-menu>
-          </template></a-dropdown
-        >
-        <Avatar class="avatar"></Avatar>
+          </template>
+          <Avatar class="avatar"></Avatar
+        ></a-dropdown>
       </div>
     </a-layout-header>
     <a-layout>

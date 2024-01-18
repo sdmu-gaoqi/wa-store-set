@@ -7,6 +7,7 @@ message.config({
   maxCount: 1
 })
 
+console.log(env.VITE_BASE_REQUEST, ';env')
 const _request = axios.create({
   baseURL: env.VITE_BASE_REQUEST,
   timeout: 150000,
@@ -28,9 +29,12 @@ class Request {
     _request.interceptors.response.use(
       // @ts-ignore
       // eslint-disable-next-line
-      (res) => {
+      (res: any) => {
         let data: Record<string, any> = res.data
-        return Promise.resolve(data)
+        if (!res.code) {
+          return Promise.resolve(res)
+        }
+        return Promise.reject(res)
       },
       function (error) {
         message.error('网络错误, 请稍后再试~')
@@ -41,10 +45,11 @@ class Request {
 
   request = async <T>(data: AxiosRequestConfig<any>) => {
     try {
-      const res = (await _request.request(data)) as T
-      return res
+      const res = await _request.request(data)
+      return res as T
     } catch (err: any) {
       message.error(err?.msg || err.message || '网络错误, 请稍后再试~')
+      return Promise.reject(err)
     }
   }
 

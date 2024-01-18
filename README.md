@@ -19,6 +19,7 @@
 │   ├── menu.ts // 菜单配置
 │   ├── route.ts // route配置
 │   ├── utils // 工具函数集合
+│   ├── mock // mock接口
 │   └── logo.svg
 ├── index.html
 ├── package.json
@@ -104,6 +105,10 @@ export type WAMenu = (ItemType & {
 
 ## 关于环境
 
-不同环境配置再 env目录下
+不同环境配置在 env目录下
 注意 暴露给页面使用的需要加VITE前缀
 package里有不同环境的打包方式
+
+## 关于mock
+mock预设为 test 与 prod(根据import.meta.env.MODE 决定 prod模式时 使用的是prod文件下的mock 其他的都是用的test下的mock)
+需要增加更多环境支持可以在 mock/index.ts修改

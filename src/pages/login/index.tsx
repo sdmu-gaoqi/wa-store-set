@@ -1,5 +1,6 @@
+import { loginService } from '@/services/user'
 import { systemLogin } from '@/utils'
-import { Button, Card, Form, Input } from 'ant-design-vue'
+import { Button, Form, Input } from 'ant-design-vue'
 import { defineComponent, reactive } from 'vue'
 
 const Login = defineComponent({
@@ -9,6 +10,11 @@ const Login = defineComponent({
       account: 'admin',
       password: '123456'
     })
+
+    const login = async () => {
+      const res = await loginService()
+      systemLogin(res?.data?.token)
+    }
 
     return () => (
       <div class="wh-100 flex">
@@ -21,7 +27,7 @@ const Login = defineComponent({
               v-model={[formState.password, 'value']}
             ></Input.Password>
           </Form.Item>
-          <Button onClick={systemLogin}>提交</Button>
+          <Button onClick={login}>提交</Button>
         </Form>
       </div>
     )

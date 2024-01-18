@@ -108,7 +108,7 @@ const route = createRouter({
 const initPerms = async () => {
   const store = useStore()
   const { dispatch, state } = store
-  const perms = await getPerms()
+  const perms = await getPerms().data
   const menus = transformMenuByPerms(menu, perms)
   dispatch('userInfo/setPerms', { data: perms }) // 存在全局状态
   dispatch('common/changeMenus', { data: menus }) // 修改全局菜单
