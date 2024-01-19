@@ -1,4 +1,4 @@
-import { defineComponent } from 'vue'
+import { App, defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const Workbench = defineComponent({
@@ -10,5 +10,10 @@ const Workbench = defineComponent({
     }
   }
 })
+
+Workbench.install = function (app: App) {
+  app.component(Workbench.name, Workbench)
+  return app
+}
 
 export default Workbench
