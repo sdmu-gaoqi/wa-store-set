@@ -45,8 +45,8 @@
     },
     "wa-menus": {
       "xlsxDefaultLan": "zh-CN",
-      "xlsxTransformPath": "",
-      "xlsxTransformType": ""
+      "xlsxTransformPath": "srrc/locales",
+      "xlsxTransformType": "ts"
     }
   },
   "dependencies": {

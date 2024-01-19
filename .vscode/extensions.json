@@ -2,7 +2,7 @@
   "recommendations": [
     "Vue.volar",
     "Vue.vscode-typescript-vue-plugin",
-    "wa.wa-xlsxToTs",
+    "wa.wa-language-tip",
     "wa.wa-menus"
   ]
 }
