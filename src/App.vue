@@ -30,6 +30,7 @@
 <script setup lang="ts">
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
 
+// DatePicker ui组件配置中文依然是英文展示
 // @ts-ignore
 zhCN.DatePicker.lang = {
   ...zhCN.DatePicker?.lang,

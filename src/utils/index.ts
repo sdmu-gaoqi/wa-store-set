@@ -1,3 +1,4 @@
+import { logoutService } from '@/services/user'
 import { local } from './storage'
 
 export const isLogin = () => {
@@ -13,7 +14,8 @@ export const systemLogin = (token: string) => {
   location.reload()
 }
 
-export const systemLogout = () => {
+export const systemLogout = async () => {
+  await logoutService()
   local.remove('token')
   location.reload()
 }

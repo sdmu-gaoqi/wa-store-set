@@ -20,3 +20,5 @@ export type WAMenu = (ItemType & {
 })[]
 
 export type Env = 'development' | 'test' | 'staging' | 'production'
+
+export type Lang = 'zh-CN' | 'en'

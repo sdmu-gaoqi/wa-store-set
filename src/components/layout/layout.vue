@@ -11,14 +11,24 @@
         @click="(v: any) => handleChangeApp(v?.key)"
         v-if="appList.length > 1"
       ></a-menu>
-      <div class="ml-auto w-[50px]">
+      <div class="ml-auto w-[100px]">
+        <a-dropdown>
+          <template #overlay>
+            <a-menu @click="(v) => changeLang(v.key)">
+              <a-menu-item :key="i.value" v-for="i in langMap">
+                <a>{{ i.label }}</a>
+              </a-menu-item>
+            </a-menu>
+          </template>
+          <a>{{ locale }}</a>
+        </a-dropdown>
         <a-dropdown>
           <template #overlay>
             <a-menu @click="systemLogout">
               <a-menu-item key="1"> 退出登录 </a-menu-item>
             </a-menu>
           </template>
-          <Avatar class="avatar"></Avatar
+          <a><Avatar class="avatar ml-[10px]"></Avatar></a
         ></a-dropdown>
       </div>
     </a-layout-header>
@@ -93,7 +103,11 @@ import { computed } from 'vue'
 import { RouterView } from 'vue-router'
 import { Avatar } from 'ant-design-vue'
 import { systemLogout } from '@/utils'
+import { useI18n } from 'vue-i18n'
+import { langMap } from '@/constant'
+import { changeLang } from '@/utils/lang'
 const store = useStore()
+const { locale } = useI18n()
 
 const appList = computed(() => {
   return store.state.common.apps?.map((item) => ({

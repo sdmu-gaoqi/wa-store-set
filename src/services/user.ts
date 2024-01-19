@@ -11,3 +11,10 @@ export const loginService = () => {
     method: 'post'
   })
 }
+
+export const logoutService = () => {
+  return request.request({
+    url: '/api/logout',
+    method: 'get'
+  })
+}

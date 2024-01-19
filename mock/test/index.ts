@@ -27,6 +27,16 @@ const testMock: MockMethod = [
         data: ['perm-1']
       }
     }
+  },
+  {
+    url: '/api/logout',
+    method: 'get',
+    timeout: 1000,
+    response: () => {
+      return {
+        code: 0
+      }
+    }
   }
 ]
 
