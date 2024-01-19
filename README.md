@@ -19,6 +19,7 @@
 │   ├── menu.ts // 菜单配置
 │   ├── route.ts // route配置
 │   ├── utils // 工具函数集合
+│   ├── mock // mock接口
 │   └── logo.svg
 ├── index.html
 ├── package.json
@@ -39,6 +40,7 @@ export type WARoute = RouteRecordRaw & {
   meta: {
     permission?: string[] // 权限标识
     key: string // 唯一标识
+    notNeedLogin?: boolean // 是否需要登录(route跳转不需要判断是否登录参数)
   }
 
 /**
@@ -62,7 +64,7 @@ const initPerms = async () => {
 
 路由的定义遵从的规则
 
-1. 需要关联权限的需要吧权限点写在permission中
+1. 需要关联权限的需要把权限点写在permission中
 2. 如果菜单与路由需要根据接口过滤权限 逻辑写在 initPerms
    (其中 authRouter表示需要有权限点的菜单)
 3. 路由与菜单的配置是两份 没有做一份呼转的逻辑
@@ -103,6 +105,17 @@ export type WAMenu = (ItemType & {
 
 ## 关于环境
 
-不同环境配置再 env目录下
+不同环境配置在 env目录下
 注意 暴露给页面使用的需要加VITE前缀
 package里有不同环境的打包方式
+
+## 关于mock
+
+mock预设为 test 与 prod(根据import.meta.env.MODE 决定 prod模式时 使用的是prod文件下的mock 其他的都是用的test下的mock)
+需要增加更多环境支持可以在 mock/index.ts修改
+
+## 关于插件
+
+内设了几款插件
+wa-menu 右键 src/locales/lang.xlsx可以 执行xlsx自动转ts的脚本
+wa-language-tip 丰富i18n 在编写时的提示能力

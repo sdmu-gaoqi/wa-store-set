@@ -53,6 +53,12 @@ export default {
           textOverflow: 'ellipsis',
           whiteSpace: 'nowrap',
           wordBreak: 'keep-all'
+        },
+        '.wh-100': {
+          width: '100%',
+          height: '100%',
+          minWidth: '100vw',
+          minHeight: '100vh'
         }
       }
 

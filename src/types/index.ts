@@ -6,6 +6,7 @@ export type WARoute = RouteRecordRaw & {
   meta: {
     permission?: string[] // 权限标识
     key: string // 唯一标识
+    notNeedLogin?: boolean // 是否需要登录
   }
 }
 
@@ -19,3 +20,5 @@ export type WAMenu = (ItemType & {
 })[]
 
 export type Env = 'development' | 'test' | 'staging' | 'production'
+
+export type Lang = 'zh-CN' | 'en'

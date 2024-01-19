@@ -1,7 +1,9 @@
+import request from './request'
+import { CommonResponse } from './type'
+
 export const getPerms = () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(['perm-1'])
-    }, 1000)
+  return request.request<CommonResponse<string[]>>({
+    url: '/api/perm',
+    method: 'get'
   })
 }

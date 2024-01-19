@@ -80,7 +80,7 @@ const route = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: () => import('./pages/login/login.vue')
+      component: () => import('./pages/login')
     },
     {
       path: '',
@@ -109,16 +109,17 @@ const initPerms = async () => {
   const store = useStore()
   const { dispatch, state } = store
   const perms = await getPerms()
-  const menus = transformMenuByPerms(menu, perms)
-  dispatch('userInfo/setPerms', { data: perms }) // 存在全局状态
+  const menus = transformMenuByPerms(menu, perms.data)
+  dispatch('userInfo/setPerms', { data: perms.data }) // 存在全局状态
   dispatch('common/changeMenus', { data: menus }) // 修改全局菜单
-  transformRoute(perms) // vue-route 根据权限操作route
+  transformRoute(perms.data) // vue-route 根据权限操作route
   return {
     perms
   }
 }
 
 route.beforeEach(async (to, from, next) => {
+  const notLogin = to.meta?.notNeedLogin
   const toPath = to?.path
   const loged = isLogin()
   if (loged && ['/login'].includes(toPath)) {
@@ -129,7 +130,7 @@ route.beforeEach(async (to, from, next) => {
     next('/login')
     return
   }
-  if (['/login', '/404', '/'].includes(toPath) || !loged) {
+  if (notLogin || !loged) {
     next()
     return
   }

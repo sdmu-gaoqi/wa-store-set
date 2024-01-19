@@ -12,6 +12,7 @@
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
     "noEmit": true,
+    "noImplicitAny": false,
     "paths": {
       "@/*": ["./src/*"],
       "hooks/*": ["./src/hooks/*"],
@@ -21,6 +22,13 @@
       "mocks/*": ["./mocks/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "mock/**/*.ts",
+    "mock/*.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
