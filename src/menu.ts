@@ -9,7 +9,7 @@ export const apps: { name: string; key: string }[] = [
 export const menu: WAMenu = [
   {
     title: '工作台',
-    key: 'workbench',
+    key: '/workbench',
     icon: Workbench,
     type: 'group'
   },
