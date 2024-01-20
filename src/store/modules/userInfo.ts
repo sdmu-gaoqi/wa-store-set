@@ -2,12 +2,12 @@ import { SETLOGININFO, SETPERMS, SETUSERINFO } from '../actions'
 
 export interface UserState {
   userInfo: Record<string, any>
-  perms: string[]
+  perms: string[] | undefined
 }
 
 const state: UserState = {
   userInfo: {},
-  perms: []
+  perms: undefined
 }
 
 const getters = {}

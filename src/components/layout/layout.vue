@@ -1,6 +1,6 @@
 <template>
   <a-layout>
-    <a-layout-header class="header">
+    <a-layout-header class="header flex">
       <div class="logo" />
       <!-- App区域 -->
       <a-menu
@@ -8,10 +8,10 @@
         mode="horizontal"
         :items="appList"
         :selectedKeys="[store.state.common.activeGroup]"
-        @click="(v: any) => handleChangeApp(v?.key)"
+        @click="(v) => handleChangeApp(v?.key)"
         v-if="appList.length > 1"
       ></a-menu>
-      <div class="ml-auto w-[100px]">
+      <div class="ml-auto min-w-[100px] flex">
         <a-dropdown>
           <template #overlay>
             <a-menu @click="(v) => changeLang(v.key)">
@@ -20,7 +20,11 @@
               </a-menu-item>
             </a-menu>
           </template>
-          <a>{{ locale }}</a>
+          <a class="flex items-center text-white"
+            ><img :src="lanSvg" class="w-[20px] h-[20px] mr-[10px]" />{{
+              getLangLable(locale)
+            }}</a
+          >
         </a-dropdown>
         <a-dropdown>
           <template #overlay>
@@ -28,7 +32,8 @@
               <a-menu-item key="1"> 退出登录 </a-menu-item>
             </a-menu>
           </template>
-          <a><Avatar class="avatar ml-[10px]"></Avatar></a
+          <a class="flex items-center ml-[10px]"
+            ><Avatar class="avatar ml-[10px]"></Avatar></a
         ></a-dropdown>
       </div>
     </a-layout-header>
@@ -42,6 +47,7 @@
         <!-- 菜单栏区域 -->
         <a-menu
           mode="inline"
+          theme="dark"
           :style="{ height: '100%', borderRight: 0 }"
           @click="handleClickMenu"
           :selectedKeys="[tab]"
@@ -55,15 +61,13 @@
                     v-if="item.icon"
                     class="h-[15px] mr-[5px]"
                   />
-                  {{ item.title }}
+                  {{ renderName(item) }}
                 </span>
               </template>
-              <template
-                v-if="item.children && item.children.length > 0"
-                v-for="children in item.children"
-                :key="children.key"
-              >
-                <a-menu-item>{{ children.title }}</a-menu-item>
+              <template v-for="children in item.children" :key="children.key">
+                <a-menu-item v-if="item.children && item.children.length > 0">{{
+                  renderName(children)
+                }}</a-menu-item>
               </template>
             </a-sub-menu>
             <a-menu-item
@@ -75,7 +79,7 @@
                 v-if="item.icon"
                 class="h-[15px] mr-[5px]"
               />
-              {{ item.title }}
+              {{ renderName(item) }}
             </a-menu-item>
           </template>
         </a-menu>
@@ -110,15 +114,26 @@ import { RouterView, useRoute, useRouter } from 'vue-router'
 import { Avatar } from 'ant-design-vue'
 import { systemLogout } from '@/utils'
 import { useI18n } from 'vue-i18n'
-import { langMap } from '@/constant'
+import { langMap, getLangLable } from '@/constant'
 import { changeLang } from '@/utils/lang'
+import lanSvg from '@/assets/svg/lan.svg'
+import { WAMenu } from '@/types'
+
 const store = useStore()
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 const router = useRouter()
 const routeData = useRoute()
 
 const path = routeData.path
 const tab = ref(path)
+
+const renderName = (item: WAMenu[0]) => {
+  if (item?.title) {
+    return item.title
+  }
+  const name = `menu.${item.name}`
+  return t(name)
+}
 
 const appList = computed(() => {
   return store.state.common.apps?.map((item) => ({

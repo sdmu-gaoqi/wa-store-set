@@ -7,6 +7,7 @@ import { store, key } from './store/store'
 import './styles/global.scss'
 import './styles/tailwind.global.scss'
 import { setupI18n } from './locales'
+import SvgIcon from '~virtual/svg-component'
 
 document.title = ''
 

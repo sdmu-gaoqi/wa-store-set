@@ -100,6 +100,8 @@ export type WAMenu = (ItemType & {
 
 1. 需要关联的权限点写在permission中
 2. 需要选中的应用才展示的菜单使用 group 与apps里的key匹配
+3. 菜单名称需要多语言支持的话需要配置在多语言文件中 且格式为 menu.xxxx 其中xxxx是menu数据的name
+4. 不需要多语言只需要配置title就好了 不需要配置name
 
 ---
 

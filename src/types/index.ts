@@ -11,8 +11,9 @@ export type WARoute = RouteRecordRaw & {
 }
 
 export type WAMenu = (ItemType & {
-  title: string
+  title?: string // 非多语言使用
   key: string
+  name?: string // 多语言需要
   group?: string
   permission?: string[] // 权限标识
   icon?: string // icon地址

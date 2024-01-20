@@ -7,7 +7,6 @@ const testMock: MockMethod = [
     method: 'post',
     timeout: 1000,
     response: ({ data }: any) => {
-      console.log('登录请求数据 =>', data)
       return {
         code: 0,
         data: {

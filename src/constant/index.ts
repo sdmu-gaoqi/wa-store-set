@@ -11,7 +11,11 @@ export const langMap = [
     value: 'zh-CN'
   },
   {
-    label: 'english',
+    label: 'English',
     value: 'en'
   }
 ]
+
+export const getLangLable = (lang: string) => {
+  return langMap?.find((i) => i.value === lang)?.label || ''
+}
