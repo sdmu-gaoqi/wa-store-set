@@ -18,6 +18,7 @@ export default defineConfig(
     const envData = loadEnv(mode, path.resolve(process.cwd(), 'env'))
     console.log('envData环境变量', envData)
     return {
+      base: 'admin',
       plugins: [
         vue(),
         vueJsx(),
