@@ -1,12 +1,13 @@
 import { App, defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
+import styles from './index.module.scss'
 
 const Workbench = defineComponent({
   name: 'Workbench',
   setup() {
     const { t, locale } = useI18n()
     return () => {
-      return <div>{t('message')}</div>
+      return <div className={styles.wrapper}>{t('message')}</div>
     }
   }
 })

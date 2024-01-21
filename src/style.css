@@ -14,6 +14,37 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+@media screen and (width <=420px) {
+  html {
+    font-size: calc(100vw / 23.4375);
+  }
+}
+
+@media screen and (width >=420px) {
+  html {
+    font-size: calc(18px + 4 * (100vw - 420px) / 580);
+  }
+}
+
+@media screen and (width >=1000px) {
+  html {
+    font-size: calc(22px + 5 * (100vw - 1000px) / 1000);
+  }
+}
+
+@media screen and (aspect-ratio <=1920 / 969) {
+  html.pc-app {
+    font-size: calc(100vw / 60);
+  }
+}
+
+@media screen and (height <=545px) {
+  html.pc-app {
+    font-size: 18px;
+  }
+}
+
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -35,6 +66,7 @@ body {
   height: 100%;
   overflow: hidden auto;
 }
+
 
 h1 {
   font-size: 3.2em;

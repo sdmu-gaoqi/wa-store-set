@@ -18,7 +18,7 @@ const Login = defineComponent({
 
     return () => (
       <div class="wh-100 flex">
-        <Form class="w-[500px] h-[100%] m-auto bg-white rounded-[10px] px-[50px] py-[20px]">
+        <Form class="w-[500px] h-[100%] !m-auto bg-white rounded-[10px] !px-[50px] !py-[20px]">
           <Form.Item name="account" label="账号">
             <Input v-model={[formState.account, 'value']}></Input>
           </Form.Item>

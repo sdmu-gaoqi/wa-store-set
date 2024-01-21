@@ -121,3 +121,8 @@ mock预设为 test 与 prod(根据import.meta.env.MODE 决定 prod模式时 使�
 内设了几款插件
 wa-menu 右键 src/locales/lang.xlsx可以 执行xlsx自动转ts的脚本
 wa-language-tip 丰富i18n 在编写时的提示能力
+
+## 关于自适应
+
+默认使用wx作为自适应css单位 可在vite.config.ts的postCssPxToRem配置unit 当css文件使用配置的单位时 会根据html字体大小转成相应的rem
+html 字体大小在 src\style.css 文件设置
