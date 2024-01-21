@@ -52,8 +52,11 @@
           @click="handleClickMenu"
           :selectedKeys="[tab]"
         >
-          <template v-for="item in currentMenus" :key="item.key">
-            <a-sub-menu v-if="item.children && item.children?.length > 0">
+          <template v-for="item in currentMenus">
+            <a-sub-menu
+              v-if="item.children && item.children?.length > 0"
+              :key="item.key"
+            >
               <template #title>
                 <span>
                   <img
@@ -64,23 +67,24 @@
                   {{ renderName(item) }}
                 </span>
               </template>
-              <template v-for="children in item.children" :key="children.key">
-                <a-menu-item v-if="item.children && item.children.length > 0">{{
-                  renderName(children)
-                }}</a-menu-item>
+              <template v-for="children in item.children">
+                <a-menu-item
+                  v-if="item.children && item.children.length > 0"
+                  :key="children.key"
+                  >{{ renderName(children) }}</a-menu-item
+                >
               </template>
             </a-sub-menu>
-            <a-menu-item
-              v-else-if="!item.children || item.children?.length === 0"
-              :key="item.key"
-            >
-              <img
-                :src="item.icon"
-                v-if="item.icon"
-                class="h-[15px] mr-[5px]"
-              />
-              {{ renderName(item) }}
-            </a-menu-item>
+            <template v-else-if="!item.children || item.children?.length === 0">
+              <a-menu-item :key="item.key">
+                <img
+                  :src="item.icon"
+                  v-if="item.icon"
+                  class="h-[15px] mr-[5px]"
+                />
+                {{ renderName(item) }}
+              </a-menu-item>
+            </template>
           </template>
         </a-menu>
       </a-layout-sider>
