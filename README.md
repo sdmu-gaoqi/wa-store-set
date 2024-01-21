@@ -1,3 +1,6 @@
+# 访问地址
+http://111.229.138.125/admin/index.html
+
 # 目录结构
 
 ```
@@ -100,6 +103,8 @@ export type WAMenu = (ItemType & {
 
 1. 需要关联的权限点写在permission中
 2. 需要选中的应用才展示的菜单使用 group 与apps里的key匹配
+3. 菜单名称需要多语言支持的话需要配置在多语言文件中 且格式为 menu.xxxx 其中xxxx是menu数据的name
+4. 不需要多语言只需要配置title就好了 不需要配置name
 
 ---
 
@@ -119,3 +124,8 @@ mock预设为 test 与 prod(根据import.meta.env.MODE 决定 prod模式时 使�
 内设了几款插件
 wa-menu 右键 src/locales/lang.xlsx可以 执行xlsx自动转ts的脚本
 wa-language-tip 丰富i18n 在编写时的提示能力
+
+## 关于自适应
+
+默认使用wx作为自适应css单位 可在vite.config.ts的postCssPxToRem配置unit 当css文件使用配置的单位时 会根据html字体大小转成相应的rem
+html 字体大小在 src\style.css 文件设置

@@ -18,6 +18,7 @@ export default defineConfig(
     const envData = loadEnv(mode, path.resolve(process.cwd(), 'env'))
     console.log('envData环境变量', envData)
     return {
+      base: 'admin',
       plugins: [
         vue(),
         vueJsx(),
@@ -50,7 +51,7 @@ export default defineConfig(
         postcss: {
           plugins: [
             postCssPxToRem({
-              rootValue: 75,
+              rootValue: 32,
               propList: ['*'],
               selectorBlackList: ['./to', 'html'], // to开头的不进行转换,
               exclude: '/node_modules',

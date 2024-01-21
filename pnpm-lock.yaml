@@ -69,8 +69,8 @@ dependencies:
     specifier: ^4.1.0
     version: 4.1.0(vue@3.4.14)
   wa-utils:
-    specifier: ^0.2.6
-    version: 0.2.6(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^0.3.3
+    version: 0.3.3(react-dom@18.2.0)(react@18.2.0)
 
 devDependencies:
   '@commitlint/cli':
@@ -7392,7 +7392,7 @@ packages:
       postcss: 8.4.33
     dev: true
 
-  /wa-utils@0.2.6(react-dom@18.2.0)(react@18.2.0):
+  /wa-utils@0.3.3(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-GsBx0ql+EriKEcSr95xUrTDm/OqRXC1BIyYaSQKXwDc1JDrZoase3jv7XGmzZ1nmh1oeBqw/eStOQJMf3Gp6Jg==}
     peerDependencies:
       react: '>=16.9.0'

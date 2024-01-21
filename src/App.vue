@@ -8,7 +8,9 @@
       }
     }"
   >
-    <RouterView />
+    <a-style-provider hash-priority="high">
+      <RouterView />
+    </a-style-provider>
   </a-config-provider>
 </template>
 
