@@ -51,6 +51,8 @@
   },
   "dependencies": {
     "@types/vue": "^2.0.0",
+    "@wangeditor/editor": "^5.1.23",
+    "@wangeditor/editor-for-vue": "next",
     "add": "^2.0.6",
     "ant-design-vue": "^4.0.0",
     "axios": "^1.6.5",

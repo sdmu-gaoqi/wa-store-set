@@ -27,6 +27,17 @@ const baseRouter: WARoute[] = [
     path: '/403',
     name: '403',
     component: () => import('./pages/403/index.vue')
+  },
+  {
+    path: '/set',
+    name: 'set',
+    children: [
+      {
+        path: 'uplog',
+        name: 'uplog',
+        component: () => import('./pages/set/uplog')
+      }
+    ]
   }
 ]
 
