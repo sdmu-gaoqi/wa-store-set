@@ -6,7 +6,6 @@ import { isEmpty } from 'wa-utils'
 import { transformMenuByPerms, transformRoute } from './utils/menu'
 import { adminPerm } from './constant'
 import { isLogin } from './utils'
-import { getPerms } from './services/common'
 import { WARoute } from './types'
 import { menu } from './menu'
 import { useStore } from './store/store'
@@ -124,7 +123,7 @@ const initPerms = async () => {
       perms: state?.userInfo?.perms
     }
   }
-  const perms = await getPerms()
+  const perms = { data: [adminPerm] }
   const menus = transformMenuByPerms(menu, perms.data)
   dispatch('userInfo/setPerms', { data: perms.data }) // 存在全局状态
   dispatch('common/changeMenus', { data: menus }) // 修改全局菜单

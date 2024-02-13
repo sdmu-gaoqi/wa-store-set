@@ -11,7 +11,7 @@ console.log(env.VITE_BASE_REQUEST, ';env')
 const _request = axios.create({
   baseURL: env.VITE_BASE_REQUEST,
   timeout: 150000,
-  withCredentials: true
+  // withCredentials: true
 })
 
 class Request {

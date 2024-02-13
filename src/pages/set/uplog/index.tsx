@@ -1,10 +1,19 @@
-import { defineComponent, shallowRef } from 'vue'
+import { defineComponent, onMounted, shallowRef, toRaw } from 'vue'
 import Editor from '@/components/editor/index.vue'
 import { Button } from 'ant-design-vue'
+import { getUplog, saveUplog } from '@/services/common'
 
 export default defineComponent({
   setup() {
     const ref = shallowRef()
+
+    onMounted(() => {
+      getUplog().then(res => {
+        const { content } = res as any || {}
+        ref.value.valueHtml = content
+      })
+    })
+
     return () => {
       return (
         <div>
@@ -13,9 +22,14 @@ export default defineComponent({
             <Button
               class="w-[200px]"
               type="primary"
-              onClick={() => {
+              onClick={async() => {
                 const htmlValue = ref.value.editorRef.getHtml()
-                console.log(htmlValue, 'htmlValue')
+                await saveUplog({
+                  content: htmlValue,
+                  fileName: 'storeUplog',
+                  path: "resources"
+                })
+                message.success('保存成功')
               }}
             >
               保存

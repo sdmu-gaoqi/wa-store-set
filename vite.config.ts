@@ -45,7 +45,13 @@ export default defineConfig(
       },
       server: {
         https: false,
-        port: 5500
+        port: 5500,
+        proxy: {
+          'api': {
+            target: '127.0.0.1:12001',
+            changeOrigin: true,
+          }
+        }
       },
       css: {
         postcss: {
