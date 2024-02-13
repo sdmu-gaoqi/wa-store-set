@@ -1,6 +1,6 @@
 import { defineComponent, onMounted, shallowRef, toRaw } from 'vue'
 import Editor from '@/components/editor/index.vue'
-import { Button } from 'ant-design-vue'
+import { Button, message } from 'ant-design-vue'
 import { getUplog, saveUplog } from '@/services/common'
 
 export default defineComponent({
