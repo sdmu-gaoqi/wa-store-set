@@ -2,7 +2,8 @@ import { logoutService } from '@/services/user'
 import { local } from './storage'
 
 export const isLogin = () => {
-  return local.baseGet('token')
+  // return local.baseGet('token')
+  return true
 }
 
 export const logout = () => {

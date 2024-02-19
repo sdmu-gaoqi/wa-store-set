@@ -12,8 +12,7 @@ const Login = defineComponent({
     })
 
     const login = async () => {
-      const res = await loginService()
-      systemLogin(res?.data?.token)
+      systemLogin('token')
     }
 
     return () => (

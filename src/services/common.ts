@@ -1,5 +1,4 @@
 import request from './request'
-import { CommonResponse } from './type'
 
 export const saveUplog = (data) => {
   return request.request({

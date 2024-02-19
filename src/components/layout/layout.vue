@@ -80,7 +80,7 @@
               }}</a
             >
           </a-dropdown>
-          <a-dropdown>
+          <!-- <a-dropdown>
             <template #overlay>
               <a-menu @click="systemLogout">
                 <a-menu-item key="1"> 退出登录 </a-menu-item>
@@ -88,7 +88,7 @@
             </template>
             <a class="flex items-center ml-[10px]"
               ><Avatar class="avatar ml-[10px]"></Avatar></a
-          ></a-dropdown>
+          ></a-dropdown> -->
         </div>
       </a-layout-header>
       <a-layout>
