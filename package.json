@@ -19,7 +19,7 @@
     "lint:site": "eslint -c ./.eslintrc.js --fix --ext .jsx,.js,.ts,.tsx,vue ./site",
     "lint:style": "stylelint \"{site,components}/**/*.scss\" --syntax scss",
     "myLint": "./node_modules/.bin/eslint --fix --ext .js,.jsx,.ts,.tsx .",
-    "pub:test": "pnpm i && pnpm build && node ./scripts/pub-test.cjs"
+    "pub:test": "pnpm build && node ./scripts/pub-test.cjs"
   },
   "commitlint": {
     "extends": [
