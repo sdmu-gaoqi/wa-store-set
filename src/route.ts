@@ -37,6 +37,11 @@ const baseRouter: WARoute[] = [
         component: () => import('./pages/set/uplog')
       }
     ]
+  },
+  {
+    path: '/teaHouse/uplog',
+    name: 'teaHouse',
+    component: () => import('./pages/set/teaHouseUplog')
   }
 ]
 

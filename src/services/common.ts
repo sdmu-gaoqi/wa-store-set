@@ -14,3 +14,10 @@ export const getUplog = () => {
     method: 'get'
   })
 }
+
+export const getTeaHouseUplog = () => {
+  return request.request({
+    url: '/static/teaHouseUplog.json',
+    method: 'get'
+  })
+}

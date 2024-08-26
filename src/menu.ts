@@ -26,6 +26,10 @@ export const menu: WAMenu = [
         key: '/set/uplog',
         title: '更新说明',
       },
+      {
+        key: '/teaHouse/uplog',
+        title: '茶舍更新说明',
+      },
     ]
   },
 ]
